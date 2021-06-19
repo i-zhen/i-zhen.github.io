@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Android SDK的Eclipse配置，刷GMS，改Hosts手札 | Z.Y. ☯ Cosmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="心路历程写下这个是因为我最初的目的并不是一次把这些都配置好，我只是对Google+感兴趣，于是仅仅打算Hosts之，可以正常登陆，结果一波三折，我先Root了Android 2.2.2，接着安装并调配了JDK、Android SDK、Eclipse，并且刷了GMS，还知道了怎么用Root Explorer…得到的远远大于我的预期，在此写下这个手札。仅供新手参考。">
+<meta name="keywords" content="android,GMS,hosts,刷机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android SDK的Eclipse配置，刷GMS，改Hosts手札">
+<meta property="og:url" content="https://izhen.me/2011/07/13/android_host/index.html">
+<meta property="og:site_name" content="Z.Y. ☯ Cosmos">
+<meta property="og:description" content="心路历程写下这个是因为我最初的目的并不是一次把这些都配置好，我只是对Google+感兴趣，于是仅仅打算Hosts之，可以正常登陆，结果一波三折，我先Root了Android 2.2.2，接着安装并调配了JDK、Android SDK、Eclipse，并且刷了GMS，还知道了怎么用Root Explorer…得到的远远大于我的预期，在此写下这个手札。仅供新手参考。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-09-23T08:15:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android SDK的Eclipse配置，刷GMS，改Hosts手札">
+<meta name="twitter:description" content="心路历程写下这个是因为我最初的目的并不是一次把这些都配置好，我只是对Google+感兴趣，于是仅仅打算Hosts之，可以正常登陆，结果一波三折，我先Root了Android 2.2.2，接着安装并调配了JDK、Android SDK、Eclipse，并且刷了GMS，还知道了怎么用Root Explorer…得到的远远大于我的预期，在此写下这个手札。仅供新手参考。">
+<meta name="twitter:creator" content="@soczhenyi">
+<link rel="publisher" href="107518308584039100000">
+  
+    <link rel="alternative" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head></html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Z.Y. ☯ Cosmos</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Powered by Disqus, scientific surfing for access</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com">λ</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/lab">About</a>
+        
+          <a class="main-nav-link" href="https://resume.izhen.me">Resume</a>
+        
+          <a class="main-nav-link" href="https://github.com/i-zhen">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://izhen.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-android_host" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/07/13/android_host/" class="article-date">
+  <time datetime="2011-07-13T06:17:53.000Z" itemprop="datePublished">2011-07-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Blog/">Blog</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android SDK的Eclipse配置，刷GMS，改Hosts手札
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="心路历程"><a href="#心路历程" class="headerlink" title="心路历程"></a>心路历程</h4><p>写下这个是因为我最初的目的并不是一次把这些都配置好，我只是对Google+感兴趣，于是仅仅打算Hosts之，可以正常登陆，结果一波三折，我先Root了Android 2.2.2，接着安装并调配了JDK、Android SDK、Eclipse，并且刷了GMS，还知道了怎么用Root Explorer…得到的远远大于我的预期，在此写下这个手札。仅供新手参考。</p>
+<a id="more"></a>
+<h4 id="环境以及软件"><a href="#环境以及软件" class="headerlink" title="环境以及软件"></a>环境以及软件</h4><ul>
+<li>手机：MOTO ME811</li>
+<li>Windows 7 64bit</li>
+<li>Android 2.2.2(国行)</li>
+<li>相应的 USB device</li>
+<li>Root Explorer （简称RE）</li>
+<li>Terminal emulator(可以用adb代替，简称TE)</li>
+<li>Gingerbreak 1.2 .apk(Z4root也可以)</li>
+</ul>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><p>首先使用Gingerbreak将Android Root掉，这时取得了权限，细节是要将Superuser(骷髅标志)的通知打开，免得以后SU不了。然后下载安装各种SDK（文件路径不可以有空格，后文详解和Eclipse。完成后要配置环境变量，对于Java SE有三个：<code>PATH=&lt;jdk&gt;/bin;%PATH%，CLASSPATH=.%CLASSPATH%，JAVA_HOME=&lt;jdk&gt;</code>。然后是Android SDK,就只有PATH,把tools和platform_tools加进去即可。</p>
+<p>接着要用Eclipse安装ADT，在help选择install new software，点击ADD…加入新的网址<code>&lt;a href=&quot;https://dl-ssl.google.com/android/eclipse/&quot;&gt;https://dl-ssl.google.com/android/eclipse/&lt;/a&gt;</code>，然后安装，有了这个才能使用eclipse开发Android程序，然后在windows里配置preferences找到Android ,设置SDK location不然无法使用AVD调试。</p>
+<p>在手机上装载TE和RE，在re里有一个按钮可以更改权限，改为RW然后就能改hosts了！（大功告成）。使用re还可以删除需要root的软件，在app文件夹里。</p>
+<h4 id="其他刷机事项"><a href="#其他刷机事项" class="headerlink" title="其他刷机事项"></a>其他刷机事项</h4><p>使用adb获得权限：打开cmd 键入adb shell，接着出现$,键入su，在手机中选择允许，出现#。表明成功获得权限，这时使用mount命令可以更改文件权限，删除软件等等，在手机里就是te可以完成同样的功能。</p>
+<p>其实开发时可以使用AVD调试，这是一个模拟器，在eclipse的windows菜单里，点开明显的AVD之类的选项，然后NEW配置，配置好后就可以用这个模拟终端了，但是记住Android SDK的安装路径不可以有空格，不然无法开启AVD!在建立好一个Android项目后就可以使用AVD模拟，方式是在run选项中，配置run configurations,在target选项中选中你建立的模拟器即可。</p>
+<p>国行要想使用Android Market必须要刷机，有一种简单的方法只把GMS刷进去，首先下载GMS的zip包，更名为update.zip，然后放置在sd卡根目录下，关机，按住房子键或者返回键（视不同手机而定）再按开机键，看到三角和机器人界面即可，接着按住音量+和相机进入recovery界面，选择sd card相关的选项开始安装，成功后重启，重启后会有一系列的Google账户配置，这时即使是国行也有google的服务啦！</p>
+<p><del>GMS的刷机包和Gingerbreak已经放在博客主页的“共享文件”链接中了。</del></p>
+<h4 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h4><p>想不到收获不小，在此感谢H4x教我如何改hosts，Fritz_Li帮我解答了一些疑难问题，这样才能很好的完成上述配置。最好从android.com上找到你相应机型的USB驱动装上，希望其中的细节能够对新手有所帮助。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2011/07/13/android_host/" data-id="ckq3g9mv20014kjdx1zmx9ya2" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2011/07/13/android_host/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GMS/">GMS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hosts/">hosts</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/刷机/">刷机</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2011/09/28/no_more_update/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          很久不更新了
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2011/07/08/light_age/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">轻时代</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      Copyright &copy; 2009 - 2021 Zhen Yi<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      <br>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">用户访问: <span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+      <span class="site-pv">本站访问: <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com" class="mobile-nav-link">λ</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/lab" class="mobile-nav-link">About</a>
+  
+    <a href="https://resume.izhen.me" class="mobile-nav-link">Resume</a>
+  
+    <a href="https://github.com/i-zhen" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'izhen';
+  
+  var disqus_url = 'https://izhen.me/2011/07/13/android_host/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
