@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>CPU缓存命中优化之循环交换 | Z.Y. ☯ Cosmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="概述这是一道来自《多处理器编程的艺术》(TAOMP)的题目：习题222： 考虑一个具有16个缓存块的直接映射高速缓存，索引为0~15，每个缓存块包含32个字。考虑一个32x32的二维字数组a。该数组在内存中被排列为a[0,0]的下一个元素时a[0,1]，以此类推。假设该高速缓存初始为空，但a[0,0]被映射到0号缓存块的第一个字。(注意字与字节的不同之处)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CPU缓存命中优化之循环交换">
+<meta property="og:url" content="https://izhen.me/2014/03/03/2014-03-03-cache-optimize-1/index.html">
+<meta property="og:site_name" content="Z.Y. ☯ Cosmos">
+<meta property="og:description" content="概述这是一道来自《多处理器编程的艺术》(TAOMP)的题目：习题222： 考虑一个具有16个缓存块的直接映射高速缓存，索引为0~15，每个缓存块包含32个字。考虑一个32x32的二维字数组a。该数组在内存中被排列为a[0,0]的下一个元素时a[0,1]，以此类推。假设该高速缓存初始为空，但a[0,0]被映射到0号缓存块的第一个字。(注意字与字节的不同之处)">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2014-03-03T09:07:29.000Z">
+<meta property="article:modified_time" content="2016-08-14T01:49:18.000Z">
+<meta property="article:author" content="Zhen Yi">
+<meta property="article:tag" content="cache">
+<meta property="article:tag" content="TAOMP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@soczhenyi">
+  
+    <link rel="alternate" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Z.Y. ☯ Cosmos</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Powered by Disqus, scientific surfing for access</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com">λ</a>
+        
+          <a class="main-nav-link" href="/lab">About</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://resume.izhen.me">Resume</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://github.com/i-zhen">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://izhen.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2014-03-03-cache-optimize-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2014/03/03/2014-03-03-cache-optimize-1/" class="article-date">
+  <time class="dt-published" datetime="2014-03-03T09:07:29.000Z" itemprop="datePublished">2014-03-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Blog/">Blog</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      CPU缓存命中优化之循环交换
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>这是一道来自《多处理器编程的艺术》(TAOMP)的题目：习题222：</p>
+<p>考虑一个具有16个缓存块的直接映射高速缓存，索引为0~15，每个缓存块包含32个字。考虑一个32x32的二维字数组a。该数组在内存中被排列为a[0,0]的下一个元素时a[0,1]，以此类推。假设该高速缓存初始为空，但a[0,0]被映射到0号缓存块的第一个字。(注意字与字节的不同之处)</p>
+<span id="more"></span>
+<p>考虑下面的列优先遍历：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++) &#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">32</span>; j++) &#123;</span><br><span class="line">		sum += a[i,j]; <span class="comment">// 2nd dim changes fastest</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以及下面的行优先遍历：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++) &#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">32</span>; j++) &#123;</span><br><span class="line">		sum += a[j,i]; <span class="comment">// 1st dim changes fastest</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>比较两次遍历的缓存缺失个数，假设最早的缓存块被最优先替换。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>结果等价：首先这两段代码的实现上有不同，但最后的结果是等价的。</li>
+<li>实现不等价：但是实现上却不等价，容易想到二者的缓存缺失率不一样。</li>
+<li>原因：题目的描述”该数组在内存中被排列为a[0,0]的下一个元素时a[0,1]，以此类推”说明了，在内存中数据是按照列优先存储的。按照一般的缓存抓取原则，一般会把当前所使用的数据附近的数据一并抓入。所以，问题就来了：第二段代码被抓取的整个数据块几乎都是同行不同列的数据，当缓存失效时，会造成大量的缓存缺失。定量分析看，第一段的缓存缺失会小于第二段。</li>
+<li>定性计算，假设使用LRU置换策略：(<del>我不太会算，请大神指出错误，计组没学好</del>)<ul>
+<li>因为每个block包含有32个字，所以列优先存储的数组的一行附近连续的部分都会被抓取到缓存块中。这么看在第一次处理数组内层循环时没有缺失，也就是第一块除a[0,0]外完全命中。以此类推，缓存共有32次缺失。a[0,0]~a[31,0]共32个。</li>
+<li>第二段程序不同在于缓存仍然抓取了按照列优先存储的一整行，但是缓存从内存中抓取的整个数据块几乎都是同行不同列的数据，而这些数据在接下来的内循环中完全无法被重复利用(来自wiki)，所以缺失是 32 * 32 = 1024 个。(如果说缓存不是16个块而是32个块就不一样了，二者的缺失数是一致的)</li>
+</ul>
+</li>
+</ul>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>循环顺序交换，首先要知道，c/c++语言是按照行优先存储数组数据的；而fortran正相反是列优先。当使用行优先存储时，列优先遍历会快一些，反之亦然。所以如果遇到这个问题需要合理的进行循环顺序交换。对于不同语言交换方式不同，c/c++与fortran正好相反。总的来说，这是个不难解决的问题。(END)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2014/03/03/2014-03-03-cache-optimize-1/" data-id="cktfacb1k0007mxdxfu5jgemq" data-title="CPU缓存命中优化之循环交换" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2014/03/03/2014-03-03-cache-optimize-1/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TAOMP/" rel="tag">TAOMP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cache/" rel="tag">cache</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/03/04/2014-03-04-taomp-chapter-1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          TAOMP第一章题目选解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/01/04/2014-01-18-basic-skill-computer/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">计算机界的无上心法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 Zhen Yi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <br>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">用户访问: <span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+      <span class="site-pv">本站访问: <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com" class="mobile-nav-link">λ</a>
+  
+    <a href="/lab" class="mobile-nav-link">About</a>
+  
+    <a target="_blank" rel="noopener" href="https://resume.izhen.me" class="mobile-nav-link">Resume</a>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/i-zhen" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'izhen';
+  
+  var disqus_url = 'https://izhen.me/2014/03/03/2014-03-03-cache-optimize-1/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

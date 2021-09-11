@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>鬼谷子的数学难题 | Z.Y. ☯ Cosmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="题目概述一天，鬼谷子随意从2~99中选取了两个数。他把这两个数的和告诉了庞涓， 把这两个数的乘积告诉了孙膑。孙膑和庞涓彼此不知到对方得到的数。第二天， 庞涓很有自信的对孙膑说：虽然我不知到这两个数是什么，但我知道你一定也不知道。随后，孙膑说： 那我知道了。庞涓说：那我也知道了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="鬼谷子的数学难题">
+<meta property="og:url" content="https://izhen.me/2014/03/10/2014-03-10-guiguzi-hard-problem/index.html">
+<meta property="og:site_name" content="Z.Y. ☯ Cosmos">
+<meta property="og:description" content="题目概述一天，鬼谷子随意从2~99中选取了两个数。他把这两个数的和告诉了庞涓， 把这两个数的乘积告诉了孙膑。孙膑和庞涓彼此不知到对方得到的数。第二天， 庞涓很有自信的对孙膑说：虽然我不知到这两个数是什么，但我知道你一定也不知道。随后，孙膑说： 那我知道了。庞涓说：那我也知道了。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2014-03-10T06:39:46.000Z">
+<meta property="article:modified_time" content="2016-08-14T01:50:23.000Z">
+<meta property="article:author" content="Zhen Yi">
+<meta property="article:tag" content="logic">
+<meta property="article:tag" content="math">
+<meta property="article:tag" content="complete search">
+<meta property="article:tag" content="hack方法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@soczhenyi">
+  
+    <link rel="alternate" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Z.Y. ☯ Cosmos</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Powered by Disqus, scientific surfing for access</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com">λ</a>
+        
+          <a class="main-nav-link" href="/lab">About</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://resume.izhen.me">Resume</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://github.com/i-zhen">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://izhen.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2014-03-10-guiguzi-hard-problem" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2014/03/10/2014-03-10-guiguzi-hard-problem/" class="article-date">
+  <time class="dt-published" datetime="2014-03-10T06:39:46.000Z" itemprop="datePublished">2014-03-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Think/">Think</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      鬼谷子的数学难题
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p>一天，鬼谷子随意从2~99中选取了两个数。他把这两个数的和告诉了庞涓， 把这两个数的乘积告诉了孙膑。孙膑和庞涓彼此不知到对方得到的数。第二天， 庞涓很有自信的对孙膑说：虽然我不知到这两个数是什么，但我知道你一定也不知道。随后，孙膑说： 那我知道了。庞涓说：那我也知道了。</p>
+<span id="more"></span>
+<h2 id="解题报告"><a href="#解题报告" class="headerlink" title="解题报告"></a>解题报告</h2><p>看了题目，思索一下，这是一个猜数字的游戏。那么该和从入手呢。假设这两个数字是a,b.那么令M=a+b;N=a•b;所以庞涓拿到了M，孙膑拿到了N.如此我们对他们的对话稍加研究。</p>
+<ol>
+<li>首先庞涓说：<strong>虽然我不知到这两个数是什么，但我知道你一    也不知道。</strong><ul>
+<li>立即得到<strong>推论1</strong>:a和b不能同时为素。解释：同时为素说明N只能拆成两个素数的因子，素数本身不包含其他大于等于2的因子，所以有N必知这两个素数是什么。推论1得到。也就是说，<strong>庞涓手中的数字能够判断这两个数并不都是素数。</strong></li>
+<li>对于推论1稍加思索，可得<strong>推论2</strong>：a和b若为一素一合，那么素数最大不得超过47。解释：比47再大的素数就是53，若另一个数有大于1的因子可拆出，最小是2，2•53&gt;99。所以推论2得到。</li>
+<li>通过推轮1和推论2我们得知在5到197中可行的M有：11 17 23 27 29 35 37 41 47 51 194 197(通过程序计算得出)</li>
+</ul>
+</li>
+<li>稍加观察，立即排除197,因为M=197,a,b只可能是98,99，这样的话庞涓和孙膑就都知道结果了。另外我们发现11到51基本连续，但是到达194产生了跳跃，所以对于194拆分。194=98+96，194=96+95；结合以上推论，立即排除194。</li>
+<li>这时只剩下：11 17 23 27 29 35 37 41 47 51<ul>
+<li>于是我们考虑他们的第二句对话：孙膑：<strong>那我知道了。</strong>而对于仅剩的数字我们再做分析：</li>
+</ul>
+<ul>
+<li>11=2+9=3+8=4+7=5+6;</li>
+<li>17=2+15=3+14=4+13=5+12=6+11=7+10=8+9；</li>
+<li>23=2+21=3+20=4+19=5+18=6+17=7+16=8+15=9+14=10+13=11+12；</li>
+<li>先观察这3组，我们看到5•6=2•15=30;5•12=3•20=60;如此，那么这样的话如果孙膑拿到了30，11，17均有可能，60的话17，23均有可能，所以要删掉相同的积，得到<strong>推论3</strong>：不得有相同的积存在。这时有下面这样有趣的结果：<ul>
+<li>11: 2+9 3+8 4+7</li>
+<li>17: 4+13</li>
+<li>23: 4+19 7+16 10+13</li>
+<li>27: 2+25 4+23 5+22 7+20 8+19 9+18 10+17 11+16</li>
+<li>29: 2+27 4+25 6+23 7+22 8+21 10+19 11+18 12+17 13+16</li>
+<li>35: 3+32 4+31 5+30 6+29 7+28 8+27 9+26 10+25 12+23 14+21 16+19</li>
+<li>37: 5+32 6+31 8+29 9+28 14+23 16+21 17+20</li>
+<li>41: 3+38 4+37 7+34 9+32 10+31 12+29 13+28 15+26 16+25 17+24 18+23 19+22</li>
+<li>47: 4+43 6+41 7+40 10+37 11+36 13+34 14+33 15+32 16+31 17+30 18+29 19+28 21+26 22+25</li>
+<li>51: 2+49 3+48 4+47 5+46 7+44 8+43 10+41 11+40 12+39 13+38 14+37 16+35 17+34 18+33 19+32 20+31 21+30 22+29 23+28 24+27</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>好了，敏锐的你应该发现了什么。根据庞涓和孙膑的最后一句对话，庞涓：<strong>那我也知道了。</strong></li>
+</ol>
+<p>庞涓知道什么了？如果庞涓拿到的是除了17以外的数字，例如11，那他有3个可能。孙膑对于18，24，28这三个任意的N，都能推出11是可行的和，也即都能知道是哪两个数字。要是这样庞涓做不出决定到底是哪个。问题是庞涓做出了决定，所以M一定17。而且此刻要Hack一下，因为我们已经找到了结果，所以不用考虑两个数字都是合数的情况了。XD</p>
+<ul>
+<li>M = 17; N = 52;</li>
+<li>a + b = 17; a • b =52</li>
+<li>a = 4; b = 13; (反之亦然)</li>
+</ul>
+<p>本题目计算量稍大，我借助了程序辅助做排除工作，如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">bool</span>    nn[<span class="number">198</span>];</span><br><span class="line"><span class="keyword">int</span>     okay[<span class="number">198</span>],tot=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">short</span>   del[<span class="number">9703</span>];</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isprime</span><span class="params">(<span class="keyword">int</span> num)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=<span class="built_in">sqrt</span>(num);i++)</span><br><span class="line">        <span class="keyword">if</span>(num%i==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;output.txt&quot;</span>,<span class="string">&quot;w&quot;</span>,stdout);</span><br><span class="line">    <span class="keyword">int</span> num[<span class="number">29</span>]=&#123;<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">11</span>,<span class="number">13</span>,<span class="number">17</span>,<span class="number">19</span>,<span class="number">23</span>,<span class="number">29</span>,<span class="number">31</span>,<span class="number">37</span>,<span class="number">41</span>,<span class="number">43</span>,<span class="number">47</span>,<span class="number">51</span>,<span class="number">53</span>,<span class="number">57</span>,<span class="number">59</span>,<span class="number">61</span>,<span class="number">67</span>,<span class="number">71</span>,<span class="number">73</span>,<span class="number">79</span>,<span class="number">83</span>,<span class="number">87</span>,<span class="number">89</span>,<span class="number">91</span>,<span class="number">97</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">29</span>;i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;<span class="number">29</span>;j++)</span><br><span class="line">            <span class="keyword">if</span>(num[i]+num[j]&lt;<span class="number">198</span>)</span><br><span class="line">                nn[num[j]+num[i]]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">7</span>;i&lt;<span class="number">198</span>;i++)</span><br><span class="line">        <span class="keyword">if</span>(!nn[i])&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">16</span>;j&lt;<span class="number">29</span>;j++)</span><br><span class="line">            	<span class="comment">//两个数字要满足在界内，同时另一个数字是合数，然后剔掉这些数字。</span></span><br><span class="line">                <span class="keyword">if</span>((i-num[j]&lt;=<span class="number">99</span>) &amp;&amp; (!<span class="built_in">isprime</span>(i-num[j])) &amp;&amp; (i-num[j]&gt;<span class="number">3</span>))&#123;</span><br><span class="line">                    nn[i]=<span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">7</span>;i&lt;<span class="number">198</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!nn[i])&#123;</span><br><span class="line">            cout&lt;&lt;i&lt;&lt;<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">            okay[++tot]=i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//step2</span></span><br><span class="line">    cout&lt;&lt;endl&lt;&lt;endl;</span><br><span class="line">    tot-=<span class="number">2</span>;<span class="comment">//手动删除194,197;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=tot;i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">2</span>;j&lt;=okay[i]/<span class="number">2</span>;j++)</span><br><span class="line">            <span class="keyword">if</span>(del[j*(okay[i]-j)]==<span class="number">0</span>)</span><br><span class="line">                del[j*(okay[i]-j)]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(del[j*(okay[i]-j)]==<span class="number">1</span>)</span><br><span class="line">                del[j*(okay[i]-j)]=<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=tot;i++)&#123;</span><br><span class="line">        cout&lt;&lt;okay[i]&lt;&lt;<span class="string">&#x27;:&#x27;</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">2</span>;j&lt;okay[i]/<span class="number">2</span>;j++)</span><br><span class="line">            <span class="keyword">if</span>(del[j*(okay[i]-j)]==<span class="number">1</span>)&#123;</span><br><span class="line">                cout&lt;&lt;<span class="string">&#x27; &#x27;</span>&lt;&lt;j&lt;&lt;<span class="string">&#x27;+&#x27;</span>&lt;&lt;okay[i]-j;</span><br><span class="line">            &#125;</span><br><span class="line">        cout&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2014/03/10/2014-03-10-guiguzi-hard-problem/" data-id="cktfacb1p000dmxdxdmf24lkr" data-title="鬼谷子的数学难题" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2014/03/10/2014-03-10-guiguzi-hard-problem/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/complete-search/" rel="tag">complete search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hack%E6%96%B9%E6%B3%95/" rel="tag">hack方法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/logic/" rel="tag">logic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/math/" rel="tag">math</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/04/12/ASC14/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          写在ASC2014决赛之前
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/03/07/2014-03-07-my-mac-software-list/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MAC OS X 常用软件分享</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 Zhen Yi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <br>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">用户访问: <span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+      <span class="site-pv">本站访问: <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com" class="mobile-nav-link">λ</a>
+  
+    <a href="/lab" class="mobile-nav-link">About</a>
+  
+    <a target="_blank" rel="noopener" href="https://resume.izhen.me" class="mobile-nav-link">Resume</a>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/i-zhen" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'izhen';
+  
+  var disqus_url = 'https://izhen.me/2014/03/10/2014-03-10-guiguzi-hard-problem/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

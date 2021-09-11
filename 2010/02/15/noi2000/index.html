@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>NOI2000青蛙过河 | Z.Y. ☯ Cosmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="题目解答这道题目是一道好题，因为可以从多个角度出发考虑，途径很多。首先，乍一看题貌似是Hanoi塔的模式，只不过增加了特定的限制(不可以向回走)，先分析一个例子：石墩有2个，荷叶3个的情况。这种情况可以有至多16只青蛙过河。首先有4只先到一号石墩，接着另有4个号码较大的到达2号墩，这是很容易做到的，然后让1号墩上的3个小的跳到荷叶上，1号墩剩下那只直接跳到2号，3个荷叶上的再跳到2号。此时2号墩已">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NOI2000青蛙过河">
+<meta property="og:url" content="https://izhen.me/2010/02/15/noi2000/index.html">
+<meta property="og:site_name" content="Z.Y. ☯ Cosmos">
+<meta property="og:description" content="题目解答这道题目是一道好题，因为可以从多个角度出发考虑，途径很多。首先，乍一看题貌似是Hanoi塔的模式，只不过增加了特定的限制(不可以向回走)，先分析一个例子：石墩有2个，荷叶3个的情况。这种情况可以有至多16只青蛙过河。首先有4只先到一号石墩，接着另有4个号码较大的到达2号墩，这是很容易做到的，然后让1号墩上的3个小的跳到荷叶上，1号墩剩下那只直接跳到2号，3个荷叶上的再跳到2号。此时2号墩已">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://izhen.me/image/idealnova/frog.jpg">
+<meta property="og:image" content="https://izhen.me/image/idealnova/noi2000.jpg">
+<meta property="article:published_time" content="2010-02-14T21:38:37.000Z">
+<meta property="article:modified_time" content="2018-09-24T05:54:23.000Z">
+<meta property="article:author" content="Zhen Yi">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="递推">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://izhen.me/image/idealnova/frog.jpg">
+<meta name="twitter:creator" content="@soczhenyi">
+  
+    <link rel="alternate" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Z.Y. ☯ Cosmos</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Powered by Disqus, scientific surfing for access</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com">λ</a>
+        
+          <a class="main-nav-link" href="/lab">About</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://resume.izhen.me">Resume</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://github.com/i-zhen">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://izhen.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-noi2000" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2010/02/15/noi2000/" class="article-date">
+  <time class="dt-published" datetime="2010-02-14T21:38:37.000Z" itemprop="datePublished">2010-02-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Solve/">Solve</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      NOI2000青蛙过河
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>这道<a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P1244">题目</a>是一道好题，因为可以从多个角度出发考虑，途径很多。首先，乍一看题貌似是Hanoi塔的模式，只不过增加了特定的限制(不可以向回走)，先分析一个例子：石墩有2个，荷叶3个的情况。这种情况可以有至多16只青蛙过河。首先有4只先到一号石墩，接着另有4个号码较大的到达2号墩，这是很容易做到的，然后让1号墩上的3个小的跳到荷叶上，1号墩剩下那只直接跳到2号，3个荷叶上的再跳到2号。此时2号墩已经饱和了(推一下即可知道)，而1号和荷叶是空的让其饱和，则可再次有7只青蛙，此时已经有15只青蛙。左岸的第16只可以直接跳到右岸，而且可以发现怎样跳过来还可以怎样跳回去，只不过我们不跳到左岸而是右岸，这是对称的。因此可以有16只。</p>
+<p><img src="/image/idealnova/frog.jpg" alt="NOI 2000"></p>
+<p>事实上，我们仔细分析可以发现，只有荷叶的话，那么最多只能有荷叶数加1只青蛙可以过河，因为过河顺序是单向传递的。所以我们如果想使过河数最大可以令青蛙在河中央停留的只数达到最多，这样只有荷叶的话必然是荷叶数加1只青蛙可以渡过。但是存在石墩就不一样了。因为石墩上可以有多只编号严格递减的青蛙。首先荷叶可以作为跳板，并由这些跳板使多只青蛙到达河中的石墩，并且尽量可以积累的多一些。而且河中的石墩是无所谓顺序的，所以我们可以这样来看待问题：</p>
+<p>把左岸，河中央，右岸分为3个阶段。把河中的石墩当作目的地，用样例来说：根据前面的分析，1号石墩可以有4只青蛙，2号同样可以有4只，此时1、2号石墩的青蛙序号严格递减，所以1号的青蛙又可以看作右岸借助荷叶到达2号石墩。2号就有8只。此时因为2号石墩的青蛙数的总数比荷叶石墩的总数还多，所以2号石墩已经饱和。1号已空，再重复之前的工作……如此反复进行：i号石墩总可以包含(i-1)号，即以1号石墩的青蛙作为单位青蛙数s，会有s，2 * s，4 * s……只，所以总共会有2^h*(k+1)个青蛙可以过河。得到通项公式。</p>
+<span id="more"></span>
+
+<h4 id="运行情况"><a href="#运行情况" class="headerlink" title="运行情况"></a>运行情况</h4><p><img src="/image/idealnova/noi2000.jpg" alt="NOI 2003"></p>
+<h4 id="程序清单"><a href="#程序清单" class="headerlink" title="程序清单"></a>程序清单</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">long</span> h,k;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%ld%ld&quot;</span>,&amp;h,&amp;k);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%ld\n&quot;</span>,(<span class="number">1</span>&lt;&lt;h)*(k+<span class="number">1</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><p>如果把河中的无用的石墩当作跳板，使得当前的青蛙数目达到最大，会阻碍后面的青蛙的跳跃。</p>
+<h4 id="难易等级"><a href="#难易等级" class="headerlink" title="难易等级"></a>难易等级</h4><p>Middle Up(noi the 1st || noip the 3rd)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2010/02/15/noi2000/" data-id="cktfacb3k005umxdx32pk3ry4" data-title="NOI2000青蛙过河" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2010/02/15/noi2000/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%80%92%E6%8E%A8/" rel="tag">递推</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2010/02/21/poj2104/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          POJ2104归并树
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2010/02/08/noi2004/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">NOI2007项链工厂</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 Zhen Yi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <br>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">用户访问: <span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+      <span class="site-pv">本站访问: <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com" class="mobile-nav-link">λ</a>
+  
+    <a href="/lab" class="mobile-nav-link">About</a>
+  
+    <a target="_blank" rel="noopener" href="https://resume.izhen.me" class="mobile-nav-link">Resume</a>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/i-zhen" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'izhen';
+  
+  var disqus_url = 'https://izhen.me/2010/02/15/noi2000/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

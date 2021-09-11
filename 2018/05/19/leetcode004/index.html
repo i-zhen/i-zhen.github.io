@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Leetcode - Median of Tow Sorted Arrays | Z.Y. ☯ Cosmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="题目概述There are two sorted arrays nums1 and nums2 of size m and n respectively.Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode - Median of Tow Sorted Arrays">
+<meta property="og:url" content="https://izhen.me/2018/05/19/leetcode004/index.html">
+<meta property="og:site_name" content="Z.Y. ☯ Cosmos">
+<meta property="og:description" content="题目概述There are two sorted arrays nums1 and nums2 of size m and n respectively.Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-05-19T05:58:03.000Z">
+<meta property="article:modified_time" content="2018-05-19T06:28:14.000Z">
+<meta property="article:author" content="Zhen Yi">
+<meta property="article:tag" content="分治">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@soczhenyi">
+  
+    <link rel="alternate" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Z.Y. ☯ Cosmos</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Powered by Disqus, scientific surfing for access</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com">λ</a>
+        
+          <a class="main-nav-link" href="/lab">About</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://resume.izhen.me">Resume</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://github.com/i-zhen">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://izhen.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-leetcode004" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/05/19/leetcode004/" class="article-date">
+  <time class="dt-published" datetime="2018-05-19T05:58:03.000Z" itemprop="datePublished">2018-05-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Leetcode - Median of Tow Sorted Arrays
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h2><p>There are two sorted arrays nums1 and nums2 of size m and n respectively.<br>Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).</p>
+<span id="more"></span>
+
+<h2 id="解题报告"><a href="#解题报告" class="headerlink" title="解题报告"></a>解题报告</h2><p>这道题在处理题目的模型和实现上都稍微有点难度。</p>
+<p>这里我们先讨论普通的二分查找，就是说我们要确定一个数字的具体排位的时候，比如说第N大的数字。可以维护一个优先队列，期望时间复杂度就是O(nlogm)。《编程珠玑》里面提到的一种更好的方法：借助快排的思想，可以将复杂度优化到O(n)。</p>
+<h3 id="题意解析"><a href="#题意解析" class="headerlink" title="题意解析"></a>题意解析</h3><p>不过，上面是无序的情况，如果是有序的数字呢？显然，可以O(1)找到对应排位的数字，这个也就是我们要突破的重点。两个有序的序列，找到其中的中位数字。首先我们怎么理解可以帮助我们呢?中位数是<strong>分割一个序列为两个部分，这两个的部分的数字个数相等</strong>。中位数是说排在(n/2)或(n/2, n/2 + 1)的数字。</p>
+<p>所以这道题目就是要我们找到一个中位数，使得两个数列合在一起可以被分成数目相等的两个部分。这样我们重新定义了问题，使得理解更加具体。</p>
+<h3 id="解决步骤"><a href="#解决步骤" class="headerlink" title="解决步骤"></a>解决步骤</h3><ul>
+<li>a[0], a[1], a[2] … a[i - 1]    median   a[i + 1], a[i + 2] … a[n]<br>b[0], b[1], b[2] … b[j - 1]   median   b[j + 1], b[j + 2] … b[m]   </li>
+<li>a[i - 1] &lt; b[j]  <strong>(a)</strong><br>b[j - 1] &lt; a[i]  <strong>(b)</strong></li>
+<li>a[i] == b[j] // 找到了median，中位数不一定同时存在于两个数组中</li>
+</ul>
+<p>如何找到相应的i与j呢？切入口在于我们二分的对象是什么。<br>这里有个隐藏的条件：i + j = n - i + m - j(<strong>中位数两边的数字个数相等</strong>)，也就是说i确定了，j也就可以确定了，这个结论很好，我们只需要枚举其中一个就能解决问题。通常我们需要枚举长度短的序列，这样边界就不会溢出。</p>
+<p>重要结论1：i = (m + n + 1) / 2 - j。<br>这样我们遍历 i 亦或 j 中的一个，就能确定另外一个的值了。<br>我们来搜索 i ：</p>
+<ol>
+<li>如果 a[i] == b[j]，那么我们就找到了最终的结果。</li>
+<li>如果 a[i] &gt; b[j] 说明我们要调整 i，使得a[i]减小，b[j]则相对增大。</li>
+<li>对于2，反之亦然。</li>
+</ol>
+<p>不过，这里要考虑一个情况，要找到的值未必都在两个数列中。比如：[1,2,3,4,5] 和 [6]。更特殊：[1,2], []。<br>这个也是问题的第二个关键点。<br>首先，假设较短的数列已经触及边界，同时不满足约束条件(a), (b)，那么就意味着我们已经找到答案了。原因在于每次的划分都是平衡划分，一个数列触及了边界，答案也就一定在另外一个数列当中，而答案在另一个数列当中的时候就是一个普通的二分查找。显然较短的数列会更快碰到边界。<br>结论2：我们每次搜索需要检查较短数列的边界在合理范围之内。</p>
+<p>搜索结束后，正确答案在哪里？<br>如果两个数列的长度总和为奇数，那么搜索位置较大的那个即为所求。否则要计算两个位置较大的和后继位置较小的数字的均值：</p>
+<p>max(a[i-1], b[j-1]), odd<br>(max(a[i-1], b[j-1]) + min(a[i], b[j])) / 2, even</p>
+<p>边界条件的处理，当 i == 0 或 i == length of list 的时候，这个时候搜索也结束了。对于 j 亦然。</p>
+<h2 id="程序清单"><a href="#程序清单" class="headerlink" title="程序清单"></a>程序清单</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] longNum;</span><br><span class="line">        <span class="keyword">int</span>[] shortNum;</span><br><span class="line">        <span class="keyword">if</span> (nums1.length &gt; nums2.length) &#123;</span><br><span class="line">            longNum = nums1;</span><br><span class="line">            shortNum = nums2;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            longNum = nums2;</span><br><span class="line">            shortNum = nums1;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = shortNum.length, half = (longNum.length + shortNum.length + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">double</span> leftHalf = <span class="number">0.0</span>, rightHalf = <span class="number">0.0</span>;</span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">            <span class="keyword">int</span> i = (left + right) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">int</span> j = half - i;</span><br><span class="line">            <span class="keyword">if</span> (i &lt; shortNum.length &amp;&amp; shortNum[i] &lt; longNum[j - <span class="number">1</span>])</span><br><span class="line">                left = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; longNum[j] &lt; shortNum[i - <span class="number">1</span>])</span><br><span class="line">                right = i - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (i == <span class="number">0</span>) leftHalf = longNum[j - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (j == <span class="number">0</span>) leftHalf = shortNum[i - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">else</span> leftHalf = Math.max(shortNum[i - <span class="number">1</span>], longNum[j - <span class="number">1</span>]);</span><br><span class="line">                <span class="keyword">if</span> ((shortNum.length + longNum.length) % <span class="number">2</span> == <span class="number">1</span>)</span><br><span class="line">                    <span class="keyword">return</span> leftHalf;</span><br><span class="line">                <span class="keyword">if</span> (i == shortNum.length) rightHalf = longNum[j];</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (j == longNum.length) rightHalf = shortNum[i];</span><br><span class="line">                <span class="keyword">else</span> rightHalf = Math.min(shortNum[i], longNum[j]);</span><br><span class="line">                <span class="keyword">return</span> (leftHalf + rightHalf) / <span class="number">2.0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2018/05/19/leetcode004/" data-id="cktfacb3c0054mxdxcwxu35gz" data-title="Leetcode - Median of Tow Sorted Arrays" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2018/05/19/leetcode004/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%86%E6%B2%BB/" rel="tag">分治</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/05/19/persona5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          女神异闻录5
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/02/22/cyberpunk/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">赛博朋克酒保计划</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 Zhen Yi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <br>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">用户访问: <span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+      <span class="site-pv">本站访问: <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com" class="mobile-nav-link">λ</a>
+  
+    <a href="/lab" class="mobile-nav-link">About</a>
+  
+    <a target="_blank" rel="noopener" href="https://resume.izhen.me" class="mobile-nav-link">Resume</a>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/i-zhen" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'izhen';
+  
+  var disqus_url = 'https://izhen.me/2018/05/19/leetcode004/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
