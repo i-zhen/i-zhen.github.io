@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>2014 ACM-ICPC China GDCPC | Z.Y. ☯ Cosmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="大赛的情况今年的比赛是本个竞赛史上最惨烈的一次了。没有队伍的过题数超过一半，但是其实总体比赛的难度不是特别大。好多DP，搜索也好，数学题也好，模型都是裸的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2014 ACM-ICPC China GDCPC">
+<meta property="og:url" content="https://izhen.me/2014/05/12/2014-05-12-gdcpc2014/index.html">
+<meta property="og:site_name" content="Z.Y. ☯ Cosmos">
+<meta property="og:description" content="大赛的情况今年的比赛是本个竞赛史上最惨烈的一次了。没有队伍的过题数超过一半，但是其实总体比赛的难度不是特别大。好多DP，搜索也好，数学题也好，模型都是裸的。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2014-05-11T16:18:57.000Z">
+<meta property="article:modified_time" content="2016-08-14T01:50:48.000Z">
+<meta property="article:author" content="Zhen Yi">
+<meta property="article:tag" content="ACM-ICPC">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="省赛">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@soczhenyi">
+  
+    <link rel="alternate" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Z.Y. ☯ Cosmos</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Powered by Disqus, scientific surfing for access</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com">λ</a>
+        
+          <a class="main-nav-link" href="/lab">About</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://resume.izhen.me">Resume</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://github.com/i-zhen">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://izhen.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2014-05-12-gdcpc2014" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2014/05/12/2014-05-12-gdcpc2014/" class="article-date">
+  <time class="dt-published" datetime="2014-05-11T16:18:57.000Z" itemprop="datePublished">2014-05-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Blog/">Blog</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      2014 ACM-ICPC China GDCPC
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="大赛的情况"><a href="#大赛的情况" class="headerlink" title="大赛的情况"></a>大赛的情况</h3><p>今年的比赛是本个竞赛史上最惨烈的一次了。没有队伍的过题数超过一半，但是其实总体比赛的难度不是特别大。好多DP，搜索也好，数学题也好，模型都是裸的。</p>
+<span id="more"></span>
+<h3 id="我们的情况"><a href="#我们的情况" class="headerlink" title="我们的情况"></a>我们的情况</h3><p>怎么说呢，因为不训练的缘故，<del>其实是找个借口啦</del>，我们水水的获得了一块Bronze，<del>这里英文显得格调更高</del>。话说我们队伍的组成是：Linpack世界第一人，未来的电影大导演，还有我(就不说什么了)。我和我的队友酱油的都很好，嗯。</p>
+<h3 id="题目的概况"><a href="#题目的概况" class="headerlink" title="题目的概况"></a>题目的概况</h3><ul>
+<li>三道水题A,J,K;分别是白送，数学公式，trie/AC自动机/Hash+DP</li>
+<li>除三道水题外最简单的是E，DP</li>
+<li>然后一道线段树B</li>
+<li>一道LCA是D</li>
+<li>一道高精度数学题C</li>
+<li>一道简单的BFS是F</li>
+<li>忘了G是什么了…</li>
+<li>H是计算几何</li>
+<li>最后I是一道DP</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>说是酱油，其实就是玩乐了一把，希望教练不要生气XD。以后还要开开心心的过日子，嗯，就这样 :)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2014/05/12/2014-05-12-gdcpc2014/" data-id="cktfacb1r000jmxdxfkxv37uo" data-title="2014 ACM-ICPC China GDCPC" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2014/05/12/2014-05-12-gdcpc2014/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM-ICPC/" rel="tag">ACM-ICPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9C%81%E8%B5%9B/" rel="tag">省赛</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/06/30/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Hello Hexo
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/04/20/2014-04-20-asc-2014-pre/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ASC2014世界大学生超级计算机竞赛</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 Zhen Yi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <br>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">用户访问: <span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+      <span class="site-pv">本站访问: <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com" class="mobile-nav-link">λ</a>
+  
+    <a href="/lab" class="mobile-nav-link">About</a>
+  
+    <a target="_blank" rel="noopener" href="https://resume.izhen.me" class="mobile-nav-link">Resume</a>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/i-zhen" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'izhen';
+  
+  var disqus_url = 'https://izhen.me/2014/05/12/2014-05-12-gdcpc2014/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

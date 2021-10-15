@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>NOI2007项链工厂 | Z.Y. ☯ Cosmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="题目解答(这道题目好像很流行 (^o^))。分析题目，因为所有操作均是在区间内完成的，因此可以使用线段树，保证维护的摊还时间限定在O(logn)以内，但是本题的难点不在线段树本身，而是对于Flip和 Rotate的维护，这是其一，其二就是如何合并两棵树。针对这个问题，通过分析我们知道，珠子之间的相对位置固定，这样就可以使用偏移量来记录，再用bool的标志记录是否偏转，具体的计算请看我的程序的has">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NOI2007项链工厂">
+<meta property="og:url" content="https://izhen.me/2010/02/08/noi2004/index.html">
+<meta property="og:site_name" content="Z.Y. ☯ Cosmos">
+<meta property="og:description" content="题目解答(这道题目好像很流行 (^o^))。分析题目，因为所有操作均是在区间内完成的，因此可以使用线段树，保证维护的摊还时间限定在O(logn)以内，但是本题的难点不在线段树本身，而是对于Flip和 Rotate的维护，这是其一，其二就是如何合并两棵树。针对这个问题，通过分析我们知道，珠子之间的相对位置固定，这样就可以使用偏移量来记录，再用bool的标志记录是否偏转，具体的计算请看我的程序的has">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://izhen.me/image/idealnova/noi2007.jpg">
+<meta property="article:published_time" content="2010-02-07T21:38:37.000Z">
+<meta property="article:modified_time" content="2018-09-24T05:53:30.000Z">
+<meta property="article:author" content="Zhen Yi">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="线段树">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://izhen.me/image/idealnova/noi2007.jpg">
+<meta name="twitter:creator" content="@soczhenyi">
+  
+    <link rel="alternate" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Z.Y. ☯ Cosmos</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Powered by Disqus, scientific surfing for access</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com">λ</a>
+        
+          <a class="main-nav-link" href="/lab">About</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://resume.izhen.me">Resume</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://github.com/i-zhen">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://izhen.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-noi2004" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2010/02/08/noi2004/" class="article-date">
+  <time class="dt-published" datetime="2010-02-07T21:38:37.000Z" itemprop="datePublished">2010-02-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Solve/">Solve</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      NOI2007项链工厂
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>(这道题目好像很流行 (^o^))。分析题目，因为所有操作均是在区间内完成的，因此可以使用线段树，保证维护的摊还时间限定在O(logn)以内，但是本题的难点不在线段树本身，而是对于Flip和 Rotate的维护，这是其一，其二就是如何合并两棵树。针对这个问题，通过分析我们知道，珠子之间的相对位置固定，这样就可以使用偏移量来记录，再用bool的标志记录是否偏转，具体的计算请看我的程序的hash()函数，这样就解决了这两个问题。而子树合并，则要再维护rcol，lcol两个分别代表左右端点的域。这样的好处，相信不用我再说了。</p>
+<span id="more"></span>
+
+<h4 id="运行情况"><a href="#运行情况" class="headerlink" title="运行情况"></a>运行情况</h4><p><img src="/image/idealnova/noi2007.jpg" alt="NOI 2007"></p>
+<h4 id="程序清单"><a href="#程序清单" class="headerlink" title="程序清单"></a>程序清单</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fin cin</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fout cout</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">long</span> MAX=<span class="number">500001</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    <span class="keyword">long</span> lch,rch,left,right,reg,lcol,rcol,mid;</span><br><span class="line">    <span class="keyword">bool</span> mark;</span><br><span class="line">&#125;tree[MAX*<span class="number">5</span>];</span><br><span class="line"><span class="keyword">long</span> tot=<span class="number">1</span>,delta=<span class="number">0</span>,n,color[MAX],q,A,B,C,A1,B1,Count=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">bool</span> flip=<span class="literal">true</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">regtree</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">refresh</span><span class="params">(<span class="keyword">long</span> index)</span></span>&#123;</span><br><span class="line">            <span class="keyword">long</span> lch=tree[index].lch,rch=tree[index].rch;</span><br><span class="line">            tree[index].lcol=tree[lch].lcol;</span><br><span class="line">            tree[index].rcol=tree[rch].rcol;</span><br><span class="line">            tree[index].reg=tree[lch].reg+tree[rch].reg-(tree[lch].rcol==tree[rch].lcol?<span class="number">1</span>:<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">if</span>(tree[index].reg==<span class="number">1</span>) tree[index].mark=<span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span> tree[index].mark=<span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">long</span> left,<span class="keyword">long</span> right,<span class="keyword">long</span> index)</span></span>&#123;</span><br><span class="line">            tree[index].left=left;</span><br><span class="line">            tree[index].right=right;</span><br><span class="line">            tree[index].mid=(left+right)/<span class="number">2</span>;</span><br><span class="line">            tree[index].mark=<span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">if</span>(left&lt;right)&#123;</span><br><span class="line">                tree[index].lch=++tot;</span><br><span class="line">                <span class="built_in">build</span>(left,tree[index].mid,tot);</span><br><span class="line">                tree[index].rch=++tot;</span><br><span class="line">                <span class="built_in">build</span>(tree[index].mid+<span class="number">1</span>,right,tot);</span><br><span class="line">                <span class="built_in">refresh</span>(index);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                tree[index].lcol=tree[index].rcol=color[left];</span><br><span class="line">                tree[index].reg=<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">downset</span><span class="params">(<span class="keyword">long</span> index)</span></span>&#123;</span><br><span class="line">            <span class="keyword">long</span> lch=tree[index].lch,rch=tree[index].rch;</span><br><span class="line">            tree[lch].lcol=tree[rch].lcol=tree[lch].rcol=tree[rch].rcol=tree[index].lcol;</span><br><span class="line">            tree[lch].reg=<span class="number">1</span>;</span><br><span class="line">            tree[rch].reg=<span class="number">1</span>;</span><br><span class="line">            tree[lch].mark=tree[rch].mark=<span class="literal">true</span>;</span><br><span class="line">            tree[index].mark=<span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">paint</span><span class="params">(<span class="keyword">long</span> left,<span class="keyword">long</span> right,<span class="keyword">long</span> col,<span class="keyword">long</span> index)</span></span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(!index) <span class="keyword">return</span>;</span><br><span class="line">            <span class="keyword">if</span>(tree[index].left&gt;=left &amp;&amp; tree[index].right&lt;=right)&#123;</span><br><span class="line">                tree[index].lcol=tree[index].rcol=col;</span><br><span class="line">                tree[index].reg=<span class="number">1</span>;</span><br><span class="line">                tree[index].mark=<span class="literal">true</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(tree[index].mark) <span class="built_in">downset</span>(index);</span><br><span class="line">                <span class="keyword">if</span>(left&lt;=tree[index].mid) <span class="built_in">paint</span>(left,right,col,tree[index].lch);</span><br><span class="line">                <span class="keyword">if</span>(right&gt;tree[index].mid) <span class="built_in">paint</span>(left,right,col,tree[index].rch);</span><br><span class="line">                <span class="built_in">refresh</span>(index);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">long</span> <span class="title">cseg</span><span class="params">(<span class="keyword">long</span> left,<span class="keyword">long</span> right,<span class="keyword">long</span> index)</span></span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(!index) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(tree[index].left&gt;=left &amp;&amp; tree[index].right&lt;=right)&#123;</span><br><span class="line">                <span class="keyword">return</span> tree[index].reg;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">long</span> temp=<span class="number">0</span>,key=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span>(tree[index].mark) <span class="built_in">downset</span>(index);</span><br><span class="line">                <span class="keyword">if</span>(left&lt;=tree[index].mid) &#123;key++;temp+=<span class="built_in">cseg</span>(left,right,tree[index].lch);&#125;</span><br><span class="line">                <span class="keyword">if</span>(right&gt;tree[index].mid) &#123;key++;temp+=<span class="built_in">cseg</span>(left,right,tree[index].rch);&#125;</span><br><span class="line">                <span class="keyword">return</span> temp-((key==<span class="number">2</span> &amp;&amp; tree[tree[index].lch].rcol==tree[tree[index].rch].lcol)?<span class="number">1</span>:<span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">long</span> <span class="title">find</span><span class="params">(<span class="keyword">long</span> pos,<span class="keyword">long</span> index)</span></span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(tree[index].left&lt;=pos &amp;&amp; pos&lt;=tree[index].right &amp;&amp; tree[index].reg==<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> tree[index].lcol;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(tree[index].mark) <span class="built_in">downset</span>(index);</span><br><span class="line">                <span class="keyword">if</span>(pos&lt;=tree[index].mid &amp;&amp; tree[index].lch) <span class="keyword">return</span> <span class="built_in">find</span>(pos,tree[index].lch);</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(pos&gt;tree[index].mid &amp;&amp; tree[index].rch) <span class="keyword">return</span> <span class="built_in">find</span>(pos,tree[index].rch);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;line;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">long</span> <span class="title">hash</span><span class="params">(<span class="keyword">long</span> pos)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!flip) pos=n-pos+<span class="number">2</span>;</span><br><span class="line">    pos-=delta;</span><br><span class="line">    pos%=n;</span><br><span class="line">    pos=(pos+n)%n;</span><br><span class="line">    <span class="keyword">if</span>(pos==<span class="number">0</span>) pos=n;</span><br><span class="line">    <span class="keyword">return</span> pos;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    fin&gt;&gt;n&gt;&gt;Count;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">long</span> i=<span class="number">1</span>;i&lt;=n;i++) fin&gt;&gt;color[i];</span><br><span class="line">    line.<span class="built_in">build</span>(<span class="number">1</span>,n,tot);</span><br><span class="line">    <span class="keyword">char</span> op[<span class="number">3</span>];</span><br><span class="line">    fin&gt;&gt;q;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">long</span> i1=<span class="number">1</span>;i1&lt;=q;i1++)&#123;</span><br><span class="line">        fin&gt;&gt;op;</span><br><span class="line">        <span class="keyword">if</span>(op[<span class="number">0</span>]==<span class="string">&#x27;R&#x27;</span>)&#123;</span><br><span class="line">            fin&gt;&gt;A;</span><br><span class="line">            <span class="keyword">if</span>(flip) delta+=A;</span><br><span class="line">            <span class="keyword">else</span> delta-=A;</span><br><span class="line">            delta%=n;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(op[<span class="number">0</span>]==<span class="string">&#x27;F&#x27;</span>) flip=!flip;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(op[<span class="number">0</span>]==<span class="string">&#x27;S&#x27;</span>)&#123;</span><br><span class="line">            fin&gt;&gt;A&gt;&gt;B;</span><br><span class="line">            A1=A;B1=B;</span><br><span class="line">            <span class="keyword">if</span>(!flip)&#123;A=<span class="built_in">hash</span>(B1);B=<span class="built_in">hash</span>(A1);&#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;A=<span class="built_in">hash</span>(A);B=<span class="built_in">hash</span>(B);&#125;</span><br><span class="line">            C=line.<span class="built_in">find</span>(A,<span class="number">1</span>);</span><br><span class="line">            Count=line.<span class="built_in">find</span>(B,<span class="number">1</span>);</span><br><span class="line">            line.<span class="built_in">paint</span>(A,A,Count,<span class="number">1</span>);</span><br><span class="line">            line.<span class="built_in">paint</span>(B,B,C,<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(op[<span class="number">0</span>]==<span class="string">&#x27;P&#x27;</span>)&#123;</span><br><span class="line">            fin&gt;&gt;A&gt;&gt;B&gt;&gt;C;</span><br><span class="line">            A1=A;B1=B;</span><br><span class="line">            <span class="keyword">if</span>(!flip)&#123;A=<span class="built_in">hash</span>(B1);B=<span class="built_in">hash</span>(A1);&#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;A=<span class="built_in">hash</span>(A);B=<span class="built_in">hash</span>(B);&#125;</span><br><span class="line">            <span class="keyword">if</span>(A&gt;B) &#123;line.<span class="built_in">paint</span>(A,n,C,<span class="number">1</span>);line.<span class="built_in">paint</span>(<span class="number">1</span>,B,C,<span class="number">1</span>);&#125;</span><br><span class="line">                <span class="keyword">else</span> line.<span class="built_in">paint</span>(A,B,C,<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(op[<span class="number">0</span>]==<span class="string">&#x27;C&#x27;</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(op[<span class="number">1</span>]==<span class="string">&#x27;S&#x27;</span>)&#123;</span><br><span class="line">                Count=<span class="number">0</span>;</span><br><span class="line">                fin&gt;&gt;A&gt;&gt;B;</span><br><span class="line">                A1=A;B1=B;</span><br><span class="line">                <span class="keyword">if</span>(!flip)&#123;A=<span class="built_in">hash</span>(B1);B=<span class="built_in">hash</span>(A1);&#125;</span><br><span class="line">                    <span class="keyword">else</span> &#123;A=<span class="built_in">hash</span>(A);B=<span class="built_in">hash</span>(B);&#125;</span><br><span class="line">                <span class="keyword">if</span>(A&gt;B) &#123;Count+=line.<span class="built_in">cseg</span>(A,n,<span class="number">1</span>);Count+=line.<span class="built_in">cseg</span>(<span class="number">1</span>,B,<span class="number">1</span>);</span><br><span class="line">                <span class="keyword">if</span>(tree[<span class="number">1</span>].lcol==tree[<span class="number">1</span>].rcol) Count--;&#125;</span><br><span class="line">                    <span class="keyword">else</span> Count=line.<span class="built_in">cseg</span>(A,B,<span class="number">1</span>);</span><br><span class="line">                fout&lt;&lt;Count&lt;&lt;endl;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;<span class="keyword">if</span>(tree[<span class="number">1</span>].reg!=<span class="number">1</span>)fout&lt;&lt;tree[<span class="number">1</span>].reg-(tree[<span class="number">1</span>].lcol==tree[<span class="number">1</span>].rcol?<span class="number">1</span>:<span class="number">0</span>)&lt;&lt;endl;</span><br><span class="line">                    <span class="keyword">else</span> fout&lt;&lt;<span class="number">1</span>&lt;&lt;endl;&#125; <span class="comment">// 特殊情况 </span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="难易等级"><a href="#难易等级" class="headerlink" title="难易等级"></a>难易等级</h4><p>Middle Up (NOI 级别)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2010/02/08/noi2004/" data-id="cktfacb3m005zmxdx2pte2a6c" data-title="NOI2007项链工厂" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2010/02/08/noi2004/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2010/02/15/noi2000/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          NOI2000青蛙过河
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2010/02/06/usaco_342/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">USACO 3.4.2 Heritage</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 Zhen Yi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <br>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">用户访问: <span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+      <span class="site-pv">本站访问: <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com" class="mobile-nav-link">λ</a>
+  
+    <a href="/lab" class="mobile-nav-link">About</a>
+  
+    <a target="_blank" rel="noopener" href="https://resume.izhen.me" class="mobile-nav-link">Resume</a>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/i-zhen" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'izhen';
+  
+  var disqus_url = 'https://izhen.me/2010/02/08/noi2004/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

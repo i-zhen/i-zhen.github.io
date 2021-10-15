@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>AWS初上手指南 | Z.Y. ☯ Cosmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="亚马逊的 AWS 是当下市场占有率最高的云服务供应平台，目前(截止今天)仍有一年免费试用计划，对于建立个人博客，或者小型站点来说绰绰有余。除此以外可以发挥想象开发一些有意思的应用。这篇文章主要介绍如何快速上手，重点阐述一些基本的概念。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AWS初上手指南">
+<meta property="og:url" content="https://izhen.me/2017/10/29/aws-intro/index.html">
+<meta property="og:site_name" content="Z.Y. ☯ Cosmos">
+<meta property="og:description" content="亚马逊的 AWS 是当下市场占有率最高的云服务供应平台，目前(截止今天)仍有一年免费试用计划，对于建立个人博客，或者小型站点来说绰绰有余。除此以外可以发挥想象开发一些有意思的应用。这篇文章主要介绍如何快速上手，重点阐述一些基本的概念。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://izhen.me/image/aws/1.jpg">
+<meta property="og:image" content="https://izhen.me/image/aws/2.jpg">
+<meta property="og:image" content="https://izhen.me/image/aws/3.jpg">
+<meta property="og:image" content="https://izhen.me/image/aws/4.jpg">
+<meta property="og:image" content="https://izhen.me/image/aws/5.jpg">
+<meta property="og:image" content="https://izhen.me/image/aws/6.jpg">
+<meta property="og:image" content="https://izhen.me/image/aws/7.jpg">
+<meta property="og:image" content="https://izhen.me/image/aws/8.jpg">
+<meta property="og:image" content="https://izhen.me/image/aws/9.jpg">
+<meta property="og:image" content="https://izhen.me/image/aws/10.jpg">
+<meta property="og:image" content="https://izhen.me/image/aws/11.jpg">
+<meta property="og:image" content="https://izhen.me/image/aws/12.jpg">
+<meta property="og:image" content="https://izhen.me/image/aws/14.jpg">
+<meta property="og:image" content="https://izhen.me/image/aws/15.jpg">
+<meta property="og:image" content="https://izhen.me/image/aws/13.jpg">
+<meta property="article:published_time" content="2017-10-29T05:29:00.000Z">
+<meta property="article:modified_time" content="2017-10-29T09:32:02.000Z">
+<meta property="article:author" content="Zhen Yi">
+<meta property="article:tag" content="AWS">
+<meta property="article:tag" content="cloud service">
+<meta property="article:tag" content="EC2">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://izhen.me/image/aws/1.jpg">
+<meta name="twitter:creator" content="@soczhenyi">
+  
+    <link rel="alternate" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Z.Y. ☯ Cosmos</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Powered by Disqus, scientific surfing for access</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com">λ</a>
+        
+          <a class="main-nav-link" href="/lab">About</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://resume.izhen.me">Resume</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://github.com/i-zhen">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://izhen.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-aws-intro" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2017/10/29/aws-intro/" class="article-date">
+  <time class="dt-published" datetime="2017-10-29T05:29:00.000Z" itemprop="datePublished">2017-10-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Blog/">Blog</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      AWS初上手指南
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>亚马逊的 <a target="_blank" rel="noopener" href="https://aws.amazon.com/">AWS</a> 是当下市场占有率最高的云服务供应平台，目前(截止今天)仍有一年免费试用计划，对于建立个人博客，或者小型站点来说绰绰有余。除此以外可以发挥想象开发一些有意思的应用。这篇文章主要介绍如何快速上手，重点阐述一些基本的概念。</p>
+<span id="more"></span>
+
+<h3 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h3><p>首先就是要注册一个账户，其中 <strong>Basic</strong> 方案是免费使用一年的，你可以根据需要选择自己想要服务。</p>
+<h3 id="选择地区和开启EC2"><a href="#选择地区和开启EC2" class="headerlink" title="选择地区和开启EC2"></a>选择地区和开启EC2</h3><ul>
+<li>选择地区，这里是指物理服务器所在的地区。当然更严格的说法是 <strong>VPC</strong> 所在的地区。每个区域通常都有多个可用区，之后我们会提到可用区的问题。（当我们在多个可用区进行部署同一个应用的时候，可以使用AWS提供的弹性负载均衡服务轻松实现负载均衡）</li>
+</ul>
+<p><img src="/image/aws/1.jpg" alt="VPC"></p>
+<ul>
+<li>选择 <strong>EC2</strong>, 即Elastic Compute Cloud。这是我们这篇文章介绍的重点，借助EC2服务我们可以架设很多应用。单击菜单「服务」-&gt; 「计算」 -&gt; 「EC2」，就能找到。</li>
+</ul>
+<p><img src="/image/aws/2.jpg" alt="EC2"></p>
+<ul>
+<li>控制界面：<ul>
+<li>主界面中我们能看到最左侧的边栏列举了控制面板的一些功能组件，可以链接到相应的子面板中</li>
+<li>主界面的右侧提供了一些附加信息</li>
+<li>主界面的中央则是主操作面板，一开始我们可以看到正在运行的资源，初始状态通常有一个安全组</li>
+</ul>
+</li>
+</ul>
+<p><img src="/image/aws/3.jpg" alt="控制面板"></p>
+<h3 id="配置EC2"><a href="#配置EC2" class="headerlink" title="配置EC2"></a>配置EC2</h3><p>1.好了，接着我们要配置EC2，单击左侧面板中的实例。如果没有运行中的实例，会看到「启动实例」按钮，单击之</p>
+<p><img src="/image/aws/4.jpg" alt="Launch EC2"></p>
+<p>2.选择你想要的 <strong>AMI</strong> 映像，你可以简单理解为选择实例所运行的操作系统，不过是跑在虚拟化环境当中的。这一步除了常规系统，我们还可以选择 <a target="_blank" rel="noopener" href="https://aws.amazon.com/">AWS</a> 提供的 <strong>RDS</strong> 数据库服务，这里我选择一个 Deep Learning Ubuntu 的映像</p>
+<p><img src="/image/aws/5.jpg" alt="AMI"></p>
+<p>3.配置硬件资源，我选择 t2.micro 这个套餐</p>
+<p><img src="/image/aws/6.jpg" alt="t2.micro"></p>
+<p>4.配置实例的网络设置。主要有两处：首先要选择一个子网，如果没有高级的需求可以随意选择，这里的子网就是前面提到的可用区，每个可用区可以分配有限个IP地址，通常不同可用区之间不能直接访问。其次，自动分配公有IP选择「启用」</p>
+<p><img src="/image/aws/7.jpg" alt="setting"></p>
+<p>5.添加存储维持默认即可，如有特殊需要可以进行自定义设置</p>
+<p><img src="/image/aws/8.jpg" alt="storage"></p>
+<p>6.添加标签，不添加任何标签的话，系统会维持默认</p>
+<p><img src="/image/aws/9.jpg" alt="tag"></p>
+<p>7.<strong>关键</strong> ：安全组定义了访问的权限，而且对不同的协议分别编组。这里我们需要设置的是 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SSH">SSH</a> 和 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP(S)</a>。重点内容是「来源」，它可以限制哪些IP才能访问，譬如说 SSH 这一项我们选择「我的IP」，那么就意味着只有当前访问这个页面的IP才可以成功建立 SSH 连接。可以根据自己的需要自行配置</p>
+<p><img src="/image/aws/10.jpg" alt="security group"></p>
+<p>8.建立自己的密钥对将来可以 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SSH">SSH</a> 用，这个务必保管好</p>
+<p><img src="/image/aws/11.jpg" alt="key"></p>
+<p>9.启动EC2</p>
+<p><img src="/image/aws/12.jpg" alt="Launch"></p>
+<h3 id="测试EC2"><a href="#测试EC2" class="headerlink" title="测试EC2"></a>测试EC2</h3><p>根据指示，远程连接。</p>
+<p><img src="/image/aws/14.jpg" alt="SSH introduction"></p>
+<p><img src="/image/aws/15.jpg" alt="SSH"></p>
+<h3 id="其他、官方文档"><a href="#其他、官方文档" class="headerlink" title="其他、官方文档"></a>其他、官方文档</h3><ul>
+<li><p>如果想绑定域名，则需要配置「弹性IP」服务</p>
+</li>
+<li><p>如果想使用弹性负载均衡，则要在不同的子网中启动多个实例，然后配置均衡器</p>
+</li>
+<li><p>前面配置EC2的第7步配置安全组中，我们在主面板可以看到「入站」「出站」两个标签，这两个标签可以分别让我们去配置入站和出站规则。比如，你可以入站<strong>配置</strong> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a> ，同时出站<strong>限制</strong> <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP</a>，然后自己开启一个 Web Server 随便跑一个有外链的简单站点试试有什么效果</p>
+</li>
+</ul>
+<p><img src="/image/aws/13.jpg" alt="security group"></p>
+<ul>
+<li>官方提供了很多<a target="_blank" rel="noopener" href="https://amazonaws-china.com/cn/getting-started/use-cases/">文档</a>帮助建立相应的服务，包括了很多常见的用例，可以自行查阅</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2017/10/29/aws-intro/" data-id="cktfacb2l002xmxdx2f4f5pw7" data-title="AWS初上手指南" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2017/10/29/aws-intro/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EC2/" rel="tag">EC2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cloud-service/" rel="tag">cloud service</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/23/new3webbrowser/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Mac环境之浏览器三分天下
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/08/20/aws-lambda/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">λ计划 - Haskell 实现 Hacker News</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 Zhen Yi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <br>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">用户访问: <span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+      <span class="site-pv">本站访问: <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com" class="mobile-nav-link">λ</a>
+  
+    <a href="/lab" class="mobile-nav-link">About</a>
+  
+    <a target="_blank" rel="noopener" href="https://resume.izhen.me" class="mobile-nav-link">Resume</a>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/i-zhen" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'izhen';
+  
+  var disqus_url = 'https://izhen.me/2017/10/29/aws-intro/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

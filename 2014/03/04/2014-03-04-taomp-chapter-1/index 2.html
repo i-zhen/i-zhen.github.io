@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>TAOMP第一章题目选解 | Z.Y. ☯ Cosmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="问题概述1习题4：假设你是最近被捕的P个囚犯之一。监狱长是个疯狂的计算机科学家，他给出了以下启示：  你们今天可以在一起商定一个策略，但是从今天以后，你们将会被隔开关在不同的房间，相互间无法再进行交流。 我们建造了一种“开关房间”，里面有一个灯开关，这个开关只能为开和关，且没有和任何东西相连。 我将不时地从你们中间随机选择一位到“开关房间”里来。这名囚犯可以拨动开关（从开到关、或相反），也可保持开">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TAOMP第一章题目选解">
+<meta property="og:url" content="https://izhen.me/2014/03/04/2014-03-04-taomp-chapter-1/index.html">
+<meta property="og:site_name" content="Z.Y. ☯ Cosmos">
+<meta property="og:description" content="问题概述1习题4：假设你是最近被捕的P个囚犯之一。监狱长是个疯狂的计算机科学家，他给出了以下启示：  你们今天可以在一起商定一个策略，但是从今天以后，你们将会被隔开关在不同的房间，相互间无法再进行交流。 我们建造了一种“开关房间”，里面有一个灯开关，这个开关只能为开和关，且没有和任何东西相连。 我将不时地从你们中间随机选择一位到“开关房间”里来。这名囚犯可以拨动开关（从开到关、或相反），也可保持开">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2014-03-04T10:24:44.000Z">
+<meta property="article:modified_time" content="2016-08-14T01:49:36.000Z">
+<meta property="article:author" content="Zhen Yi">
+<meta property="article:tag" content="TAOMP">
+<meta property="article:tag" content="logic">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@soczhenyi">
+  
+    <link rel="alternate" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Z.Y. ☯ Cosmos</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Powered by Disqus, scientific surfing for access</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com">λ</a>
+        
+          <a class="main-nav-link" href="/lab">About</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://resume.izhen.me">Resume</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://github.com/i-zhen">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://izhen.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2014-03-04-taomp-chapter-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2014/03/04/2014-03-04-taomp-chapter-1/" class="article-date">
+  <time class="dt-published" datetime="2014-03-04T10:24:44.000Z" itemprop="datePublished">2014-03-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Solve/">Solve</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      TAOMP第一章题目选解
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="问题概述1"><a href="#问题概述1" class="headerlink" title="问题概述1"></a>问题概述1</h3><p>习题4：假设你是最近被捕的P个囚犯之一。监狱长是个疯狂的计算机科学家，他给出了以下启示：</p>
+<ol>
+<li>你们今天可以在一起商定一个策略，但是从今天以后，你们将会被隔开关在不同的房间，相互间无法再进行交流。</li>
+<li>我们建造了一种“开关房间”，里面有一个灯开关，这个开关只能为开和关，且没有和任何东西相连。</li>
+<li>我将不时地从你们中间随机选择一位到“开关房间”里来。这名囚犯可以拨动开关（从开到关、或相反），也可保持开关的状态不变。其他人这时都不能进入房间。</li>
+<li>每一名囚犯都将任意多次地进入开关房间。更确切地说，对于任意的N，你们中得每个人最终都至少进入这个房间N次。</li>
+<li>任何时刻，任意一名囚犯都可以宣布：“我们所有的人都已经至少到过开关房间一次了。”如果该断言是对的，我将释放你们。如果错了，我就把你们全都送去喂鳄鱼。谨慎抉择吧！<span id="more"></span>
+提示：所有的囚犯不必做相同的动作。</li>
+</ol>
+<ul>
+<li>在开关初始状态为<em>关</em>的情况下，设计一个可以成功取胜的策略。</li>
+<li>在不知道开关初始状态的情况下，设计一个可以成功取胜的策略。</li>
+</ul>
+<h3 id="问题分析1"><a href="#问题分析1" class="headerlink" title="问题分析1"></a>问题分析1</h3><p>首先，我们每个人之间不能通信，因此“开关房间”是我们获取信息的唯一方法。而且能获取的信息只有开关的状态。提示指出了，每个囚犯做出的动作可以是非对称的。这样如果有一个人专门负责计数，其他人有统一的搬动开关的协议，这个问题是不难解决的。</p>
+<h3 id="问题解答1"><a href="#问题解答1" class="headerlink" title="问题解答1"></a>问题解答1</h3><p>假设：依据条件4，每个囚犯有无穷多的机会进入房间，所以囚犯有无限长的寿命；每个囚犯呆在开关房中的时间有限；每个囚犯去开关房的间隔时间有限；计算机科学家寿命无限；囚犯只要没被喂鳄鱼就可以无限生存，不会生病等；开关房没有任何陷阱，不会出任何故障；开关不会损坏。</p>
+<p>解答：</p>
+<ul>
+<li>如果初始状态是关，对囚犯编号为1~N(N &gt; 1, N是正整数)。<ul>
+<li>1号囚犯每次进入房间时先观察开关，如果是关，不做任何事，否则心中的计数器自加1(初始为0)，并且反转开关状态。</li>
+<li>2到N号囚犯每次进入房间，先观察开关状态，如果是关则打开，<strong>并且只能打开一次</strong>。如果曾执行过此操作，以后一概不执行。如果是开，则不动。</li>
+<li>当1号囚犯的计数器累计到(N - 1)时就可以对着计算机科学家大喊“我们所有的人都已经至少到过开关房间一次了”</li>
+</ul>
+</li>
+<li>如果初始状态不确定时<ul>
+<li>当初始状态为关时，使用第一种方案可行。</li>
+<li>当初时状态为开时，使用第一种方案可能会漏数一个人，所有人可能会被喂鳄鱼。<ul>
+<li>如果已经数到了(N - 1)时，有两种可能：(a)所有人都到达过房间至少一次，有一人因为发现开关是开什么都没做就走了。(b)有一个人没到过房间，因为初始状态按照上述协议被计算了。</li>
+<li>如果已经数到了(N - 1)时，假设还有一个始终未进入房间(初始的开状态被计数)。这个时候让负责计数的1号囚犯外所有囚犯重新获得一次搬动开关的机会，搬动协议如上述方案。而且可以得知此时开关状态一定是关闭状态。</li>
+<li>上述假设始终未进入房间的人仍然未进入房间且其他人都进过时，1号所得总计数应当是 (N - 1) + (N - 2) = (2N - 3)，而这时如果此人进入一次则是 (2N - 2)。</li>
+<li>所以，每个人有两次机会将开关由关改为开，并且计数器至少是(2N - 2)时才可断言“我们所有的人都已经至少到过开关房间一次了”。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="问题概述2"><a href="#问题概述2" class="headerlink" title="问题概述2"></a>问题概述2</h3><p>习题5：上题中监狱长又有了另外一个想法。他命令囚犯们站成一排，每个人都戴着一顶红色或蓝色的帽子。没有人知道自己所戴帽子的颜色，也不知道他后面所有人帽子的颜色，但能看见前面所有人帽子的颜色。监狱长从队伍的后面开始询问每个囚犯，让他们猜测自己帽子的颜色。囚犯们自能回答“红色”或“蓝色”。如果他答错了，就会被送去喂鳄鱼。如果他答对了，则会被释放。每个囚犯都能听到后面所有人得回答，但不知道答案是否正确。</p>
+<p>囚犯们在站队之前可以商讨一个策略（监狱长是听着的）。一旦站好队后，每个人除了能回答“红色”或“蓝色”以外，再也不能以其他任何方式进行交流。</p>
+<p>设计一个能够保证P个囚犯中至少有(P - 1)个会被释放的策略。</p>
+<h3 id="问题分析2"><a href="#问题分析2" class="headerlink" title="问题分析2"></a>问题分析2</h3><p>这里可以根据题目要求“P个囚犯中至少有(P - 1)个会被释放”小小的Hack一下。也就是说有一个人可以不保证他的死活，那么这个人将是其他人获救的关键。显然，如果这个人起到了作用，很大概率他就是站在最后一个位置的人。</p>
+<h3 id="问题解答2"><a href="#问题解答2" class="headerlink" title="问题解答2"></a>问题解答2</h3><p>假设：那个不在乎生死的人的确大公无私，将自己的生死置之度外，并不会与其他人发生矛盾、背叛等。</p>
+<p>解答：我们知道当前需要报出颜色的人的答案会全局广播，这是很重要的，也就是我们后面每个人都可以知道以前的人的帽子颜色。在当前的情境下，我们肯定能够得到的消息是：每个人眼前所有的囚犯的红色帽子数目及位置、蓝色帽子数目及位置、奇偶性。那么假设我能够解决这个问题，那么选择第一个人自我牺牲，从第二个人开始他们说的都会是对的。这样其实我也能得知从第二个到当前某个人身后的所有信息，因为说出红或蓝时会全局广播。这就够了。</p>
+<p>第一个人首先要知道前面所有人中红色帽子的个数，如果红色帽子有奇数个就说“红色”，否则就说蓝色。</p>
+<p>假设第一个人说了“红色”：</p>
+<ul>
+<li>这时候，第2个人如果是红色帽子会看到前方有偶数个红色的帽子，他一定会说红色。反之肯定会说蓝色，因为除了自己外一共有有奇数个红色，自己要是红色，第一个人就一定不会说红色，会产生矛盾。</li>
+<li>而从第3个人(假设有第3个人)开始，都会知道第2个开始到他自己之前的人头顶上是什么颜色的帽子，并且可以统计红色帽子的奇偶性，可以推出如下协议：<ul>
+<li>如果自己前面有偶数个红帽，自己之后也有偶数个红帽，自己就是红帽。</li>
+<li>如果自己前面有奇数个红帽，自己之后也有奇数个红帽，自己就是红帽。</li>
+<li>如果自己前面有奇数个红帽，自己之后也有偶数个红帽，自己就是蓝帽。</li>
+<li>如果自己前面有偶数个红帽，自己之后也有奇数个红帽，自己就是蓝帽。</li>
+</ul>
+</li>
+</ul>
+<p>假设第一个人说了“蓝色”：</p>
+<ul>
+<li>那么，规则全部与上述相反。第二个人如果看到有奇数个帽子才会说红色，反之就是蓝帽。<ul>
+<li>如果自己前面有偶数个红帽，自己之后也有偶数个红帽，自己就是蓝帽。</li>
+<li>如果自己前面有奇数个红帽，自己之后也有奇数个红帽，自己就是蓝帽。</li>
+<li>如果自己前面有奇数个红帽，自己之后也有偶数个红帽，自己就是红帽。</li>
+<li>如果自己前面有偶数个红帽，自己之后也有奇数个红帽，自己就是红帽。</li>
+</ul>
+</li>
+</ul>
+<p>然而，第一个人则要碰碰运气，理论上他有50%的概率被喂鳄鱼或者50%的概率重获新生，人民会记住他的。(END)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2014/03/04/2014-03-04-taomp-chapter-1/" data-id="cktfacb1l0008mxdx8ez0d08t" data-title="TAOMP第一章题目选解" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2014/03/04/2014-03-04-taomp-chapter-1/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TAOMP/" rel="tag">TAOMP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/logic/" rel="tag">logic</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/03/07/2014-03-07-my-mac-software-list/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MAC OS X 常用软件分享
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/03/03/2014-03-03-cache-optimize-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">CPU缓存命中优化之循环交换</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 Zhen Yi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <br>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">用户访问: <span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+      <span class="site-pv">本站访问: <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com" class="mobile-nav-link">λ</a>
+  
+    <a href="/lab" class="mobile-nav-link">About</a>
+  
+    <a target="_blank" rel="noopener" href="https://resume.izhen.me" class="mobile-nav-link">Resume</a>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/i-zhen" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'izhen';
+  
+  var disqus_url = 'https://izhen.me/2014/03/04/2014-03-04-taomp-chapter-1/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

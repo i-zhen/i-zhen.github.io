@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>编程珠玑第四章探讨 | Z.Y. ☯ Cosmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="首先，本章中再次提及了TAOCP，可以说已经是一章提一次的节奏了，作者这么热衷于提到本书还是有一定道理的，详尽的数学证明让我们有值得一读的必要。第四章的主题是如何证明自己的程序是正确的，这是一个比较困难的问题，尤其是逻辑复杂的代码，对于不同的程序周期作者都针对性的提出了不同的方法和原理。比如二分搜索的停机证明，然后对于函数，作者介绍了重要的「契约编程」。其中还谈到了心理问题：「困难」的部分第一次就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编程珠玑第四章探讨">
+<meta property="og:url" content="https://izhen.me/2014/11/13/ProgrammingPearlsCh4/index.html">
+<meta property="og:site_name" content="Z.Y. ☯ Cosmos">
+<meta property="og:description" content="首先，本章中再次提及了TAOCP，可以说已经是一章提一次的节奏了，作者这么热衷于提到本书还是有一定道理的，详尽的数学证明让我们有值得一读的必要。第四章的主题是如何证明自己的程序是正确的，这是一个比较困难的问题，尤其是逻辑复杂的代码，对于不同的程序周期作者都针对性的提出了不同的方法和原理。比如二分搜索的停机证明，然后对于函数，作者介绍了重要的「契约编程」。其中还谈到了心理问题：「困难」的部分第一次就">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2014-11-13T11:56:04.000Z">
+<meta property="article:modified_time" content="2016-08-14T01:52:54.000Z">
+<meta property="article:author" content="Zhen Yi">
+<meta property="article:tag" content="契约编程">
+<meta property="article:tag" content="验证">
+<meta property="article:tag" content="断言">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@soczhenyi">
+  
+    <link rel="alternate" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Z.Y. ☯ Cosmos</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Powered by Disqus, scientific surfing for access</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com">λ</a>
+        
+          <a class="main-nav-link" href="/lab">About</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://resume.izhen.me">Resume</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://github.com/i-zhen">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://izhen.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-ProgrammingPearlsCh4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2014/11/13/ProgrammingPearlsCh4/" class="article-date">
+  <time class="dt-published" datetime="2014-11-13T11:56:04.000Z" itemprop="datePublished">2014-11-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Solve/">Solve</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      编程珠玑第四章探讨
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>首先，本章中再次提及了<a target="_blank" rel="noopener" href="http://www.amazon.cn/The-Art-of-Computer-Programming-Volumes-1-4a-Knuth-Donald-E/dp/0321751043/ref=sr_1_5?ie=UTF8&qid=1415971810&sr=8-5&keywords=taocp">TAOCP</a>，可以说已经是一章提一次的节奏了，作者这么热衷于提到本书还是有一定道理的，详尽的数学证明让我们有值得一读的必要。第四章的主题是如何证明自己的程序是正确的，这是一个比较困难的问题，尤其是逻辑复杂的代码，对于不同的程序周期作者都针对性的提出了不同的方法和原理。比如二分搜索的停机证明，然后对于函数，作者介绍了重要的「契约编程」。其中还谈到了心理问题：「困难」的部分第一次就可以正确运行，而那些「容易」的部分往往会出毛病。所以呢，作者也鼓励使用验证技术开发。觉得本章最重要的应当就是对循环不变式的理解。</p>
+<span id="more"></span>
+
+<h3 id="问题探讨"><a href="#问题探讨" class="headerlink" title="问题探讨"></a>问题探讨</h3><p>2.因为返回的是第一个位置，所以思路是如果找到并且尚有未检查的区间，那么要再次深入迭代。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">left = <span class="number">-1</span>;</span><br><span class="line">right = n; <span class="comment">// 数组长度为n</span></span><br><span class="line"><span class="keyword">while</span>(left + <span class="number">1</span> != right)&#123;</span><br><span class="line">    mid = (left + right) / <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(num[mid] &lt; target)</span><br><span class="line">        left = mid;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        right = mid; <span class="comment">// ‘&lt;=‘ 只要 left + 1 != right 会一直迭代 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.只要可以验证计时程序运行是正确的，那么就可以证明运行时间确实是对数的。参考第五章。</p>
+<p>6.每次都会减少一颗豆子，所以只要证明程序是正确运行的，则一定会终止。第二问的意思是每次减少的豆子因为不是两个白就是0个白，所以白色的豆子在初始时是偶数的，那么最后一定是个黑色的豆子；反之，是白色的。</p>
+<p>7.线段已经有序，利用习题2的思路，我们可以先找到一条线段，判断其是上面、下面还是线段上。</p>
+<p>9.(1)首先应当证明每一次的操作能够得到当前一步想要的结果，然后因为i是递增的，且每次都加1，所以从0开始直到最后计算结束，n个维度都得到了相加。且i每次都递增，所以一定会结束。</p>
+<p>(2)一开始max是数组第一个数字，在循环中，数组中第i个数字会与max比较，如果比max大就更新，另一方面0到i-1也已经比较完了。i从1开始，每次比较后i都会增加1，所以循环会结束，数组中的数字也都会与max比较，从而得到正确的最大值。</p>
+<p>(3)循环中每次i都会自增1，所以循环一定会终止。如果i超过了范围会终止，如果找到了也会终止。因为i是从0开始顺序递增的，所以如果找到了，那么一定是第一个，程序因此是正确的。</p>
+<p>(4)每次如果满足条件递归下去，那么递归的定义域会一直缩小。要么减一，要么除以2，而且程序中给定了边界条件。每次递归的结果都是上一层需要的，所以程序可以结束且能得到正确答案。</p>
+<h3 id="摘录"><a href="#摘录" class="headerlink" title="摘录"></a>摘录</h3><ul>
+<li>初始化。循环初次执行的时候不变式为真。</li>
+<li>保持。如果在某次迭代开始的时候以及循环体执行的时候，不变式都为真，那么，循环体执行完毕的时候不变时依然为真。</li>
+<li>终止。循环能够终止，并且可以得到期望的结果(在本例中，期望的结果是p得到正确的值)。为说明这一点需要用到不变时所确立的事实。</li>
+</ul>
+<p>……</p>
+<p>如果在前置条件满足的情况下调用函数，那么函数的执行将确立后置条件。一旦证明函数体具有该性质，在以后的应用中就可以直接使用前置条件和后置条件之间的关系而不再需要考虑其实现。该方法在软件开发中通常称为「契约编程」。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2014/11/13/ProgrammingPearlsCh4/" data-id="cktfacb290020mxdx7nvf94bc" data-title="编程珠玑第四章探讨" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2014/11/13/ProgrammingPearlsCh4/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A5%91%E7%BA%A6%E7%BC%96%E7%A8%8B/" rel="tag">契约编程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%AD%E8%A8%80/" rel="tag">断言</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%AA%8C%E8%AF%81/" rel="tag">验证</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/11/18/ProgrammingPearlsCh5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          编程珠玑第五章探讨
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/11/11/ProgrammingPearlsCh3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">编程珠玑第三章探讨</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 Zhen Yi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <br>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">用户访问: <span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+      <span class="site-pv">本站访问: <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a target="_blank" rel="noopener" href="http://ec2-13-231-164-97.ap-northeast-1.compute.amazonaws.com" class="mobile-nav-link">λ</a>
+  
+    <a href="/lab" class="mobile-nav-link">About</a>
+  
+    <a target="_blank" rel="noopener" href="https://resume.izhen.me" class="mobile-nav-link">Resume</a>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/i-zhen" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'izhen';
+  
+  var disqus_url = 'https://izhen.me/2014/11/13/ProgrammingPearlsCh4/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
