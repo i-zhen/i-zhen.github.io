@@ -84,6 +84,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-migration" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2011/06/28/migration/" class="article-date">
+  <time class="dt-published" datetime="2011-06-28T07:07:43.000Z" itemprop="datePublished">2011-06-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Blog/">Blog</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2011/06/28/migration/">好了，履行了约定移植完成</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>主要是把我原来的博客（百度空间）上的一些还好的解题报告给移植了过来。</p>
+        
+          <p class="article-more-link">
+            <a href="/2011/06/28/migration/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2011/06/28/migration/" data-id="cktfbroi7005ft8dxfik9a4h0" data-title="好了，履行了约定移植完成" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2011/06/28/migration/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-about_me" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2011/06/18/about_me/" class="article-date">
@@ -548,64 +599,11 @@
 
 
   
-    <article id="post-poj2299" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2010/02/23/poj2299/" class="article-date">
-  <time class="dt-published" datetime="2010-02-22T21:38:37.000Z" itemprop="datePublished">2010-02-23</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Solve/">Solve</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2010/02/23/poj2299/">POJ2299树状数组</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>求逆序对，这类问题解法很多，首先想想为何不直接快排然后统计交换次数。</p>
-<p>这里介绍一种树状数组的解法：因为数字本身很大，我们要进行一次离散化。离散化就是每个只要保存他们的相对位置即可，这样能极大压缩树状数组的空间从而避免MLE。<br>例如：2 4 1 10 可以被离散化为 2 3 1 4。</p>
-<p>先对一个镜像数列排序，之后从有序的数列中二分查找每个数组的位置，用位置替换原本的值即可，离散化时间复杂度：O(NlogN)。<br>之后顺理成章的用树状数组统计即可。</p>
-        
-          <p class="article-more-link">
-            <a href="/2010/02/23/poj2299/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://izhen.me/2010/02/23/poj2299/" data-id="cktfbroin006zt8dxfqd820kf" data-title="POJ2299树状数组" class="article-share-link">Share</a>
-      
-        <a href="https://izhen.me/2010/02/23/poj2299/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" rel="tag">树状数组</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/8/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/10/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/8/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/10/">Next &raquo;</a>
   </nav>
 
 </section>
