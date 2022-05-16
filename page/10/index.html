@@ -84,6 +84,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-usaco_341" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2010/02/25/usaco_341/" class="article-date">
+  <time class="dt-published" datetime="2010-02-25T15:39:27.000Z" itemprop="datePublished">2010-02-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Solve/">Solve</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2010/02/25/usaco_341/">USACO 3.4.1 Fence</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>第一个计算几何问题，计算几何问题必须要“踏踏实实”的来，但是也有优化。对于本题目，我使用的是2分法。(我只想到了这个方法，听说还有强大的类似线段树的方法)。首先第一问：使用叉积判断任意两条线段是否绝对相交，若有则输出“NOFENCE”并结束。重点是第二问。观察下图。我们可以很清楚的知道，如果一条线段可以被观察到，他的视野一定不为0，因此，我们只要先找到待观察线段的中点，并与观察点连线就能得到一条新的线段(中位线)。并用新的线段与其它所有线段进行绝对相交判断。同时还要考虑非绝对相交，被点挡住的情况。如果有中位线满足不与所有点相交，那么他一定可以被看到。否则2分。边界条件是两个端点挨在一起了，说明没有满足。这时就要考虑控制精度了。一旦精度过高就会超时。反之就会漏解。(0.005就不错(^o^))具体的实现请看程序。</p>
+<p>提一句输出：我们按顺序2分，这样在输出序列里的就是有序的，只是当最后的结点坐标一样时要按输入文件的顺序输出。而只有当第(N-1)与第N个同时要输出时才会不满足(至于为什么不多作解释)。这时先输出N，再输出(N-1)</p>
+        
+          <p class="article-more-link">
+            <a href="/2010/02/25/usaco_341/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2010/02/25/usaco_341/" data-id="cktfbroiy0081t8dx504t2y82" data-title="USACO 3.4.1 Fence" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2010/02/25/usaco_341/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/" rel="tag">计算几何</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-poj2299" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2010/02/23/poj2299/" class="article-date">
@@ -547,57 +599,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Treap/" rel="tag">Treap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-usaco_243" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2010/01/01/usaco_243/" class="article-date">
-  <time class="dt-published" datetime="2010-01-01T15:39:27.000Z" itemprop="datePublished">2010-01-01</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Solve/">Solve</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2010/01/01/usaco_243/">USACO 2.3.3 Cowtour</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>这道题目是图论问题，首先用floyd求出每对点的最短路，然后再找出单独每个点的可连接的最远的点(直径)，接下来就是计算两个分离牧区的直径。首先遍历所有不连通的点对，然后用这两点的距离加上两点原来的直径。如果更小，则更新直到结束。<br>但是还有一种特殊情况：“包含”。如果一个牧场恰好包含另一个，且大的牧场直径比计算出的要长一些，则结果应该是更大的那个才对。(参考图片：红色表示最终连接的结果，蓝色表示大牧场的直径，显然蓝色的才正确)</p>
-        
-          <p class="article-more-link">
-            <a href="/2010/01/01/usaco_243/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://izhen.me/2010/01/01/usaco_243/" data-id="cktfbroix007tt8dxdzca6gnr" data-title="USACO 2.3.3 Cowtour" class="article-share-link">Share</a>
-      
-        <a href="https://izhen.me/2010/01/01/usaco_243/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Floyd/" rel="tag">Floyd</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li></ul>
 
     </footer>
   </div>

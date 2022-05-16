@@ -84,6 +84,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2014-04-20-asc-2014-pre" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2014/04/20/2014-04-20-asc-2014-pre/" class="article-date">
+  <time class="dt-published" datetime="2014-04-19T16:06:04.000Z" itemprop="datePublished">2014-04-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Blog/">Blog</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2014/04/20/2014-04-20-asc-2014-pre/">ASC2014世界大学生超级计算机竞赛</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>这个竞赛目前还是一个相对小众的竞赛。而且，因为其独特的竞赛准备条件——首先你得有一套高性能计算集群——我认为这个比赛短时间内不会发展成学科竞赛那样的大型竞赛项目，尤其是有着大学生的奥运会之称的ACM-ICPC这种比赛。</p>
+<p>但是个人觉得，大学生超算大赛比较类似于F1。每个队伍都有一套自己的集群，但是集群总功耗不能超过3000W(方程式)，可以携带加速卡(Tesla/MIC)，这样一来与F1颇有几分相似。每支队伍都有自己的赛车(小型集群)，比赛不是一场定胜负，而是有很多场，每一个单独项目都有单设的冠军；这就好比F1的分站冠军，最终还有一个总冠军。</p>
+        
+          <p class="article-more-link">
+            <a href="/2014/04/20/2014-04-20-asc-2014-pre/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2014/04/20/2014-04-20-asc-2014-pre/" data-id="cktfbrogt000ht8dxfs0g32lk" data-title="ASC2014世界大学生超级计算机竞赛" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2014/04/20/2014-04-20-asc-2014-pre/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/asc/" rel="tag">asc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/contest/" rel="tag">contest</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/parallel/" rel="tag">parallel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/speedup/" rel="tag">speedup</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-ASC14" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2014/04/12/ASC14/" class="article-date">
@@ -563,63 +615,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/" rel="tag">USACO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-usaco_544" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2013/05/21/usaco_544/" class="article-date">
-  <time class="dt-published" datetime="2013-05-20T21:39:37.000Z" itemprop="datePublished">2013-05-21</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Solve/">Solve</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2013/05/21/usaco_544/">USACO 5.4.4 Betsy</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>问题的本质是求所有的可能的哈密顿路径的情况，可以使用DFS+剪枝求解。<br>本问题的考点也是剪枝，有以下两种情况：</p>
-<ol>
-<li><p>孤立区域的形成:<br>如图所示，孤立区域也就是被划分成了两个域的情况，这个时候无论走哪个区域另一个区域都无法访问，那么一个剪枝就可以是判断当前有无孤立区域的形成，这个产生条件比较多，有一种基本情况就是如果当前点上下（包括边界）被访问过了，而左右没被访问则必产生孤立，另一个情况则正好相反。理由是当前点上下如果被访问了，而这两个访问过的点都是由起点走过来的，也就是都连通到起点，意义就是这两个点本身是连通的。我们不能穿过被访问过的路径走交叉路线，所以说这样无论走哪里都会被包住再也出不来了。这是一个情况。</p>
-</li>
-<li><p>进入死胡同:<br>我们考虑类似围棋中的气，每个格子不需要一进一出，也就是至少有两个度，如果只有一个度则走进去后就再也出不来了，我们不必要碰到度为一的点再去回溯。而是一开始就避免度为一的点产生。剪枝方式是：除去起点和终点外如果当前点的周围未被访问的格子中有度为一的点(也就是连通到另外一个未被访问的格子)，那么这个点必须要访问，理由是这个点如果被访问，就相当于他的一个入度被利用了，如果不访问则就浪费掉了。浪费之后他的度为1，以后则会只进不出。因此必须要访问，所以可以推出另一个关于度的剪枝，如果存在两个以上的度为1的点则回溯，因为不能两个同时都选，选了一个，另一个必然是死胡同。</p>
-</li>
-</ol>
-        
-          <p class="article-more-link">
-            <a href="/2013/05/21/usaco_544/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://izhen.me/2013/05/21/usaco_544/" data-id="cktfbroj00088t8dx9yej592u" data-title="USACO 5.4.4 Betsy" class="article-share-link">Share</a>
-      
-        <a href="https://izhen.me/2013/05/21/usaco_544/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DFS/" rel="tag">DFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/" rel="tag">USACO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%AA%E6%9E%9D/" rel="tag">剪枝</a></li></ul>
 
     </footer>
   </div>
