@@ -84,6 +84,62 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-noi2003" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2010/03/01/noi2003/" class="article-date">
+  <time class="dt-published" datetime="2010-02-28T21:38:37.000Z" itemprop="datePublished">2010-03-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Solve/">Solve</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2010/03/01/noi2003/">NOI2003木棒游戏</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>我是使用朴素的方法做的(高深的我不会)，首先找到火柴棒间的对应关系，比如移动一根火柴可以将8变为0，等等，然后分为两种情况枚举：</p>
+<ol>
+<li>本身变动</li>
+<li>两个数字一起变动</li>
+</ol>
+<p>当然这样枚举必定要TLE，所以先把整个式子提取出来(所以程序很长 ,其实后来我也有点看不懂了。。。)，这样变动数字进行计算的时候就不用每次把整个式子都算了</p>
+        
+          <p class="article-more-link">
+            <a href="/2010/03/01/noi2003/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2010/03/01/noi2003/" data-id="cktfbroic005xt8dxetmndawi" data-title="NOI2003木棒游戏" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2010/03/01/noi2003/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E9%A2%98/" rel="tag">代码题</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-usaco_341" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2010/02/25/usaco_341/" class="article-date">
@@ -548,57 +604,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9F%A9%E5%BD%A2%E5%88%87%E5%89%B2/" rel="tag">矩形切割</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-noi2007" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2010/01/04/noi2007/" class="article-date">
-  <time class="dt-published" datetime="2010-01-03T21:38:37.000Z" itemprop="datePublished">2010-01-04</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Solve/">Solve</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2010/01/04/noi2007/">NOI2004郁闷的出纳员</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>这是一道考察数据结构的题目，理论上使用静态的会更好，不见得动态的就快，但是我是使用Treap AC的。原理很简单，就是需要额外再用一个delta来记录差量，避免Treap退化，所以在加入一个节点时 ，要减去这个差量，最后输出时加上即可。然后’S’、’A’操作只改变delta，剩下的就是实现了。</p>
-        
-          <p class="article-more-link">
-            <a href="/2010/01/04/noi2007/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://izhen.me/2010/01/04/noi2007/" data-id="cktfbroif0063t8dxdc8d5al9" data-title="NOI2004郁闷的出纳员" class="article-share-link">Share</a>
-      
-        <a href="https://izhen.me/2010/01/04/noi2007/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Treap/" rel="tag">Treap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B9%B3%E8%A1%A1%E6%A0%91/" rel="tag">平衡树</a></li></ul>
 
     </footer>
   </div>

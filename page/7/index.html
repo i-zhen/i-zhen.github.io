@@ -84,6 +84,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2014-05-12-gdcpc2014" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2014/05/12/2014-05-12-gdcpc2014/" class="article-date">
+  <time class="dt-published" datetime="2014-05-11T16:18:57.000Z" itemprop="datePublished">2014-05-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Blog/">Blog</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2014/05/12/2014-05-12-gdcpc2014/">2014 ACM-ICPC China GDCPC</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="大赛的情况"><a href="#大赛的情况" class="headerlink" title="大赛的情况"></a>大赛的情况</h3><p>今年的比赛是本个竞赛史上最惨烈的一次了。没有队伍的过题数超过一半，但是其实总体比赛的难度不是特别大。好多DP，搜索也好，数学题也好，模型都是裸的。</p>
+        
+          <p class="article-more-link">
+            <a href="/2014/05/12/2014-05-12-gdcpc2014/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2014/05/12/2014-05-12-gdcpc2014/" data-id="cktfbrogu000jt8dx540dhovd" data-title="2014 ACM-ICPC China GDCPC" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2014/05/12/2014-05-12-gdcpc2014/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ACM-ICPC/" rel="tag">ACM-ICPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9C%81%E8%B5%9B/" rel="tag">省赛</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-2014-04-20-asc-2014-pre" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2014/04/20/2014-04-20-asc-2014-pre/" class="article-date">
@@ -561,60 +612,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" rel="tag">运算符重载</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/" rel="tag">高精度</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-usaco_551" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2013/05/24/usaco_551/" class="article-date">
-  <time class="dt-published" datetime="2013-05-23T21:39:37.000Z" itemprop="datePublished">2013-05-24</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Solve/">Solve</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2013/05/24/usaco_551/">USACO 5.5.1 Picture</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>其实边界需要统计的是上下左右4个方向没有被覆盖到的边长的总和。这个问题的难点是怎样使得需要判断检索重叠的复杂度尽量小，我们先简化问题，假设所有矩形都是A情况的，也就是宽度都一样并且垂直排列，这样的话我们就将矩形的情况分为不相交，交叠，包含几种情况。先从横向的边开始看，如图所示，如果只考虑蓝色和浅绿色这两个矩形因为没有任何与其相交的其他矩形，直接统计横向边长，然而交叠和包含要怎么办呢。如图红色和黄色的矩形有橙色的部分，那么也就是说我们只用统计红色的上边长和黄色的下边长了。而浅蓝色和紫色的关系也是类似只用统计紫色的两个边。</p>
-<p>从这里我们得到一些启发，假设所有边长都是1个单位长度，显然我们只是统计一个覆盖域的上下两个边界，那么这从抽象意义上很类似括号匹配的问题，下面的这些矩形块可以抽象成<font color=aqua >()</font><font color=lime >()</font><font color=red >(</font><font color=yellow >(</font><font color=red >)</font><font color=yellow >)</font><font color=purple >(</font><font color=blue >()</font><font color=purple >)</font>注意观察它们的特点，可以发现跟真实的配对没有关系，也就是()()(())(())，我们用一个栈依次压入括号，每次出现()的配对就出栈。然后要统计这些，当压入后(且栈只有这一个元素)时计数器加一，当弹出元素后栈空时计数器加一。这样我们就相当于统计出了所有的该纳入计算的边界，由这个思考点出发，我们要对所有的矩形边进行离散化，同时要区别上下边界，抽象成“左右括号”。这个时候有个细节，对于横向边我们按纵标排序，如果纵标一样谁在前？其实这也是交叠的一种情况，如果纵标一样，先要把左括号排在前，也就是如果我们按纵标由小到大排，下边界应在前，不然会使得周长变大。</p>
-<p>具体实现时我们看B图，因为配对不只是一种情况，而且坐标很大，这时候我们可以使用线段树来辅助数据结构的部分，需要横着纵着处理两次。也就是对于类似括号匹配中栈的操作，真正实现用的是线段树。</p>
-<p>这样本问题就解决了，算法是<strong>离散化+线段树</strong>。这个算法的正确性是我们已经排好了序，而且每个方向的边都是成对出现的。</p>
-        
-          <p class="article-more-link">
-            <a href="/2013/05/24/usaco_551/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://izhen.me/2013/05/24/usaco_551/" data-id="cktfbroj1008at8dxht1a6zag" data-title="USACO 5.5.1 Picture" class="article-share-link">Share</a>
-      
-        <a href="https://izhen.me/2013/05/24/usaco_551/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/USACO/" rel="tag">USACO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="tag">离散化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li></ul>
 
     </footer>
   </div>
