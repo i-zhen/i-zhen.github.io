@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   
   
-  <title>DApp一日通——web3.js、Truffle与React篇 | Z.Y. ☯ Cosmos</title>
+  <title>DApp一日通——web3.js、Truffle与Dfinity篇 | Z.Y. ☯ Cosmos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="本文在Truffle框架的基础上给出一个可快速上手DApp的教程，并非工业化流程，其中对于真实的生产环境做了大量的精简，仅保留最关键的几个部分，对于初学者足以了解一个DApp的开发工作流程，但是对于工业级生产则远远不够。这里仅作为一个入门来一窥DApp的基本概念。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DApp一日通——web3.js、Truffle与React篇">
+<meta property="og:title" content="DApp一日通——web3.js、Truffle与Dfinity篇">
 <meta property="og:url" content="https://izhen.me/2022/05/23/2022_DApp/index.html">
 <meta property="og:site_name" content="Z.Y. ☯ Cosmos">
 <meta property="og:description" content="本文在Truffle框架的基础上给出一个可快速上手DApp的教程，并非工业化流程，其中对于真实的生产环境做了大量的精简，仅保留最关键的几个部分，对于初学者足以了解一个DApp的开发工作流程，但是对于工业级生产则远远不够。这里仅作为一个入门来一窥DApp的基本概念。">
@@ -19,8 +19,9 @@
 <meta property="og:image" content="https://izhen.me/image/truffle/config.png">
 <meta property="og:image" content="https://izhen.me/image/truffle/web3js.png">
 <meta property="article:published_time" content="2022-05-23T12:53:47.000Z">
-<meta property="article:modified_time" content="2022-05-24T10:35:54.655Z">
+<meta property="article:modified_time" content="2022-05-25T14:11:01.892Z">
 <meta property="article:author" content="Zhen Yi">
+<meta property="article:tag" content="Haskell">
 <meta property="article:tag" content="web 3.0">
 <meta property="article:tag" content="Solidity">
 <meta property="article:tag" content="Truffle">
@@ -28,10 +29,8 @@
 <meta property="article:tag" content="DApp">
 <meta property="article:tag" content="x071">
 <meta property="article:tag" content="Geth">
-<meta property="article:tag" content="Metamask">
-<meta property="article:tag" content="Ganache">
 <meta property="article:tag" content="Ethereum">
-<meta property="article:tag" content="React">
+<meta property="article:tag" content="Dfinity">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://izhen.me/image/truffle/dapp.svg">
 <meta name="twitter:creator" content="@soczhenyi">
@@ -121,7 +120,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      DApp一日通——web3.js、Truffle与React篇
+      DApp一日通——web3.js、Truffle与Dfinity篇
     </h1>
   
 
@@ -134,17 +133,22 @@
 
 <h3 id="DApp基本技术栈"><a href="#DApp基本技术栈" class="headerlink" title="DApp基本技术栈"></a>DApp基本技术栈</h3><p>一个DApp和常规的App最大的区别就是存在与去中心的区块链进行合约交互的环节，在以太坊区块链上可以运行的App实际上就是指合约。一个仅有合约的应用架构显然是很局限的，所以所谓的DApp通常都不是纯粹的去中心，其开发体系与<code>web2</code>的应用基本无异，最大的不同除了链上合约调用外，服务端也成为了可选的部分。</p>
 <p><img src="/image/truffle/dapp.svg" alt="DApp Architecture"></p>
-<p>关键组件：</p>
+<p>关键组件:</p>
 <ol>
-<li>Web3 Provider：负责与区块链通信的角色，可以对合约进行调用。常见的包含：MetaMask、web3.js等</li>
-<li>Smart Contract：Ethereum Virtual Machine上运行的合约bytecode代码，提供图灵完备的计算能力，可以做信息储存、NFT资产发行等</li>
-<li>Relay：生产环境中真正负责与区块链交互的服务器集群，web3的XaaS；本地练习暂时不必要</li>
-<li>UI：DApp的关键组件，方便用户操作。就用React/Vue即可</li>
-<li>Server：不是必要的，比如Uniswap。对于特殊需要的，比如数据追踪，可以拉起一个后端做只读服务；另外，对于涉及到钱包登陆的DApp，为了安全性考虑也会将一些验证逻辑封装在后端</li>
-<li>(*)编程语言：Solidity，Rust，Go，JS Family(TypeScript)。性能够用的情况下，尽可能选用开发效率高的，人生苦短</li>
+<li>Web3 Provider: 负责与区块链通信的角色，可以对合约进行调用。常见的包含: MetaMask、web3.js等<ul>
+<li>Relay: Provider背后真正负责与区块链交互的服务器集群，web3的XaaS；本地练习暂时不必要 </li>
+</ul>
+</li>
+<li>Smart Contract: Ethereum Virtual Machine上运行的合约bytecode代码，提供图灵完备的计算能力，可以做信息储存、NFT资产发行、投票等<ul>
+<li>Oracle: 智能合约背后与外部世界建立联系的方式，简单说可以看成API，在链上通过Oracle Contract完成数据交互</li>
+</ul>
+</li>
+<li>UI: DApp的关键组件，方便用户操作。就用React/Vue即可</li>
+<li>Server: 不是必要的，比如Uniswap。对于特殊需要的，比如数据追踪，可以拉起一个后端做只读服务；另外，对于涉及到钱包登陆的DApp，为了安全性考虑也会将一些验证逻辑封装在后端</li>
+<li>web3常用编程语言: Solidity，Rust，Go，JS Family(TypeScript)。性能够用的情况下，尽可能选用开发效率高的，人生苦短，兵贵神速</li>
 </ol>
 <h3 id="安装与初始化本地Ethereum"><a href="#安装与初始化本地Ethereum" class="headerlink" title="安装与初始化本地Ethereum"></a>安装与初始化本地Ethereum</h3><p>我们首先要在本地搭建一个私有链进行测试用，也就是自动mining的区块链调试网络。使用<code>homebrew</code>安装以太坊，命令如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> brew tap ethereum/ethereum</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> brew install ethereum</span> </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> brew tap ethereum/ethereum</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> brew install ethereum</span></span><br></pre></td></tr></table></figure>
 
 <p>而后，我们需要在一个以太坊目录(用户自定)下，创建名为<code>genesis.json</code>的文件，并填写如下内容：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;config&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;chainId&quot;</span>: <span class="number">33</span>,</span><br><span class="line">    <span class="attr">&quot;homesteadBlock&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">&quot;eip150Block&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">&quot;eip155Block&quot;</span>: <span class="number">0</span>,</span><br><span class="line">    <span class="attr">&quot;eip158Block&quot;</span>: <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;nonce&quot;</span>: <span class="string">&quot;0x0000000000000033&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;timestamp&quot;</span>: <span class="string">&quot;0x0&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;parentHash&quot;</span>: <span class="string">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;gasLimit&quot;</span>: <span class="string">&quot;0x8000000&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;difficulty&quot;</span>: <span class="string">&quot;0x100&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;mixhash&quot;</span>: <span class="string">&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;coinbase&quot;</span>: <span class="string">&quot;0x3333333333333333333333333333333333333333&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;alloc&quot;</span>: &#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -196,26 +200,34 @@
 
 <p><img src="/image/truffle/web3js.png" alt="web3.js"></p>
 <p>以上，我们将DApp开发中最为核心的合约开发与部署，部署合约的前端交互等两个部分都讲解完了。</p>
-<h3 id="使用React框架与MetaMask结合"><a href="#使用React框架与MetaMask结合" class="headerlink" title="使用React框架与MetaMask结合"></a>使用React框架与MetaMask结合</h3><p>这个部分就是附加内容了，不作为重点。根据实际的场景需要，可以自行选择喜好的App开发框架和web3 provider。</p>
-<p>to be continue…</p>
-<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><ol>
+<h3 id="使用Dfinity"><a href="#使用Dfinity" class="headerlink" title="使用Dfinity"></a>使用Dfinity</h3><p>Dfinity，有个宏图伟志<a target="_blank" rel="noopener" href="https://dfinity.org/showcase">Internet Computer</a>，不禁让我想起曾经的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/EOS.IO">EOS</a>。同样是依托<a target="_blank" rel="noopener" href="https://webassembly.org/">WASM</a>提供显著优于单纯智能合约的计算能力，但是一个作为L1网络，一个则是基于ETH。上述流程揭露了如果我们要开发一款基于ETH的DApp，不可避免的会存在一定程度上中心化的部分，但是如果我们选择了<code>Dfinity</code>那么，一个「纯」web3 DApp将成为可能。</p>
+<p>凭借<code>WASM</code>和<code>Actor Model</code>，我们可以将自己的应用完全部署到Dfinity网络当中，具体请参考官方的整个<a target="_blank" rel="noopener" href="https://internetcomputer.org/docs/current/developer-docs/quickstart/hello10mins">例子</a>。要特别注意到，Dfinity的Smart Contract已经和其DApp有机的融合在一起了，而不是ETH这样需要Provider桥接App和Smart Contract的模式，从技术上讲Difinity这种流程其实更符合一款web3应用的开发过程。</p>
+<p><a target="_blank" rel="noopener" href="https://6lqbm-ryaaa-aaaai-qibsa-cai.ic0.app/">Demo</a></p>
+<p>我们还需要ETH吗？这个问题的答案还是要看生态，生态和资产是核心，一方面ETH上积累的资产和生态是最多的，另一方面100% on-chain的web3应用从迭代、可维护性和自主性（中心化一定程度上还是有很重要的作用）等方面都值得探讨，所以两者还有很长时间的共存状态。而且当下区块链网络还有诸多的核心痛点需要解决，首当其冲就是Infra实在太匮乏，开发过程也比web2繁琐了很多。而且信息的追踪和索引能力基本没有，如果想做推广，依然得借助web2的平台，庆幸的是已经存在很多类似<code>DMail</code>这样的明星项目了，我们仍然需要web3的Google Search，web3的tiktok，web3的cloud service，web3的Oracle DB等。</p>
+<p>千言万语一句话：BUIDL~</p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>可以关注的内容：</p>
+<ol>
 <li>关于<code>DApp</code>开发更加贴近工业规范的内容，推荐guoyu的这篇<a target="_blank" rel="noopener" href="https://guoyu.mirror.xyz/RD-xkpoxasAU7x5MIJmiCX4gll3Cs0pAd5iM258S1Ek">文章</a></li>
 <li>Geth和Truffle都不是必须选用的，也可以尝试<code>Hardhat</code>、<code>Ganache</code>等</li>
 <li>Truffle官方的<a target="_blank" rel="noopener" href="https://trufflesuite.com/tutorial/">指南</a></li>
 <li>尽可能多去查阅web3.js的官方文档</li>
 <li>web3.js中call与send的<a target="_blank" rel="noopener" href="https://bitsofco.de/calling-smart-contract-functions-using-web3-js-call-vs-send/">区别</a></li>
+<li>真•web3: Difinity</li>
+<li><a target="_blank" rel="noopener" href="https://zksync.io/">zkSync</a>: L2 Scaling 解决方案</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/orgs/input-output-hk/repositories?language=haskell&type=all">Cardano</a>: 全套基础设施<code>Haskell</code>语言开发的区块链</li>
+<li><a target="_blank" rel="noopener" href="https://www.avax.network/">Avalanche</a>: DApp的开发生态目前还很不友好，Avalanche作为一个自称eco-friendly的项目值得了解</li>
 </ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://izhen.me/2022/05/23/2022_DApp/" data-id="cl3il1hro0000nndx08wccvo8" data-title="DApp一日通——web3.js、Truffle与React篇" class="article-share-link">Share</a>
+      <a data-url="https://izhen.me/2022/05/23/2022_DApp/" data-id="cl3il1hro0000nndx08wccvo8" data-title="DApp一日通——web3.js、Truffle与Dfinity篇" class="article-share-link">Share</a>
       
         <a href="https://izhen.me/2022/05/23/2022_DApp/#disqus_thread" class="article-comment-link">Comments</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DApp/" rel="tag">DApp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ethereum/" rel="tag">Ethereum</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ganache/" rel="tag">Ganache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Geth/" rel="tag">Geth</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Metamask/" rel="tag">Metamask</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Solidity/" rel="tag">Solidity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Truffle/" rel="tag">Truffle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-3-0/" rel="tag">web 3.0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web3-js/" rel="tag">web3.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/x071/" rel="tag">x071</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DApp/" rel="tag">DApp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dfinity/" rel="tag">Dfinity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ethereum/" rel="tag">Ethereum</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Geth/" rel="tag">Geth</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Haskell/" rel="tag">Haskell</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Solidity/" rel="tag">Solidity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Truffle/" rel="tag">Truffle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-3-0/" rel="tag">web 3.0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web3-js/" rel="tag">web3.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/x071/" rel="tag">x071</a></li></ul>
 
     </footer>
   </div>
