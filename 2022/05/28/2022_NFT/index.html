@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>NFT一日通——Azuki的ERC721A | Z.Y. ☯ Cosmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="本文尝试发行一款NFT，我们从合约出发而不是直接使用Opensea来搞定定制化发布，在此之前你需要先熟悉Solidity这门合约语言。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NFT一日通——Azuki的ERC721A">
+<meta property="og:url" content="https://izhen.me/2022/05/28/2022_NFT/index.html">
+<meta property="og:site_name" content="Z.Y. ☯ Cosmos">
+<meta property="og:description" content="本文尝试发行一款NFT，我们从合约出发而不是直接使用Opensea来搞定定制化发布，在此之前你需要先熟悉Solidity这门合约语言。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://izhen.me/image/nft/faucet.png">
+<meta property="og:image" content="https://izhen.me/image/nft/deploy.png">
+<meta property="og:image" content="https://izhen.me/image/nft/gas.png">
+<meta property="og:image" content="https://izhen.me/image/nft/mint.png">
+<meta property="article:published_time" content="2022-05-28T12:53:47.000Z">
+<meta property="article:modified_time" content="2022-05-28T15:59:57.717Z">
+<meta property="article:author" content="Zhen Yi">
+<meta property="article:tag" content="NFT">
+<meta property="article:tag" content="Solidity">
+<meta property="article:tag" content="ERC721">
+<meta property="article:tag" content="web3.js">
+<meta property="article:tag" content="Ethereum">
+<meta property="article:tag" content="Hardhat">
+<meta property="article:tag" content="Opensea">
+<meta property="article:tag" content="x072">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://izhen.me/image/nft/faucet.png">
+<meta name="twitter:creator" content="@soczhenyi">
+  
+    <link rel="alternate" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Z.Y. ☯ Cosmos</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Powered by Disqus, scientific surfing for access</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="http://sweetpotato.ai">λ</a>
+        
+          <a class="main-nav-link" href="/lab">About</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://resume.izhen.me">Resume</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://github.com/i-zhen">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://izhen.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2022_NFT" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/05/28/2022_NFT/" class="article-date">
+  <time class="dt-published" datetime="2022-05-28T12:53:47.000Z" itemprop="datePublished">2022-05-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BLOG/">BLOG</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      NFT一日通——Azuki的ERC721A
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>本文尝试发行一款<code>NFT</code>，我们从合约出发而不是直接使用<a target="_blank" rel="noopener" href="https://opensea.io/">Opensea</a>来搞定定制化发布，在此之前你需要先熟悉<code>Solidity</code>这门合约语言。</p>
+<span id="more"></span>
+
+<h3 id="NFT基本认识"><a href="#NFT基本认识" class="headerlink" title="NFT基本认识"></a>NFT基本认识</h3><h4 id="NFT是什么"><a href="#NFT是什么" class="headerlink" title="NFT是什么"></a>NFT是什么</h4><p>NFT是Non-fungible token的缩写，即非同质化代币，是一种在区块链上的数据单位，既然是token，那么其就具备了资产属性。这种资产不可互换，可以被确权。技术上作品本身可以被复制，但是作品的拥有权被区块链所记录且完整追踪，所有权是唯一的。另一方面，非同质化是说：所有的房屋都是不同的，没有两只小猫是一样的。NFT可区分，必须分别跟踪每个所有者。和ERC20的区别就在此：每一个token在ERC20都是一样的，而且可以分割。</p>
+<h4 id="ERC721是什么"><a href="#ERC721是什么" class="headerlink" title="ERC721是什么"></a>ERC721是什么</h4><p>ERC是Ethereum Request for Comments的缩写，是以太坊智能合约开发人员使用的技术文档，定义一组准则或协议。比如ERC20定义了代币标准，<a target="_blank" rel="noopener" href="https://eips.ethereum.org/EIPS/eip-721">ERC721</a>定义了NFT标准。其中ERC721依赖ERC165。</p>
+<h4 id="如何发行NFT"><a href="#如何发行NFT" class="headerlink" title="如何发行NFT"></a>如何发行NFT</h4><p>一种是使用<code>Opensea</code>这类网站发行，准备好<code>Gas fee</code>后，只需要点几次鼠标，写一点介绍就可以了。我们这次不准备用这种方式，而是通过智能合约来发布一款NFT。</p>
+<h4 id="发行NFT的流程"><a href="#发行NFT的流程" class="headerlink" title="发行NFT的流程"></a>发行NFT的流程</h4><p>首先我们要明确我们的NFT所锚定的对象，是一组图片还是一组音乐、N段故事、贷款，亦或是实体财产。我们发行的NFT的数量，发行价格，是否包含free mint，白名单等等一系列经济模型。简单说有如下几步：</p>
+<ol start="0">
+<li>熟读ERC721合约的标准，看一看现有的实现</li>
+<li>设计NFT，故事，白皮书等</li>
+<li>编写NFT合约，并上链；周边配套的开发，比如一款<a href="https://izhen.me/2022/05/23/2022_DApp/">DApp</a>，DApp的开发不是本篇的重点，我们只关注合约部分</li>
+<li>做社区，拉盘</li>
+</ol>
+<h3 id="安装与初始化本地Hardhat"><a href="#安装与初始化本地Hardhat" class="headerlink" title="安装与初始化本地Hardhat"></a>安装与初始化本地Hardhat</h3><p>合约开发的工作流的市场份额当前被<a target="_blank" rel="noopener" href="https://hardhat.org/">Hardhat</a>占据主导地位，本篇我们使用<code>Hardhat</code>开发我们的合约。请按照下面的步骤来配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir my-erc721</span><br><span class="line">$ <span class="built_in">cd</span> my-erc721</span><br><span class="line">$ npm init</span><br><span class="line">$ npm install --save-dev hardhat</span><br><span class="line">$ npx hardhat</span><br><span class="line">...</span><br><span class="line">👷 Welcome to Hardhat v2.9.6 👷‍</span><br><span class="line">✔ What <span class="keyword">do</span> you want to <span class="keyword">do</span>? · Create a basic sample project <span class="comment"># 选择适合我们的选项</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>安装好后，我们会在<code>contracts</code>目录内编写我们的智能合约，在<code>scripts</code>中编写<code>js</code>语言的部署脚本，并在<code>hardhat.config.js</code>配置部署和编译信息等。</p>
+<h3 id="NFT合约编写"><a href="#NFT合约编写" class="headerlink" title="NFT合约编写"></a>NFT合约编写</h3><p>目前最为流行的<code>ERC721</code>标准实现当然是鼎鼎大名的<code>OpenZeppelin</code>，他的实现在安全性、完成度、可维护性和测试等方面都做的很不错。但是其<code>gas fee</code>存在一些较大消耗。这里我们使用知名NFT项目<a target="_blank" rel="noopener" href="https://www.azuki.com/">azuki</a>的<a target="_blank" rel="noopener" href="https://www.erc721a.org/">ERC721A</a>实现。这是一版改进实现，特别重视了合约的运行效率，优化了<code>gas fee</code>，而且合约依赖更少。</p>
+<p>先安装合约：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save-dev erc721a</span><br><span class="line">$ npm install @openzeppelin/contracts</span><br></pre></td></tr></table></figure>
+
+<p>接着我们编写合约代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.4</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;erc721a/contracts/ERC721A.sol&quot;</span>; <span class="comment">// 导入ERC721A</span></span><br><span class="line"></span><br><span class="line">contract ZY is ERC721A &#123;</span><br><span class="line">    <span class="title">constructor</span>(<span class="params"></span>) <span class="title">ERC721A</span>(<span class="params"><span class="string">&quot;Zy&quot;</span>, <span class="string">&quot;ZY&quot;</span></span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">mint</span>(<span class="params">uint256 quantity</span>) <span class="title">external</span> <span class="title">payable</span> </span>&#123;</span><br><span class="line">        <span class="comment">// _safeMint&#x27;s second argument now takes in a quantity, not a tokenId.</span></span><br><span class="line">        _safeMint(msg.sender, quantity);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为Azuki的ERC721A已经帮助我们实现绝大部分功能了，所以最简单的使用就是定义<code>mint</code>函数。当然因为没有定义白名单，mint相关的限制等（而这些需要根据白皮书的内容来确定），这个合约并非产品级代码，还需要大量的细化特别是安全性相关的测试。</p>
+<p>完成后编译合约：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npx hardhat compile</span><br></pre></td></tr></table></figure>
+
+<p>改写默认的<code>sample-scripts.js</code>如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hre = <span class="built_in">require</span>(<span class="string">&quot;hardhat&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> NFT = <span class="keyword">await</span> hre.ethers.getContractFactory(<span class="string">&quot;NFT&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> nft = <span class="keyword">await</span> NFT.deploy();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">await</span> nft.deployed();</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;My NFT deployed to:&quot;</span>, nft.address);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main()</span><br><span class="line">  .then(<span class="function">() =&gt;</span> process.exit(<span class="number">0</span>))</span><br><span class="line">  .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(error);</span><br><span class="line">    process.exit(<span class="number">1</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用Infura进行线上测试"><a href="#使用Infura进行线上测试" class="headerlink" title="使用Infura进行线上测试"></a>使用Infura进行线上测试</h3><p>Infura是最早和目前最大的Ethereum的Relay Network解决方案，提供一些公开的Gataway节点。我们会与Infura的api进行交互，而Infura作为中介会在他们的云上管理的节点中执行相关操作完成最终调用。</p>
+<h4 id="配置rinkeby"><a href="#配置rinkeby" class="headerlink" title="配置rinkeby"></a>配置rinkeby</h4><p>这是NFT交易中主流的测试网络。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ npm install dotenv</span><br><span class="line">$ touch .env</span><br><span class="line"><span class="comment"># 编辑.env</span></span><br><span class="line">PRIVATE_KEY=[打开钱包-账号详情-&gt;导出私钥] 把私钥填写在这里，切忌不要透露私钥给任何人</span><br><span class="line">API=https://rinkeby.infura.io/v3/&#123;以及你的ProjectID，从Infura复制&#125;</span><br><span class="line">PUBLIC_KEY=metamask钱包地址</span><br><span class="line">NETWORK=rinkeby</span><br><span class="line">API_KEY=Infura上新建项目的ProjectID</span><br></pre></td></tr></table></figure>
+
+<p>配置<code>hardhat.config.js</code>，以下为新增内容（不含既有内容）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">&#x27;dotenv&#x27;</span>).config();</span><br><span class="line"><span class="keyword">const</span> &#123; API, PRIVATE_KEY &#125; = process.env;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="attr">solidity</span>: <span class="string">&quot;0.8.4&quot;</span>,</span><br><span class="line">  <span class="attr">defaultNetwork</span>: <span class="string">&quot;rinkeby&quot;</span>,</span><br><span class="line">  <span class="attr">networks</span>: &#123;</span><br><span class="line">    <span class="attr">hardhat</span>: &#123;&#125;,</span><br><span class="line">    <span class="attr">rinkeby</span>: &#123;</span><br><span class="line">      <span class="attr">url</span>: API,</span><br><span class="line">      <span class="attr">accounts</span>: [<span class="string">`0x<span class="subst">$&#123;PRIVATE_KEY&#125;</span>`</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>从<a target="_blank" rel="noopener" href="https://faucet.rinkeby.io/">Rinkeby Authenticated Faucet</a>水龙头获取一些测试用ETH。我们复制Metamask钱包地址，并发一条twitter，然后复制这条推特的地址输入以获得以太:</p>
+<p><img src="/image/nft/faucet.png" alt="twitter"></p>
+<p>当我们的钱包中有以太后，开始部署合约，并在<a target="_blank" rel="noopener" href="https://rinkeby.etherscan.io/">rinkeby Etherscan</a>找到我们的合约信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npx hardhat --network rinkeby run scripts/sample-script.js </span><br><span class="line">My NFT deployed to: 0x...[合约地址]</span><br></pre></td></tr></table></figure>
+
+<p>部署信息查询如下：</p>
+<p><img src="/image/nft/deploy.png" alt="deploy"></p>
+<p>一些具体信息，比如gas fee：</p>
+<p><img src="/image/nft/gas.png" alt="gas fee"></p>
+<h3 id="mint第一个NFT"><a href="#mint第一个NFT" class="headerlink" title="mint第一个NFT"></a>mint第一个NFT</h3><p>编写我们的mint脚本<code>scripts/mint.js</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">&quot;dotenv&quot;</span>).config()</span><br><span class="line"><span class="keyword">const</span> hh = <span class="built_in">require</span>(<span class="string">&quot;hardhat&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> PRIVATE_KEY = process.env.PRIVATE_KEY</span><br><span class="line"><span class="keyword">const</span> NETWORK = process.env.NETWORK</span><br><span class="line"><span class="keyword">const</span> API_KEY = process.env.API_KEY</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> provider = <span class="keyword">new</span> hh.ethers.providers.InfuraProvider(NETWORK, API_KEY);</span><br><span class="line"><span class="keyword">const</span> abi = <span class="built_in">require</span>(<span class="string">&quot;../artifacts/contracts/NFT.sol/ZY.json&quot;</span>).abi</span><br><span class="line"><span class="keyword">const</span> contractAddress = <span class="string">&quot;合约地址在这里补充&quot;</span></span><br><span class="line"><span class="keyword">const</span> contract = <span class="keyword">new</span> hh.ethers.Contract(contractAddress, abi, provider)</span><br><span class="line"><span class="keyword">const</span> wallet = <span class="keyword">new</span> hh.ethers.Wallet(PRIVATE_KEY, provider)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> contractWithSigner = contract.connect(wallet);</span><br><span class="line">    <span class="keyword">const</span> price = <span class="number">100</span>; <span class="comment">// mint的代价，这里是100wei；正式部署当然要定义到合约中</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;price is &quot;</span> + price);</span><br><span class="line">    <span class="keyword">const</span> tx = <span class="keyword">await</span> contractWithSigner.mint(<span class="number">1</span>, &#123; <span class="attr">value</span>: price&#125;);</span><br><span class="line">    <span class="built_in">console</span>.log(tx.hash);</span><br><span class="line">    <span class="keyword">await</span> tx.wait();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;mint success&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main()</span><br><span class="line">    .then(<span class="function">() =&gt;</span> process.exit(<span class="number">0</span>))</span><br><span class="line">    .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(error);</span><br><span class="line">        process.exit(<span class="number">1</span>);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>接着执行合约，查看效果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ npx hardhat --network rinkeby run scripts/mint.js</span><br><span class="line">price is 100</span><br><span class="line">0x36d2eedc4b...[transaction的Id]</span><br><span class="line">mint success</span><br></pre></td></tr></table></figure>
+
+<p><img src="/image/nft/mint.png" alt="mint"></p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p><a target="_blank" rel="noopener" href="https://testnets.opensea.io/">Opensea Testnets</a>和<a target="_blank" rel="noopener" href="https://rinkeby.looksrare.org/">Looksrare Rinkeby</a>都可以查看我们的<code>mint</code>结果，执行完事务后到上面去看看吧。本篇文章的<a target="_blank" rel="noopener" href="https://testnets.opensea.io/assets/rinkeby/0xd328ace28cd052617a08fe34dda1b3f95ca5b74c/0">例子</a>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2022/05/28/2022_NFT/" data-id="cl3ptc2cg0000wldxas743mz6" data-title="NFT一日通——Azuki的ERC721A" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2022/05/28/2022_NFT/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ERC721/" rel="tag">ERC721</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ethereum/" rel="tag">Ethereum</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hardhat/" rel="tag">Hardhat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NFT/" rel="tag">NFT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Opensea/" rel="tag">Opensea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Solidity/" rel="tag">Solidity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web3-js/" rel="tag">web3.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/x072/" rel="tag">x072</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/05/23/2022_DApp/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">DApp一日通——web3.js、Truffle与Dfinity篇</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2009-2022 Zhen Yi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <br>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">用户访问: <span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+      <span class="site-pv">本站访问: <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a target="_blank" rel="noopener" href="http://sweetpotato.ai" class="mobile-nav-link">λ</a>
+  
+    <a href="/lab" class="mobile-nav-link">About</a>
+  
+    <a target="_blank" rel="noopener" href="https://resume.izhen.me" class="mobile-nav-link">Resume</a>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/i-zhen" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'izhen';
+  
+  var disqus_url = 'https://izhen.me/2022/05/28/2022_NFT/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

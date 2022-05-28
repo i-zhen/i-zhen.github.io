@@ -84,6 +84,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2014/06/30/hello-world/" class="article-date">
+  <time class="dt-published" datetime="2014-06-30T06:22:09.000Z" itemprop="datePublished">2014-06-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Blog/">Blog</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2014/06/30/hello-world/">Hello Hexo</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>我从 <a target="_blank" rel="noopener" href="http://octopress.org/">Octopress</a> 迁移到了 <a target="_blank" rel="noopener" href="http://hexo.io/">Hexo</a>。从8升级到了16 :)</p>
+<p>单论博客来说，<a target="_blank" rel="noopener" href="http://octopress.org/">Octo</a> 其实是够用的，但是因为长期没有更新，而且不能使用新版本的 <a target="_blank" rel="noopener" href="https://www.ruby-lang.org/">Ruby</a> 这让我不得不多版本共存。另一个原因就是 <a target="_blank" rel="noopener" href="http://hexo.io/">Hexo</a> 本身持续发展中，是一位 <a target="_blank" rel="noopener" href="http://zespia.tw/">台湾老兄</a> 做的。如果 <a href="http://izhen.me/2013/11/07/basic-octopress-build/">部署过Octo</a>，那么 <a target="_blank" rel="noopener" href="http://hexo.io/">Hexo</a> 也差不多。</p>
+        
+          <p class="article-more-link">
+            <a href="/2014/06/30/hello-world/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2014/06/30/hello-world/" data-id="cktfbroi0004ot8dx3z2vh8a5" data-title="Hello Hexo" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2014/06/30/hello-world/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/" rel="tag">Node.js</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-2014-05-12-gdcpc2014" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2014/05/12/2014-05-12-gdcpc2014/" class="article-date">
@@ -553,65 +605,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Octopress/" rel="tag">Octopress</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Phase/" rel="tag">Phase</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ruby/" rel="tag">Ruby</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-usaco_612" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2013/05/26/usaco_612/" class="article-date">
-  <time class="dt-published" datetime="2013-05-26T15:39:27.000Z" itemprop="datePublished">2013-05-26</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Solve/">Solve</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2013/05/26/usaco_612/">USACO 6.1.2 Vans</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>找规律。第一张图和第二张图其实已经暗示了这道题目的潜在规律。注意到从一个第一行的点横向出发再回到这个点只有从这个点下面的点回来。定义F[i]表示从前i列中第i列的第2个点到第1个点共有多少合法路径，根据这个定义F[n]即为所求。G[i]表示前i列中第i列的第1个点到第4个点共有多少路径。因此可以推出F[i] = F[i-1] + G[i-1] (画图找规律)。</p>
-<p>下面我们仔细观察这两个方程的定义，从而化简方程，如下图：</p>
-<p>G[i] = F[i-1] * 2 + G[i-2] + G4[i] (1)</p>
-<p>G4[i] = F[i-2] * 2 + G4[i-1] (2)</p>
-<p>由(1)化简(2)式得到：G4[i] = G[i-1] - G1[i-1] - G2[i-1] - G3[i-1] + F[i-2] * 2 = G[i-1] - G[i-3]</p>
-<p>所以G[i] = F[i-1]*2 + G[i-1] + G[i-2] - G[i-3] (3)</p>
-<p>又由F[i] - F[i-1] = G[i-1] (4)</p>
-<p>最终我们得到 F[n] = 2F[n-1] + 2F[n-2] - 2F[n-3] + F[n-4] (n&gt;=5)</p>
-<p>初始值：F[1] = 0; F[2] = 2; F[3] = 4; F[4] = 12。</p>
-        
-          <p class="article-more-link">
-            <a href="/2013/05/26/usaco_612/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://izhen.me/2013/05/26/usaco_612/" data-id="cktfbroj1008dt8dxgfi36c5j" data-title="USACO 6.1.2 Vans" class="article-share-link">Share</a>
-      
-        <a href="https://izhen.me/2013/05/26/usaco_612/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD/" rel="tag">运算符重载</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%AB%98%E7%B2%BE%E5%BA%A6/" rel="tag">高精度</a></li></ul>
 
     </footer>
   </div>
