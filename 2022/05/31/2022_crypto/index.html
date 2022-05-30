@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>数字货币一日通——OpenZeppelin的ERC20 | Z.Y. ☯ Cosmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="本文尝试发行一款基于以太坊区块链的数字货币，在此之前你需要先熟悉Solidity这门合约语言，并拥有Metamask钱包和账户。 「本文仅做技术探讨，如有上主网需求，请遵循当地国家的法律法规，后果自负」">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字货币一日通——OpenZeppelin的ERC20">
+<meta property="og:url" content="https://izhen.me/2022/05/31/2022_crypto/index.html">
+<meta property="og:site_name" content="Z.Y. ☯ Cosmos">
+<meta property="og:description" content="本文尝试发行一款基于以太坊区块链的数字货币，在此之前你需要先熟悉Solidity这门合约语言，并拥有Metamask钱包和账户。 「本文仅做技术探讨，如有上主网需求，请遵循当地国家的法律法规，后果自负」">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://izhen.me/image/nft/token.png">
+<meta property="og:image" content="https://izhen.me/image/nft/import.png">
+<meta property="og:image" content="https://izhen.me/image/nft/9000t.png">
+<meta property="article:published_time" content="2022-05-31T12:53:47.000Z">
+<meta property="article:modified_time" content="2022-05-30T06:02:06.645Z">
+<meta property="article:author" content="Zhen Yi">
+<meta property="article:tag" content="Solidity">
+<meta property="article:tag" content="ERC20">
+<meta property="article:tag" content="Ethereum">
+<meta property="article:tag" content="Hardhat">
+<meta property="article:tag" content="Crypto">
+<meta property="article:tag" content="x073">
+<meta property="article:tag" content="Bitcoin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://izhen.me/image/nft/token.png">
+<meta name="twitter:creator" content="@soczhenyi">
+  
+    <link rel="alternate" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Z.Y. ☯ Cosmos</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Powered by Disqus, scientific surfing for access</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="http://sweetpotato.ai">λ</a>
+        
+          <a class="main-nav-link" href="/lab">About</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://resume.izhen.me">Resume</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://github.com/i-zhen">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://izhen.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2022_crypto" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/05/31/2022_crypto/" class="article-date">
+  <time class="dt-published" datetime="2022-05-31T12:53:47.000Z" itemprop="datePublished">2022-05-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BLOG/">BLOG</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      数字货币一日通——OpenZeppelin的ERC20
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>本文尝试发行一款基于以太坊区块链的数字货币，在此之前你需要先熟悉<code>Solidity</code>这门合约语言，并拥有<code>Metamask</code>钱包和账户。</p>
+<p>「本文仅做技术探讨，如有上主网需求，请遵循当地国家的法律法规，后果自负」</p>
+<span id="more"></span>
+
+<h3 id="数字货币基本认识"><a href="#数字货币基本认识" class="headerlink" title="数字货币基本认识"></a>数字货币基本认识</h3><p>世界上第一个基于去中心区块链技术，点对点网络且有共识能力的开源数字货币应用就是大名鼎鼎的<a target="_blank" rel="noopener" href="https://bitcoin.org/en/">Bitcoin</a>，我个人一直认为比特币是中本聪送给全世界的礼物，也是迄今为止唯一的真正去中心数字货币，其它的山寨币或多或少都有局部的中心化亦或根本就是财阀控制。比特币最早诞生于2008年，一篇<a target="_blank" rel="noopener" href="https://bitcoin.org/bitcoin.pdf">论文</a>详细描述了这款划时代的产品。尽管不是所有的国家承认这是一款货币替代品（实际上只有很少的国家承认），而只是将其认作一种虚拟资产，类似股票。仍然开创了一种新形态的经济模型和生态，随之而崛起的挖矿，数字货币交易所应运而生，同时它也启发了众多投身于去中心事业的科学家、工程师、用户，也在后续产生了以太坊等功能更加完善的区块链。</p>
+<p>10多年来，比特币俨然构成了一种新的亚文化，影响着整个人类社会。有关于它的精彩故事太多太多，这里不再一一列举，欢迎大家投身于去中心事业，一同探索属于每一个人的新世界。</p>
+<h3 id="以太坊"><a href="#以太坊" class="headerlink" title="以太坊"></a>以太坊</h3><p>发行数字货币有很多种方式，一种传统的方法是我们从零开始自己开发一款区块链，然后在上面部署数字货币；当然还可以基于现有的链发行代币，比如在以太坊生态上面。这里涉及到一个重要的合约：ERC20。其严格定义了代币的相关合约和接口，如果我们实现自己的ERC20，那么至少要知晓这个协议的全部<a target="_blank" rel="noopener" href="https://ethereum.org/en/developers/docs/standards/tokens/erc-20/">细节</a>，特别是接口<a target="_blank" rel="noopener" href="https://docs.openzeppelin.com/contracts/2.x/api/token/erc20#IERC20">IERC20</a>实现细节：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数字货币的名称，例：Bitcoin</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">name</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">string</span>)</span></span><br><span class="line"><span class="function">// 数字货币的符号，通常是缩写，例：<span class="title">BTC</span></span></span><br><span class="line"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">symbol</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">string</span>)</span></span></span><br><span class="line"><span class="function"><span class="function">// 默认是18，<span class="title">num</span> <span class="title">Token</span> * (<span class="params"><span class="number">10</span> ** decimals</span>)</span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">decimals</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">uint8</span>)</span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function">// 返回现存的代币数量</span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">totalSupply</span>(<span class="params"></span>) <span class="title">public</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">uint256</span>)</span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function">// 获取账户<span class="title">_owner</span>拥有的代币的数量</span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">balanceOf</span>(<span class="params">address _owner</span>) <span class="title">public</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">uint256 balance</span>)</span></span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function">// 从<span class="title">msg</span>.<span class="title">sender</span>账户转移<span class="title">_value</span>数量的代币到<span class="title">_to</span>账户</span></span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">transfer</span>(<span class="params">address _to, uint256 _value</span>) <span class="title">public</span> <span class="title">returns</span> (<span class="params">bool success</span>)</span></span></span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function">// 从账户<span class="title">_from</span>中往账户<span class="title">_to</span>转数量为<span class="title">_value</span>的代币，与<span class="title">approve</span>方法配合使用，需要<span class="title">approve</span>获取权限</span></span></span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">transferFrom</span>(<span class="params">address _from, address _to, uint256 _value</span>) <span class="title">public</span> <span class="title">returns</span> (<span class="params">bool success</span>)</span></span></span></span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function">// <span class="title">msg</span>.<span class="title">sender</span>设置账户<span class="title">_spender</span>能从<span class="title">msg</span>.<span class="title">sender</span>中转出数量为<span class="title">_value</span>的代币</span></span></span></span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">approve</span>(<span class="params">address _spender, uint256 _value</span>) <span class="title">public</span> <span class="title">returns</span> (<span class="params">bool success</span>)</span></span></span></span></span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function">// 获取账户<span class="title">_spender</span>可以从账户<span class="title">_owner</span>中转出代币的数量</span></span></span></span></span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="keyword">function</span> <span class="title">allowance</span>(<span class="params">address _owner, address _spender</span>) <span class="title">public</span> <span class="title">view</span> <span class="title">returns</span> (<span class="params">uint256 remaining</span>)</span></span></span></span></span></span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"></span></span></span></span></span></span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function">// 发生转账时，必须要触发<span class="title">Transfer</span>事件</span></span></span></span></span></span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="title">event</span> <span class="title">Transfer</span>(<span class="params">address indexed _from, address indexed _to, uint256 _value</span>)</span></span></span></span></span></span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function">// <span class="title">approve</span>(<span class="params">address _spender, uint256 _value</span>) 运行成功时必须要触发事件<span class="title">Approval</span></span></span></span></span></span></span></span></span></span></span><br><span class="line"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="function"><span class="title">event</span> <span class="title">Approval</span>(<span class="params">address indexed _owner, address indexed _spender, uint256 _value</span>)</span></span></span></span></span></span></span></span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="OpenZeppelin的ERC20"><a href="#OpenZeppelin的ERC20" class="headerlink" title="OpenZeppelin的ERC20"></a>OpenZeppelin的ERC20</h3><p>我们不需要完全自己从头实现<code>IERC20</code>，基于<a target="_blank" rel="noopener" href="https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/token/ERC20">OpenZeppelin</a>的优秀实现是一个不错的选择，我们使用<code>Hardhat</code>工作流，有关于工作流的配置，可以参考<a href="https://izhen.me/2022/05/28/2022_NFT/">这篇</a>文章相关部分。合约代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.8</span><span class="number">.4</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;@openzeppelin/contracts/access/Ownable.sol&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;@openzeppelin/contracts/token/ERC20/ERC20.sol&quot;</span>;</span><br><span class="line"></span><br><span class="line">contract ZY_Bitcoin is ERC20, Ownable &#123;</span><br><span class="line">    <span class="title">constructor</span>(<span class="params"></span>) <span class="title">ERC20</span>(<span class="params"><span class="string">&quot;ZY Bitcoin&quot;</span>, <span class="string">&quot;ZBT&quot;</span></span>) &#123;</span><br><span class="line">        <span class="comment">// 固定铸造10000个币</span></span><br><span class="line">        uint256 supply = <span class="number">10</span> ** decimals();</span><br><span class="line">        _mint(msg.sender, <span class="number">9000</span> * supply);      <span class="comment">// msg.sender持有 90%</span></span><br><span class="line">        _mint(block.coinbase, <span class="number">1000</span> * supply ); <span class="comment">// 奖励给miner 10%</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编写部署脚本<code>scripts/erc20.js</code>如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hre = <span class="built_in">require</span>(<span class="string">&quot;hardhat&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> COIN = <span class="keyword">await</span> hre.ethers.getContractFactory(<span class="string">&quot;ZY_Bitcoin&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> coin = <span class="keyword">await</span> COIN.deploy();</span><br><span class="line">  <span class="keyword">await</span> coin.deployed();</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;My Token deployed to:&quot;</span>, coin.address);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main()</span><br><span class="line">  .then(<span class="function">() =&gt;</span> process.exit(<span class="number">0</span>))</span><br><span class="line">  .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(error);</span><br><span class="line">    process.exit(<span class="number">1</span>);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>部署到<code>rinkeby</code>测试网络中，在此之前你需要先设置好<code>Relay</code>测试网，可以使用<a target="_blank" rel="noopener" href="https://infura.io/">Infura</a>的服务，同时要配置好<code>Metamask</code>钱包的公钥和私钥到我们的<code>Hardhat</code>项目中。这个过程如果不熟悉，可以参考这篇<a href="https://izhen.me/2022/05/28/2022_NFT/">文章</a>当中的<code>Infura</code>测试部署的部分，终端命令行如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npx hardhat --network rinkeby run scripts/erc20.js</span><br></pre></td></tr></table></figure>
+
+<p>部署好后，我们在<a target="_blank" rel="noopener" href="https://rinkeby.etherscan.io/tx/0x58dfb15efbe92a89fdadd23a595fc134073964e56ab5bcf8f94294b2e41f03ab">Etherscan</a>上面查询我们的合约：</p>
+<p><img src="/image/nft/token.png" alt="mint token"></p>
+<h3 id="Metamask关联Token"><a href="#Metamask关联Token" class="headerlink" title="Metamask关联Token"></a>Metamask关联Token</h3><p>因为我们是<code>rinkeby</code>测试网络，所以我们需要切换钱包网络，并且点击页面上的<code>导入代币</code>链接（在主页靠下的位置），点击后输入我们的合约地址：</p>
+<p><img src="/image/nft/import.png" alt="import token"></p>
+<p>我们可以看到，有9000枚<code>ZBT</code>币铸造到账户当中了：</p>
+<p><img src="/image/nft/9000t.png" alt="minted token"></p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>任何人都可以基于ERC20发行自己的代币，同时伴随着<code>Crypto</code>圈子疯狂的炒币浪潮，其与法定货币锚定的价格令人心醉神迷。现如今大饼（比特币）已然可以看做大盘的指数，而各个项目方发行的代币本质就是上市，你所购买的山寨币可以视同购买股票。这里面当然伴随着监管和法律的问题，其背后的意义也值得深刻探讨。本文仅讨论技术实现，对于法律法规还请读者遵循本国的有关规定。祝福大家可以迎接美好的时代~</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2022/05/31/2022_crypto/" data-id="cl3s9mvuo00009kdx5x3ic44x" data-title="数字货币一日通——OpenZeppelin的ERC20" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2022/05/31/2022_crypto/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bitcoin/" rel="tag">Bitcoin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Crypto/" rel="tag">Crypto</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ERC20/" rel="tag">ERC20</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ethereum/" rel="tag">Ethereum</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hardhat/" rel="tag">Hardhat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Solidity/" rel="tag">Solidity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/x073/" rel="tag">x073</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/05/28/2022_NFT/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">NFT一日通——Azuki的ERC721A</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2009-2022 Zhen Yi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <br>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">用户访问: <span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+      <span class="site-pv">本站访问: <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a target="_blank" rel="noopener" href="http://sweetpotato.ai" class="mobile-nav-link">λ</a>
+  
+    <a href="/lab" class="mobile-nav-link">About</a>
+  
+    <a target="_blank" rel="noopener" href="https://resume.izhen.me" class="mobile-nav-link">Resume</a>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/i-zhen" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'izhen';
+  
+  var disqus_url = 'https://izhen.me/2022/05/31/2022_crypto/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

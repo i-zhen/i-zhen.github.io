@@ -6,12 +6,12 @@
   
   <title>NFT一日通——Azuki的ERC721A | Z.Y. ☯ Cosmos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="本文尝试发行一款NFT，我们从合约出发而不是直接使用Opensea来搞定定制化发布，在此之前你需要先熟悉Solidity这门合约语言。">
+  <meta name="description" content="本文尝试发行一款NFT，我们从合约出发而不是直接使用Opensea来搞定定制化发布，在此之前你需要先熟悉Solidity这门合约语言，并拥有Metamask钱包和账户。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NFT一日通——Azuki的ERC721A">
 <meta property="og:url" content="https://izhen.me/2022/05/28/2022_NFT/index.html">
 <meta property="og:site_name" content="Z.Y. ☯ Cosmos">
-<meta property="og:description" content="本文尝试发行一款NFT，我们从合约出发而不是直接使用Opensea来搞定定制化发布，在此之前你需要先熟悉Solidity这门合约语言。">
+<meta property="og:description" content="本文尝试发行一款NFT，我们从合约出发而不是直接使用Opensea来搞定定制化发布，在此之前你需要先熟悉Solidity这门合约语言，并拥有Metamask钱包和账户。">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://izhen.me/image/nft/faucet.png">
 <meta property="og:image" content="https://izhen.me/image/nft/deploy.png">
@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://izhen.me/image/nft/mint.png">
 <meta property="og:image" content="https://izhen.me/image/nft/gas_report.png">
 <meta property="article:published_time" content="2022-05-28T12:53:47.000Z">
-<meta property="article:modified_time" content="2022-05-29T14:39:29.932Z">
+<meta property="article:modified_time" content="2022-05-30T05:51:20.603Z">
 <meta property="article:author" content="Zhen Yi">
 <meta property="article:tag" content="NFT">
 <meta property="article:tag" content="Solidity">
@@ -126,7 +126,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>本文尝试发行一款<code>NFT</code>，我们从合约出发而不是直接使用<a target="_blank" rel="noopener" href="https://opensea.io/">Opensea</a>来搞定定制化发布，在此之前你需要先熟悉<code>Solidity</code>这门合约语言。</p>
+        <p>本文尝试发行一款<code>NFT</code>，我们从合约出发而不是直接使用<a target="_blank" rel="noopener" href="https://opensea.io/">Opensea</a>来搞定定制化发布，在此之前你需要先熟悉<code>Solidity</code>这门合约语言，并拥有<code>Metamask</code>钱包和账户。</p>
 <span id="more"></span>
 
 <h3 id="NFT基本认识"><a href="#NFT基本认识" class="headerlink" title="NFT基本认识"></a>NFT基本认识</h3><h4 id="NFT是什么"><a href="#NFT是什么" class="headerlink" title="NFT是什么"></a>NFT是什么</h4><p>NFT是Non-fungible token的缩写，即非同质化代币，是一种在区块链上的数据单位，既然是token，那么其就具备了资产属性。这种资产不可互换，可以被确权。技术上作品本身可以被复制，但是作品的拥有权被区块链所记录且完整追踪，所有权是唯一的。另一方面，非同质化是说：所有的房屋都是不同的，没有两只小猫是一样的。NFT可区分，必须分别跟踪每个所有者。和ERC20的区别就在此：每一个token在ERC20都是一样的，而且可以分割。</p>
@@ -154,7 +154,7 @@
 <p>完成后编译合约：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npx hardhat compile</span><br></pre></td></tr></table></figure>
 
-<p>改写默认的<code>sample-scripts.js</code>如下：</p>
+<p>改写默认的<code>sample-scripts.js</code>部署脚本如下：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hre = <span class="built_in">require</span>(<span class="string">&quot;hardhat&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> NFT = <span class="keyword">await</span> hre.ethers.getContractFactory(<span class="string">&quot;NFT&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> nft = <span class="keyword">await</span> NFT.deploy();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">await</span> nft.deployed();</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;My NFT deployed to:&quot;</span>, nft.address);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main()</span><br><span class="line">  .then(<span class="function">() =&gt;</span> process.exit(<span class="number">0</span>))</span><br><span class="line">  .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(error);</span><br><span class="line">    process.exit(<span class="number">1</span>);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h3 id="使用Infura进行线上测试"><a href="#使用Infura进行线上测试" class="headerlink" title="使用Infura进行线上测试"></a>使用Infura进行线上测试</h3><p>Infura是最早和目前最大的Ethereum的Relay Network解决方案，提供一些公开的Gataway节点。我们会与Infura的api进行交互，而Infura作为中介会在他们的云上管理的节点中执行相关操作完成最终调用。</p>
@@ -218,6 +218,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2022/05/31/2022_crypto/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          数字货币一日通——OpenZeppelin的ERC20
+        
+      </div>
+    </a>
   
   
     <a href="/2022/05/23/2022_DApp/" id="article-nav-older" class="article-nav-link-wrap">
