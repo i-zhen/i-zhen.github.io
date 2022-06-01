@@ -84,6 +84,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-NOI2006" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2010/04/25/NOI2006/" class="article-date">
+  <time class="dt-published" datetime="2010-04-24T21:39:37.000Z" itemprop="datePublished">2010-04-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Solve/">Solve</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2010/04/25/NOI2006/">NOI2006最大获利-最大权闭合子图</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>首先按照<a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P4174">题目</a>要求先建立二分图：左边是用户点，右边是通讯站，并给他们附上权值为正无穷。然后右边的点向超级汇连边，权值为中转站的花费。超级源向左边的点连边，权值是获利。然后求出最大流。这个最大流的含义是：因为最大流 = 最小割。中间部分的边容量是正无穷不会被割开，而只会割开源与汇的边，也就是（不打算纳入获利的值 + 建一部分通讯站的费用），因为是最小割，所以保证这样的耗费最小，也就是说这是我们不需要的值。因此最终结果是：可获利的总权值 -最大流。</p>
+        
+          <p class="article-more-link">
+            <a href="/2010/04/25/NOI2006/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2010/04/25/NOI2006/" data-id="cktfbroh3001gt8dx1mkucpj1" data-title="NOI2006最大获利-最大权闭合子图" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2010/04/25/NOI2006/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NOI/" rel="tag">NOI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NetFlow/" rel="tag">NetFlow</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/" rel="tag">费用流</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-usaco_335" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2010/04/18/usaco_335/" class="article-date">
@@ -551,57 +602,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-usaco_342" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2010/02/06/usaco_342/" class="article-date">
-  <time class="dt-published" datetime="2010-02-06T15:39:27.000Z" itemprop="datePublished">2010-02-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Solve/">Solve</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2010/02/06/usaco_342/">USACO 3.4.2 Heritage</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>分治策略：首先根据常识凡是中序+前序，中序+后序均可确定唯一二叉树。前序+后序不可确定。因此我们根据中序+前序先构造出二叉树，然后输出即可。构造方法是：因为前序遍历的第一个一定是根，那么接着找到根在中序遍历的位置。在中序遍历中左边的就是左子树。右边的就是右子树。然后下放左右子树和相应的前序遍历接着做，直到没有左右子树为止。(如图)</p>
-        
-          <p class="article-more-link">
-            <a href="/2010/02/06/usaco_342/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://izhen.me/2010/02/06/usaco_342/" data-id="cktfbroiz0083t8dx4sx5bgkl" data-title="USACO 3.4.2 Heritage" class="article-share-link">Share</a>
-      
-        <a href="https://izhen.me/2010/02/06/usaco_342/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ad-Hoc/" rel="tag">Ad Hoc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li></ul>
 
     </footer>
   </div>

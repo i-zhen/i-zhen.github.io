@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>工业级web3应用开发技术选型 | Z.Y. ☯ Cosmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="本文给出当下web3产品级应用的技术栈推荐，可供置身于去中心事业的科技从业人员参考。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工业级web3应用开发技术选型">
+<meta property="og:url" content="https://izhen.me/2022/06/01/2022_web3_stack/index.html">
+<meta property="og:site_name" content="Z.Y. ☯ Cosmos">
+<meta property="og:description" content="本文给出当下web3产品级应用的技术栈推荐，可供置身于去中心事业的科技从业人员参考。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-06-01T12:53:47.000Z">
+<meta property="article:modified_time" content="2022-06-01T05:34:41.775Z">
+<meta property="article:author" content="Zhen Yi">
+<meta property="article:tag" content="Metamask">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="Hardhat">
+<meta property="article:tag" content="web3">
+<meta property="article:tag" content="Next.js">
+<meta property="article:tag" content="TypeScript">
+<meta property="article:tag" content="Rust">
+<meta property="article:tag" content="Infura">
+<meta property="article:tag" content="dotenv">
+<meta property="article:tag" content="Rinkeby">
+<meta property="article:tag" content="IPFS">
+<meta property="article:tag" content="x074">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@soczhenyi">
+  
+    <link rel="alternate" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Z.Y. ☯ Cosmos</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Powered by Disqus, scientific surfing for access</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="http://sweetpotato.ai">λ</a>
+        
+          <a class="main-nav-link" href="/lab">About</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://resume.izhen.me">Resume</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://github.com/i-zhen">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://izhen.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2022_web3_stack" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/01/2022_web3_stack/" class="article-date">
+  <time class="dt-published" datetime="2022-06-01T12:53:47.000Z" itemprop="datePublished">2022-06-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BLOG/">BLOG</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      工业级web3应用开发技术选型
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>本文给出当下<code>web3</code>产品级应用的技术栈推荐，可供置身于去中心事业的科技从业人员参考。</p>
+<span id="more"></span>
+<h3 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h3><p>有关于本文的内容，默认读者已经具备基本的去中心相关的知识点，下面系列文章可供大家提前预习：</p>
+<ol start="0">
+<li><a href="https://izhen.me/2022/05/07/2022_web1_web3/">《从web 1.0到web 3.0》</a></li>
+<li><a href="https://izhen.me/2022/05/23/2022_DApp/">《DApp一日通——web3.js、Truffle与Dfinity篇》</a></li>
+<li><a href="https://izhen.me/2022/05/15/2022_solidity/">《智能合约一日通——Solidity篇》</a></li>
+<li><a href="https://izhen.me/2022/05/28/2022_NFT/">《NFT一日通——Azuki的ERC721A》</a></li>
+<li><a href="https://izhen.me/2022/05/31/2022_crypto/">《数字货币一日通——OpenZeppelin的ERC20》</a></li>
+</ol>
+<h3 id="架构摘要"><a href="#架构摘要" class="headerlink" title="架构摘要"></a>架构摘要</h3><h4 id="EVM兼容架构选型推荐"><a href="#EVM兼容架构选型推荐" class="headerlink" title="EVM兼容架构选型推荐"></a>EVM兼容架构选型推荐</h4><ul>
+<li>编程语言：<ul>
+<li>前端：<a target="_blank" rel="noopener" href="https://www.typescriptlang.org/">TypeScript</a>/JavaScript</li>
+<li>跨平台：<a target="_blank" rel="noopener" href="https://reactnative.dev/">ReactNative</a></li>
+<li>后端：TypeScript/JavaScript</li>
+<li>合约端：<a target="_blank" rel="noopener" href="https://docs.soliditylang.org/en/v0.8.14/">Solidity</a></li>
+<li>链端：<a target="_blank" rel="noopener" href="https://geth.ethereum.org/">Go</a></li>
+</ul>
+</li>
+<li>框架或工作流：<ul>
+<li>前端：<a target="_blank" rel="noopener" href="https://zh-hans.reactjs.org/">React</a> + <a target="_blank" rel="noopener" href="https://nextjs.org/">Next.js</a> + <a target="_blank" rel="noopener" href="https://wagmi.sh/">Wagmi</a> + <a target="_blank" rel="noopener" href="https://github.com/motdotla/dotenv#readme">dotenv</a></li>
+<li>后端：<a target="_blank" rel="noopener" href="https://nodejs.dev/">Node.js</a>生态 (与前端均用JS系，一体成型)</li>
+<li>Provider/Signer: <a target="_blank" rel="noopener" href="https://web3js.readthedocs.io/en/v1.7.3/">web3.js</a>/<a target="_blank" rel="noopener" href="https://docs.ethers.io/v5/">ether.js</a></li>
+<li>Relay Network: <a target="_blank" rel="noopener" href="https://infura.io/">Infura</a></li>
+<li>数据端：<a target="_blank" rel="noopener" href="https://ipfs.io/">IPFS</a></li>
+<li>合约端：<a target="_blank" rel="noopener" href="https://hardhat.org/">Hardhat</a></li>
+<li>中间件：<code>Java</code>生态(如果需要)</li>
+</ul>
+</li>
+</ul>
+<h4 id="非EVM兼容或其它备选架构选型"><a href="#非EVM兼容或其它备选架构选型" class="headerlink" title="非EVM兼容或其它备选架构选型"></a>非EVM兼容或其它备选架构选型</h4><ul>
+<li>编程语言：<ul>
+<li>前端：<a target="_blank" rel="noopener" href="https://webassembly.org/">WASM</a>生态</li>
+<li>跨平台：<a target="_blank" rel="noopener" href="https://flutter.dev/">Flutter</a>, <code>Swift</code> + <a target="_blank" rel="noopener" href="https://github.com/argentlabs/web3.swift">web3.swift</a>, <code>Java</code> + <a target="_blank" rel="noopener" href="https://docs.web3j.io/4.8.7/">Web3j</a></li>
+<li>后端：Rust, Java, Scala, Python, Go</li>
+<li>合约端：<a target="_blank" rel="noopener" href="https://www.cairo-lang.org/">Cairo</a> (StarkNet), Rust(Solana, Dfinity), <a target="_blank" rel="noopener" href="https://internetcomputer.org/docs/current/developer-docs/build/languages/motoko/">Motoko</a> (Dfinity), <a target="_blank" rel="noopener" href="https://vyper.readthedocs.io/en/stable/">Vyper</a></li>
+<li>链端：Rust, C++, Haskell, OCaml</li>
+</ul>
+</li>
+<li>框架或工作流：<ul>
+<li>前端：<code>Vue.js</code></li>
+<li>后端：<code>Spring</code>, <code>Actix Web</code>(Actor Framework), <code>Flask</code></li>
+<li>Provider/Signer: Web3j, ether-rs/rust-web3</li>
+<li>Relay Network: <a target="_blank" rel="noopener" href="https://www.alchemy.com/">Alchemy</a>, <a target="_blank" rel="noopener" href="https://moralis.io/">Moralis</a></li>
+<li>数据端：<a target="_blank" rel="noopener" href="https://www.arweave.org/">Arweave</a>, <a target="_blank" rel="noopener" href="https://filecoin.io/zh-cn/">Filecoin</a></li>
+<li>合约端：<a target="_blank" rel="noopener" href="https://book.getfoundry.sh/index.html">Foundry</a> (EVM)，<a target="_blank" rel="noopener" href="https://trufflesuite.com/">Truffle</a></li>
+<li>中间件：无额外备选</li>
+</ul>
+</li>
+</ul>
+<h3 id="推荐解构"><a href="#推荐解构" class="headerlink" title="推荐解构"></a>推荐解构</h3><h4 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h4><p><code>React</code>生态可以很方便结合<code>ReactNative</code>跨平台，外加其本身坐拥JS生态的资源，有非常丰富的三方库和框架来辅助我们开发。在EVM兼容的链内，不少Provider/Signer也是支持JS体系的，所以这里推荐这个框架。编程语言的话，既然是JavaScript体系，那当然可以选择<code>TypeScript</code>这款更好的JS，无论是<code>React</code>还是<code>Next.js</code>都有TS模板。TS有一个现代的类型系统，支持ADT和一些很强大的高阶类型，强类型可以帮助我们避免很多的错误，把危险即时扼杀在摇篮里，相信你会喜欢上这款微软出品的JS语言的。</p>
+<p>使用React再配合<code>Wagmi</code>和<code>dotenv</code>，是一套已经可以构建工业级产品的选择。</p>
+<h4 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h4><p><code>Node.js</code>可以让我们用JS写后端，这样可以将维护成本降低，与前端一体成型，这是一个低成本的方案。当然如果可以追求安全性的话，Rust也是一个热门的选择，尤其是区款链生态当中。传统的方案就是Java/Scala生态，如果你的后端很复杂，或者干脆只是一个传统个web2链改项目，那么用传统的方外加丰富的中间件确实是一个好选择。</p>
+<h4 id="合约端"><a href="#合约端" class="headerlink" title="合约端"></a>合约端</h4><p>如果是EVM生态，没什么好说的，就是<code>Hardhat</code> + <code>Solidity</code>的工作流。选择新型的<code>Cairo</code>也不错，Solana/Dfinity则提供了Rust这个选项，Dfinity甚至还有自己的<code>Motoko</code>编程语言。作为推荐，还是优先考虑资产更丰富的以太坊，优先支持Solidity吧。</p>
+<h4 id="Provider-Signer"><a href="#Provider-Signer" class="headerlink" title="Provider/Signer"></a>Provider/Signer</h4><p>这个没什么好推荐，目前主流的能用哪个算哪个，一般我们可以不需要裸写Provider的逻辑。选用了React框架后，Hardhat集成了ether.js，React可以选用Wagmi，其它的方案也大同小异。</p>
+<h4 id="Relay"><a href="#Relay" class="headerlink" title="Relay"></a>Relay</h4><p>结点服务自然首选<code>Infura</code>，a16z投资的<code>Alchemy</code>也可以纳入考虑。</p>
+<h4 id="数据端"><a href="#数据端" class="headerlink" title="数据端"></a>数据端</h4><p>如果要发布NFT，或者要做一个去中心的Gmail，类似的这种需要存储方案的，目前推荐<code>IPFS</code>，你可以用<a target="_blank" rel="noopener" href="https://www.pinata.cloud/">Pinata</a>的服务，Infura支持IPFS。<a target="_blank" rel="noopener" href="https://mirror.xyz/">Mirror.xyz</a>使用了<code>Arweave</code>，也可以作为备选。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2022/06/01/2022_web3_stack/" data-id="cl3v442bm0000mbdxdzek8353" data-title="工业级web3应用开发技术选型" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2022/06/01/2022_web3_stack/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hardhat/" rel="tag">Hardhat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IPFS/" rel="tag">IPFS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Infura/" rel="tag">Infura</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Metamask/" rel="tag">Metamask</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Next-js/" rel="tag">Next.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rinkeby/" rel="tag">Rinkeby</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TypeScript/" rel="tag">TypeScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dotenv/" rel="tag">dotenv</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web3/" rel="tag">web3</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/x074/" rel="tag">x074</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/05/31/2022_crypto/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">数字货币一日通——OpenZeppelin的ERC20</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2009-2022 Zhen Yi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <br>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">用户访问: <span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+      <span class="site-pv">本站访问: <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a target="_blank" rel="noopener" href="http://sweetpotato.ai" class="mobile-nav-link">λ</a>
+  
+    <a href="/lab" class="mobile-nav-link">About</a>
+  
+    <a target="_blank" rel="noopener" href="https://resume.izhen.me" class="mobile-nav-link">Resume</a>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/i-zhen" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'izhen';
+  
+  var disqus_url = 'https://izhen.me/2022/06/01/2022_web3_stack/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
