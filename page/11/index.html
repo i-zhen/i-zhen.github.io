@@ -84,57 +84,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-noi2004" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2010/02/08/noi2004/" class="article-date">
-  <time class="dt-published" datetime="2010-02-07T21:38:37.000Z" itemprop="datePublished">2010-02-08</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Solve/">Solve</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2010/02/08/noi2004/">NOI2007项链工厂</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>(这道题目好像很流行 (^o^))。分析题目，因为所有操作均是在区间内完成的，因此可以使用线段树，保证维护的摊还时间限定在O(logn)以内，但是本题的难点不在线段树本身，而是对于Flip和 Rotate的维护，这是其一，其二就是如何合并两棵树。针对这个问题，通过分析我们知道，珠子之间的相对位置固定，这样就可以使用偏移量来记录，再用bool的标志记录是否偏转，具体的计算请看我的程序的hash()函数，这样就解决了这两个问题。而子树合并，则要再维护rcol，lcol两个分别代表左右端点的域。这样的好处，相信不用我再说了。</p>
-        
-          <p class="article-more-link">
-            <a href="/2010/02/08/noi2004/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://izhen.me/2010/02/08/noi2004/" data-id="cktfbroid0060t8dx1pl1beyq" data-title="NOI2007项链工厂" class="article-share-link">Share</a>
-      
-        <a href="https://izhen.me/2010/02/08/noi2004/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
     <article id="post-usaco_342" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2010/02/06/usaco_342/" class="article-date">
@@ -594,6 +543,57 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KDE/" rel="tag">KDE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-usaco_234" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2009/04/27/usaco_234/" class="article-date">
+  <time class="dt-published" datetime="2009-04-27T09:59:40.000Z" itemprop="datePublished">2009-04-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Solve/">Solve</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2009/04/27/usaco_234/">USACO 2.3.4 Money</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>这道题目有必要解释一下我写的DP，a[j]=a[j]+a[j-k] (0&lt;=j&lt;=n)，其中k为当前面值，思想是这样的：f[j]是用j面值可组成钱的方案数，事实上就是先降维后记忆化搜索的背包，原来的方程是：f[i,j]=f[i-1,j]+f[i,j-k]因为选中k后还可以再次选择(01背包只能选一次)所以第二个式子是i而不是i-1。</p>
+        
+          <p class="article-more-link">
+            <a href="/2009/04/27/usaco_234/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2009/04/27/usaco_234/" data-id="cktfbroiv007ot8dxaucc3wnj" data-title="USACO 2.3.4 Money" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2009/04/27/usaco_234/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pascal/" rel="tag">Pascal</a></li></ul>
 
     </footer>
   </div>
