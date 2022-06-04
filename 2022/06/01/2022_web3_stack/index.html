@@ -14,7 +14,7 @@
 <meta property="og:description" content="本文给出当下web3产品级应用的技术栈推荐，可供置身于去中心事业的科技从业人员参考。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-06-01T12:53:47.000Z">
-<meta property="article:modified_time" content="2022-06-01T09:51:30.299Z">
+<meta property="article:modified_time" content="2022-06-04T04:23:53.147Z">
 <meta property="article:author" content="Zhen Yi">
 <meta property="article:tag" content="Metamask">
 <meta property="article:tag" content="React">
@@ -148,6 +148,7 @@
 <li>后端：<a target="_blank" rel="noopener" href="https://nodejs.dev/">Node.js</a>生态 (与前端均用JS系，一体成型)</li>
 <li>Provider/Signer: <a target="_blank" rel="noopener" href="https://web3js.readthedocs.io/en/v1.7.3/">web3.js</a>/<a target="_blank" rel="noopener" href="https://docs.ethers.io/v5/">ether.js</a></li>
 <li>Relay Network: <a target="_blank" rel="noopener" href="https://infura.io/">Infura</a></li>
+<li>Oracle: <a target="_blank" rel="noopener" href="https://docs.chain.link/">Chainlink</a></li>
 <li>L2/侧链: <a target="_blank" rel="noopener" href="https://polygon.technology/">Polygon</a></li>
 <li>数据端：<a target="_blank" rel="noopener" href="https://ipfs.io/">IPFS</a></li>
 <li>合约端：<a target="_blank" rel="noopener" href="https://hardhat.org/">Hardhat</a></li>
@@ -169,6 +170,7 @@
 <li>后端：<code>Spring</code>, <code>Actix Web</code>(Actor Framework), <code>Flask</code></li>
 <li>Provider/Signer: Web3j, ether-rs/rust-web3</li>
 <li>Relay Network: <a target="_blank" rel="noopener" href="https://www.alchemy.com/">Alchemy</a>, <a target="_blank" rel="noopener" href="https://moralis.io/">Moralis</a></li>
+<li>Oracle: 无额外备选</li>
 <li>L2/侧链: <a target="_blank" rel="noopener" href="https://starkware.co/starknet/">StarkNet</a> (非EVM兼容，需要切换到Cairo/Python生态)</li>
 <li>数据端：<a target="_blank" rel="noopener" href="https://www.arweave.org/">Arweave</a>, <a target="_blank" rel="noopener" href="https://filecoin.io/zh-cn/">Filecoin</a></li>
 <li>合约端：<a target="_blank" rel="noopener" href="https://book.getfoundry.sh/index.html">Foundry</a> (EVM)，<a target="_blank" rel="noopener" href="https://trufflesuite.com/">Truffle</a></li>
@@ -182,6 +184,7 @@
 <h4 id="合约端"><a href="#合约端" class="headerlink" title="合约端"></a>合约端</h4><p>如果是EVM生态，没什么好说的，就是<code>Hardhat</code> + <code>Solidity</code>的工作流。选择新型的<code>Cairo</code>也不错，Solana/Dfinity则提供了Rust这个选项，Dfinity甚至还有自己的<code>Motoko</code>编程语言。作为推荐，还是优先考虑资产更丰富的以太坊，优先支持Solidity吧。</p>
 <h4 id="Provider-Signer"><a href="#Provider-Signer" class="headerlink" title="Provider/Signer"></a>Provider/Signer</h4><p>这个没什么好推荐，目前主流的能用哪个算哪个，一般我们可以不需要裸写Provider的逻辑。选用了React框架后，Hardhat集成了ether.js，React可以选用Wagmi，其它的方案也大同小异。</p>
 <h4 id="Relay"><a href="#Relay" class="headerlink" title="Relay"></a>Relay</h4><p>结点服务自然首选<code>Infura</code>，a16z投资的<code>Alchemy</code>也可以纳入考虑。</p>
+<h4 id="Oracle"><a href="#Oracle" class="headerlink" title="Oracle"></a>Oracle</h4><p>以太坊区块链是完全确定性(deterministic)的。也就是说，当我们拿到整个网络的历史，并且在我们自己的电脑上重放，我们总能在一个正确的状态结束。但是互联网是非确定性的，每次重放所有的网络上面的事务，总是会遇到一个不同的结果。也因此，以太坊上面实现随机数和像普通的网路一样调用API获取结果变得困难，这一点和纯函数的编程语言（Haskell）有类似之处，状态和过程分离了。但是获取一些数据是很重要的能力，至少我们可以更加方便，比如创建一个去中心的数字货币交易所，数字货币的价格是需要通过外部获取的，这就要借助<code>Oracle</code>的能力（不是那个数据库公司）。这里推荐<a target="_blank" rel="noopener" href="https://towardsdatascience.com/api-calls-on-blockchain-best-practice-for-data-collection-11f1fc86a2be">Chainlink</a>。</p>
 <h4 id="数据端"><a href="#数据端" class="headerlink" title="数据端"></a>数据端</h4><p>如果要发布NFT，或者要做一个去中心的Gmail，类似的这种需要存储方案的，目前推荐<code>IPFS</code>，你可以用<a target="_blank" rel="noopener" href="https://www.pinata.cloud/">Pinata</a>的服务，Infura支持IPFS。<a target="_blank" rel="noopener" href="https://mirror.xyz/">Mirror.xyz</a>使用了<code>Arweave</code>，也可以作为备选。</p>
 
       
