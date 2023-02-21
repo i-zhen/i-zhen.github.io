@@ -14,7 +14,7 @@
 <meta property="og:description" content="本文给出当下web3产品级应用的技术栈推荐，可供置身于去中心事业的科技从业人员参考。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-06-01T12:53:47.000Z">
-<meta property="article:modified_time" content="2023-02-21T13:16:58.859Z">
+<meta property="article:modified_time" content="2023-02-21T15:04:41.783Z">
 <meta property="article:author" content="Zhen Yi">
 <meta property="article:tag" content="Metamask">
 <meta property="article:tag" content="React">
@@ -128,18 +128,51 @@
 <span id="more"></span>
 
 <h3 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h3><p>有关于本文的内容，默认读者已经具备基本的去中心相关的知识点，下面系列文章可供大家提前预习：</p>
-<p>《从web 1.0到web 3.0》<br>《DApp一日通——web3.js、Truffle与Dfinity篇》<br>《智能合约一日通——Solidity篇》<br>《NFT一日通——Azuki的ERC721A》<br>《数字货币一日通——OpenZeppelin的ERC20》<br>架构摘要</p>
-<p>EVM兼容架构选型推荐</p>
-<p>编程语言：<br>前端：TypeScript/JavaScript<br>跨平台：ReactNative<br>后端：TypeScript/JavaScript<br>合约端：Solidity<br>链端：Go<br>框架或工作流：<br>前端：React + Next.js + Wagmi + dotenv<br>后端：Node.js生态 (与前端均用JS系，一体成型)<br>Provider/Signer: web3.js/ether.js<br>Relay Network: Infura<br>Oracle: Chainlink<br>L2/侧链: Polygon<br>数据端：IPFS<br>合约端：Hardhat<br>中间件：Java生态(如果需要)<br>非EVM兼容或其它备选架构选型</p>
-<p>编程语言：<br>前端：WASM生态<br>跨平台：Flutter, Swift + web3.swift, Java + Web3j<br>后端：Rust, Java, Scala, Python, Go<br>合约端：Cairo (StarkNet), Rust(Solana, Dfinity), Motoko (Dfinity), Vyper<br>链端：Rust, C++, Haskell, OCaml<br>框架或工作流：<br>前端：Vue.js<br>后端：Spring, Actix Web(Actor Framework), Flask<br>Provider/Signer: Web3j, ether-rs/rust-web3<br>Relay Network: Alchemy, Moralis<br>Oracle: 无额外备选<br>L2/侧链: StarkNet (非EVM兼容，需要切换到Cairo/Python生态)<br>数据端：Arweave, Filecoin<br>合约端：Foundry (EVM)，Truffle<br>中间件：无额外备选<br>推荐解构</p>
-<h3 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h3><p>React生态可以很方便结合ReactNative跨平台，外加其本身坐拥JS生态的资源，有非常丰富的三方库和框架来辅助我们开发。在EVM兼容的链内，不少Provider/Signer也是支持JS体系的，所以这里推荐这个框架。编程语言的话，既然是JavaScript体系，那当然可以选择TypeScript这款更好的JS，无论是React还是Next.js都有TS模板。TS有一个现代的类型系统，支持ADT和一些很强大的高阶类型，强类型可以帮助我们避免很多的错误，把危险即时扼杀在摇篮里，相信你会喜欢上这款微软出品的JS语言的。</p>
+<p>《从web 1.0到web 3.0》<br>《DApp一日通——web3.js、Truffle与Dfinity篇》<br>《智能合约一日通——Solidity篇》<br>《NFT一日通——Azuki的ERC721A》<br>《数字货币一日通——OpenZeppelin的ERC20》</p>
+<h3 id="架构摘要"><a href="#架构摘要" class="headerlink" title="架构摘要"></a>架构摘要</h3><h4 id="EVM兼容架构选型推荐"><a href="#EVM兼容架构选型推荐" class="headerlink" title="EVM兼容架构选型推荐"></a>EVM兼容架构选型推荐</h4><h5 id="编程语言："><a href="#编程语言：" class="headerlink" title="编程语言："></a>编程语言：</h5><ul>
+<li>前端：TypeScript/JavaScript</li>
+<li>跨平台：ReactNative</li>
+<li>后端：TypeScript/JavaScript</li>
+<li>合约端：Solidity</li>
+<li>链端：Go</li>
+</ul>
+<h5 id="框架或工作流："><a href="#框架或工作流：" class="headerlink" title="框架或工作流："></a>框架或工作流：</h5><ul>
+<li>前端：React + Next.js + Wagmi + dotenv</li>
+<li>后端：Node.js生态 (与前端均用JS系，一体成型)</li>
+<li>Provider/Signer: web3.js/ether.js</li>
+<li>Relay Network: Infura</li>
+<li>Oracle: Chainlink</li>
+<li>L2/侧链: Polygon</li>
+<li>数据端：IPFS</li>
+<li>合约端：Hardhat</li>
+<li>中间件：Java生态(如果需要)</li>
+</ul>
+<h4 id="非EVM兼容或其它备选架构选型"><a href="#非EVM兼容或其它备选架构选型" class="headerlink" title="非EVM兼容或其它备选架构选型"></a>非EVM兼容或其它备选架构选型</h4><h5 id="编程语言：-1"><a href="#编程语言：-1" class="headerlink" title="编程语言："></a>编程语言：</h5><ul>
+<li>前端：WASM生态</li>
+<li>跨平台：Flutter, Swift + web3.swift, Java + Web3j</li>
+<li>后端：Rust, Java, Scala, Python, Go</li>
+<li>合约端：Cairo (StarkNet), Rust(Solana, Dfinity), Motoko (Dfinity), Vyper</li>
+<li>链端：Rust, C++, Haskell, OCaml</li>
+</ul>
+<h5 id="框架或工作流：-1"><a href="#框架或工作流：-1" class="headerlink" title="框架或工作流："></a>框架或工作流：</h5><ul>
+<li>前端：Vue.js</li>
+<li>后端：Spring, Actix Web(Actor Framework), Flask</li>
+<li>Provider/Signer: Web3j, ether-rs/rust-web3</li>
+<li>Relay Network: Alchemy, Moralis</li>
+<li>Oracle: 无额外备选</li>
+<li>L2/侧链: StarkNet (非EVM兼容，需要切换到Cairo/Python生态)</li>
+<li>数据端：Arweave, Filecoin</li>
+<li>合约端：Foundry (EVM)，Truffle</li>
+<li>中间件：无额外备选</li>
+</ul>
+<h4 id="推荐解构"><a href="#推荐解构" class="headerlink" title="推荐解构"></a>推荐解构</h4><h5 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h5><p>React生态可以很方便结合ReactNative跨平台，外加其本身坐拥JS生态的资源，有非常丰富的三方库和框架来辅助我们开发。在EVM兼容的链内，不少Provider/Signer也是支持JS体系的，所以这里推荐这个框架。编程语言的话，既然是JavaScript体系，那当然可以选择TypeScript这款更好的JS，无论是React还是Next.js都有TS模板。TS有一个现代的类型系统，支持ADT和一些很强大的高阶类型，强类型可以帮助我们避免很多的错误，把危险即时扼杀在摇篮里，相信你会喜欢上这款微软出品的JS语言的。</p>
 <p>使用React再配合Wagmi和dotenv，是一套已经可以构建工业级产品的选择。</p>
-<h3 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h3><p>Node.js可以让我们用JS写后端，这样可以将维护成本降低，与前端一体成型，这是一个低成本的方案。当然如果可以追求安全性的话，Rust也是一个热门的选择，尤其是区款链生态当中。传统的方案就是Java/Scala生态，如果你的后端很复杂，或者干脆只是一个传统个web2链改项目，那么用传统的方外加丰富的中间件确实是一个好选择。</p>
-<h3 id="合约端"><a href="#合约端" class="headerlink" title="合约端"></a>合约端</h3><p>如果是EVM生态，没什么好说的，就是Hardhat + Solidity的工作流。选择新型的Cairo也不错，Solana/Dfinity则提供了Rust这个选项，Dfinity甚至还有自己的Motoko编程语言。作为推荐，还是优先考虑资产更丰富的以太坊，优先支持Solidity吧。</p>
-<h3 id="Provider-Signer"><a href="#Provider-Signer" class="headerlink" title="Provider/Signer"></a>Provider/Signer</h3><p>这个没什么好推荐，目前主流的能用哪个算哪个，一般我们可以不需要裸写Provider的逻辑。选用了React框架后，Hardhat集成了ether.js，React可以选用Wagmi，其它的方案也大同小异。</p>
-<h3 id="Relay"><a href="#Relay" class="headerlink" title="Relay"></a>Relay</h3><p>结点服务自然首选Infura，a16z投资的Alchemy也可以纳入考虑。</p>
-<h3 id="Oracle"><a href="#Oracle" class="headerlink" title="Oracle"></a>Oracle</h3><p>以太坊区块链是完全确定性(deterministic)的。也就是说，当我们拿到整个网络的历史，并且在我们自己的电脑上重放，我们总能在一个正确的状态结束。但是互联网是非确定性的，每次重放所有的网络上面的事务，总是会遇到一个不同的结果。也因此，以太坊上面实现随机数和像普通的网路一样调用API获取结果变得困难，这一点和纯函数的编程语言（Haskell）有类似之处，状态和过程分离了。但是获取一些数据是很重要的能力，至少我们可以更加方便，比如创建一个去中心的数字货币交易所，数字货币的价格是需要通过外部获取的，这就要借助Oracle的能力（不是那个数据库公司）。这里推荐Chainlink。</p>
-<h3 id="数据端"><a href="#数据端" class="headerlink" title="数据端"></a>数据端</h3><p>如果要发布NFT，或者要做一个去中心的Gmail，类似的这种需要存储方案的，目前推荐IPFS，你可以用Pinata的服务，Infura支持IPFS。Mirror.xyz使用了Arweave，也可以作为备选。</p>
+<h5 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h5><p>Node.js可以让我们用JS写后端，这样可以将维护成本降低，与前端一体成型，这是一个低成本的方案。当然如果可以追求安全性的话，Rust也是一个热门的选择，尤其是区款链生态当中。传统的方案就是Java/Scala生态，如果你的后端很复杂，或者干脆只是一个传统个web2链改项目，那么用传统的方外加丰富的中间件确实是一个好选择。</p>
+<h5 id="合约端"><a href="#合约端" class="headerlink" title="合约端"></a>合约端</h5><p>如果是EVM生态，没什么好说的，就是Hardhat + Solidity的工作流。选择新型的Cairo也不错，Solana/Dfinity则提供了Rust这个选项，Dfinity甚至还有自己的Motoko编程语言。作为推荐，还是优先考虑资产更丰富的以太坊，优先支持Solidity吧。</p>
+<h5 id="Provider-Signer"><a href="#Provider-Signer" class="headerlink" title="Provider/Signer"></a>Provider/Signer</h5><p>这个没什么好推荐，目前主流的能用哪个算哪个，一般我们可以不需要裸写Provider的逻辑。选用了React框架后，Hardhat集成了ether.js，React可以选用Wagmi，其它的方案也大同小异。</p>
+<h5 id="Relay"><a href="#Relay" class="headerlink" title="Relay"></a>Relay</h5><p>结点服务自然首选Infura，a16z投资的Alchemy也可以纳入考虑。</p>
+<h5 id="Oracle"><a href="#Oracle" class="headerlink" title="Oracle"></a>Oracle</h5><p>以太坊区块链是完全确定性(deterministic)的。也就是说，当我们拿到整个网络的历史，并且在我们自己的电脑上重放，我们总能在一个正确的状态结束。但是互联网是非确定性的，每次重放所有的网络上面的事务，总是会遇到一个不同的结果。也因此，以太坊上面实现随机数和像普通的网路一样调用API获取结果变得困难，这一点和纯函数的编程语言（Haskell）有类似之处，状态和过程分离了。但是获取一些数据是很重要的能力，至少我们可以更加方便，比如创建一个去中心的数字货币交易所，数字货币的价格是需要通过外部获取的，这就要借助Oracle的能力（不是那个数据库公司）。这里推荐Chainlink。</p>
+<h5 id="数据端"><a href="#数据端" class="headerlink" title="数据端"></a>数据端</h5><p>如果要发布NFT，或者要做一个去中心的Gmail，类似的这种需要存储方案的，目前推荐IPFS，你可以用Pinata的服务，Infura支持IPFS。Mirror.xyz使用了Arweave，也可以作为备选。</p>
 
       
     </div>
