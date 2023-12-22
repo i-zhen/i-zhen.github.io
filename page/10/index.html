@@ -84,6 +84,108 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-APIO2007" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2010/06/26/APIO2007/" class="article-date">
+  <time class="dt-published" datetime="2010-06-25T21:38:37.000Z" itemprop="datePublished">2010-06-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Solve/">Solve</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2010/06/26/APIO2007/">APIO2007风铃</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>本<a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P3621">题目</a>的程序实现并不困难，算法整体也相当容易，主要的坎坷就是考虑问题的全面性。事实上，题目的很多限定让程序的实现更接近DP，所以我们可以借助树状DP的思想来分析题目。首先我们按照程序实现的顺序逐一分析：</p>
+        
+          <p class="article-more-link">
+            <a href="/2010/06/26/APIO2007/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2010/06/26/APIO2007/" data-id="cktfbrogy0010t8dxedt9dzio" data-title="APIO2007风铃" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2010/06/26/APIO2007/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/" rel="tag">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/" rel="tag">Tree</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-NOI2008" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2010/04/27/NOI2008/" class="article-date">
+  <time class="dt-published" datetime="2010-04-26T21:39:37.000Z" itemprop="datePublished">2010-04-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Solve/">Solve</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2010/04/27/NOI2008/">NOI2008志愿者招募</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p><a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P3980">题目</a>可以使用费用流建模 (费用流得实现细节就不说了 )，下面是一个常用的建模方式：首先按照天数从源到汇依次建立 S-&gt;1-&gt;2……N-&gt;N+1-&gt;T。也就是多加入一个点。他们的费用均为0，如图所示，第N天的流量就是 (MAX-第 N天的需求量 )。然后如果有一种雇员从 (x到 y)可以服务，那么连接 (x到 y+1),流量是 MAX,费用为雇佣花费。这样建模的大致思路大家应该已经明白：按照时间发展顺序，顺流而下。当我们选用一个雇员时，若覆盖 [x,y]天，那么自然就是连边 [x,y+1]只有这样才能保证当前的流量可以允许这些天都得到服务。那么为什么对呢？首先最大流一定是 MAX.因为这是最小割，而任何割集都不会小于这个割，所以就拿第一天来说，如果第一天最后求得的流量恰好是： (MAX-N[1])，一定有N[1] 的流量通过别的途径走了，而且对于第一天这个节点的最大流不可能超过 (MAX-N[1]),也就是说别的途径至少会有 N[1]个流量，而别的流量就是延伸出的包含费用的流，就是雇佣花费。也就符合了题目要求：第 1天的雇佣下限是 N[1].由此限制流量来满足题目要求。这样的方法利用的是补集的思想。</p>
+        
+          <p class="article-more-link">
+            <a href="/2010/04/27/NOI2008/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2010/04/27/NOI2008/" data-id="cktfbroh4001jt8dx7bof7udi" data-title="NOI2008志愿者招募" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2010/04/27/NOI2008/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graph/" rel="tag">Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NOI/" rel="tag">NOI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NetFlow/" rel="tag">NetFlow</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B4%B9%E7%94%A8%E6%B5%81/" rel="tag">费用流</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-NOI2006" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2010/04/25/NOI2006/" class="article-date">
@@ -497,111 +599,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/POJ/" rel="tag">POJ</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BD%92%E5%B9%B6%E6%A0%91/" rel="tag">归并树</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-noi2000" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2010/02/15/noi2000/" class="article-date">
-  <time class="dt-published" datetime="2010-02-14T21:38:37.000Z" itemprop="datePublished">2010-02-15</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Solve/">Solve</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2010/02/15/noi2000/">NOI2000青蛙过河</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>这道<a target="_blank" rel="noopener" href="https://www.luogu.org/problemnew/show/P1244">题目</a>是一道好题，因为可以从多个角度出发考虑，途径很多。首先，乍一看题貌似是Hanoi塔的模式，只不过增加了特定的限制(不可以向回走)，先分析一个例子：石墩有2个，荷叶3个的情况。这种情况可以有至多16只青蛙过河。首先有4只先到一号石墩，接着另有4个号码较大的到达2号墩，这是很容易做到的，然后让1号墩上的3个小的跳到荷叶上，1号墩剩下那只直接跳到2号，3个荷叶上的再跳到2号。此时2号墩已经饱和了(推一下即可知道)，而1号和荷叶是空的让其饱和，则可再次有7只青蛙，此时已经有15只青蛙。左岸的第16只可以直接跳到右岸，而且可以发现怎样跳过来还可以怎样跳回去，只不过我们不跳到左岸而是右岸，这是对称的。因此可以有16只。</p>
-<p><img src="/image/idealnova/frog.jpg" alt="NOI 2000"></p>
-<p>事实上，我们仔细分析可以发现，只有荷叶的话，那么最多只能有荷叶数加1只青蛙可以过河，因为过河顺序是单向传递的。所以我们如果想使过河数最大可以令青蛙在河中央停留的只数达到最多，这样只有荷叶的话必然是荷叶数加1只青蛙可以渡过。但是存在石墩就不一样了。因为石墩上可以有多只编号严格递减的青蛙。首先荷叶可以作为跳板，并由这些跳板使多只青蛙到达河中的石墩，并且尽量可以积累的多一些。而且河中的石墩是无所谓顺序的，所以我们可以这样来看待问题：</p>
-<p>把左岸，河中央，右岸分为3个阶段。把河中的石墩当作目的地，用样例来说：根据前面的分析，1号石墩可以有4只青蛙，2号同样可以有4只，此时1、2号石墩的青蛙序号严格递减，所以1号的青蛙又可以看作右岸借助荷叶到达2号石墩。2号就有8只。此时因为2号石墩的青蛙数的总数比荷叶石墩的总数还多，所以2号石墩已经饱和。1号已空，再重复之前的工作……如此反复进行：i号石墩总可以包含(i-1)号，即以1号石墩的青蛙作为单位青蛙数s，会有s，2 * s，4 * s……只，所以总共会有2^h*(k+1)个青蛙可以过河。得到通项公式。</p>
-        
-          <p class="article-more-link">
-            <a href="/2010/02/15/noi2000/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://izhen.me/2010/02/15/noi2000/" data-id="cktfbroib005vt8dx2p8oedgx" data-title="NOI2000青蛙过河" class="article-share-link">Share</a>
-      
-        <a href="https://izhen.me/2010/02/15/noi2000/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%80%92%E6%8E%A8/" rel="tag">递推</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-noi2004" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2010/02/08/noi2004/" class="article-date">
-  <time class="dt-published" datetime="2010-02-07T21:38:37.000Z" itemprop="datePublished">2010-02-08</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Solve/">Solve</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2010/02/08/noi2004/">NOI2007项链工厂</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>(这道题目好像很流行 (^o^))。分析题目，因为所有操作均是在区间内完成的，因此可以使用线段树，保证维护的摊还时间限定在O(logn)以内，但是本题的难点不在线段树本身，而是对于Flip和 Rotate的维护，这是其一，其二就是如何合并两棵树。针对这个问题，通过分析我们知道，珠子之间的相对位置固定，这样就可以使用偏移量来记录，再用bool的标志记录是否偏转，具体的计算请看我的程序的hash()函数，这样就解决了这两个问题。而子树合并，则要再维护rcol，lcol两个分别代表左右端点的域。这样的好处，相信不用我再说了。</p>
-        
-          <p class="article-more-link">
-            <a href="/2010/02/08/noi2004/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://izhen.me/2010/02/08/noi2004/" data-id="cktfbroid0060t8dx1pl1beyq" data-title="NOI2007项链工厂" class="article-share-link">Share</a>
-      
-        <a href="https://izhen.me/2010/02/08/noi2004/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag">线段树</a></li></ul>
 
     </footer>
   </div>

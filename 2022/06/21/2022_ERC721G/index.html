@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>世界上第一款防盗智能合约——ERC721G | Z.Y. ☯ Cosmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="自NFT流通以来，出现过多起被盗事件。主要有私钥被盗、钓鱼攻击等主要表现形式，在现有的案例中一经被盗很难被追回。追回的案例也大都需要被盗人二次出价，成本极高。在此TurtleCase Gang提出一种通用的技术解决方案，以便可以适配任何ERC721标准的合约，帮助NFT持有者共同守护财产安全。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="世界上第一款防盗智能合约——ERC721G">
+<meta property="og:url" content="https://izhen.me/2022/06/21/2022_ERC721G/index.html">
+<meta property="og:site_name" content="Z.Y. ☯ Cosmos">
+<meta property="og:description" content="自NFT流通以来，出现过多起被盗事件。主要有私钥被盗、钓鱼攻击等主要表现形式，在现有的案例中一经被盗很难被追回。追回的案例也大都需要被盗人二次出价，成本极高。在此TurtleCase Gang提出一种通用的技术解决方案，以便可以适配任何ERC721标准的合约，帮助NFT持有者共同守护财产安全。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://izhen.me/image/erc721g/procedure.png">
+<meta property="og:image" content="https://izhen.me/image/erc721g/guard.png">
+<meta property="article:published_time" content="2022-06-21T12:53:47.000Z">
+<meta property="article:modified_time" content="2023-12-22T05:31:57.629Z">
+<meta property="article:author" content="Zhen Yi">
+<meta property="article:tag" content="NFT">
+<meta property="article:tag" content="Solidity">
+<meta property="article:tag" content="ERC721">
+<meta property="article:tag" content="Ethereum">
+<meta property="article:tag" content="Opensea">
+<meta property="article:tag" content="BigBrother">
+<meta property="article:tag" content="TurtleCase">
+<meta property="article:tag" content="x075">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://izhen.me/image/erc721g/procedure.png">
+<meta name="twitter:creator" content="@soczhenyi">
+  
+    <link rel="alternate" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Z.Y. ☯ Cosmos</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Powered by Disqus, scientific surfing for access</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="http://sweetpotato.ai">λ</a>
+        
+          <a class="main-nav-link" href="/lab">About</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://resume.izhen.me">Resume</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://github.com/i-zhen">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://izhen.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2022_ERC721G" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/06/21/2022_ERC721G/" class="article-date">
+  <time class="dt-published" datetime="2022-06-21T12:53:47.000Z" itemprop="datePublished">2022-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BLOG/">BLOG</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      世界上第一款防盗智能合约——ERC721G
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>自NFT流通以来，出现过多起被盗事件。主要有私钥被盗、钓鱼攻击等主要表现形式，在现有的案例中一经被盗很难被追回。追回的案例也大都需要被盗人二次出价，成本极高。在此TurtleCase Gang提出一种通用的技术解决方案，以便可以适配任何ERC721标准的合约，帮助NFT持有者共同守护财产安全。</p>
+<span id="more"></span>
+
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><h3 id="ERC721G"><a href="#ERC721G" class="headerlink" title="ERC721G"></a>ERC721G</h3><p>ERC721G是世界上第一款NFT防盗合约，主要有 <strong>「可升级」、「可扩展」、「安全」</strong> 三个特点。致力于NFT资产防护，打击黑灰产恶行NFT偷盗，净化行业环境。</p>
+<p><img src="/image/erc721g/procedure.png" alt="ERC721G + BigBrother Solution"></p>
+<h3 id="BigBrother"><a href="#BigBrother" class="headerlink" title="BigBrother"></a>BigBrother</h3><p>为了配合ERC721G防盗合约能够有效发挥作用，在此我们配套推出了一套风控系统BigBrother，BigBrother风控系统是一种多维度分析，局部共识投票机制的NFT防盗保护解决方案，以“事前阻断”、“事中防控”和“事后赔付”防护三板斧来帮助NFT持有者共同守护财产安全。该系统具备运维策略管理、智能风险分析、异动实时监控三个主要部分。</p>
+<p>通过对于ERC721和现有主流市场交易流程的研究，对于传统ERC721合约进行事前防控、事中阻断和事后赔付三阶段的加强：</p>
+<h4 id="事前防护"><a href="#事前防护" class="headerlink" title="事前防护"></a>事前防护</h4><blockquote>
+<p>「自己心爱的宝贝，一定要把它好好的守护」</p>
+</blockquote>
+<p><img src="/image/erc721g/guard.png" alt="防护中心UI"></p>
+<ul>
+<li><strong>提供多重保护策略</strong>：需要事先于BigBrother主站解锁后才可以被转移、交易。主站的验证与解锁采用2-step验证 + 找回机制，如：持有人需要通过邮箱、手机接收验证码或2FA进行两步验证。同时也给NFT持有人提供问题/答案找回密码的流程。</li>
+<li><strong>多重白名单保护策略</strong>：提供朋友的或自己的可信地址⽩名单，当出现需要身份验证的场景时，借助⽩名单辅助认证</li>
+<li><strong>解锁策略</strong>：当受保护token将要进⾏transfer、trade或者 setApprovalForAll(⼀般为挂牌销售需要事先转移权限)等操作时， 都需要在BigBrother控制台先⾏解锁。如果在一次交易和转移当中，接受方没有事先在BigBrother主站注册钱包地址，那么这起交易仍然成立。但是接收方在收到token后，token默认处于lock状态，下一次的转移和交易务必要先到主站注册并unlock后才能继续。在这个过程中，后台系统会全程监督，提前做出风险防范。</li>
+</ul>
+<h4 id="事中阻断"><a href="#事中阻断" class="headerlink" title="事中阻断"></a>事中阻断</h4><blockquote>
+<p>「无论它跑了多远，它都能找得到回家的路」</p>
+</blockquote>
+<p>事中阻断的部分细节还未公开，将会在系统实现后公开</p>
+<ol>
+<li>上报服务</li>
+<li>风控系统</li>
+</ol>
+<p>通常受保护的NFT在没有解锁的情况下，是无法被转移的。这受益于事前防控的保护机制设计。但是当用户的钱包以及二重验证的防线均被击破时，就需要更加有力的措施来解决安全问题，因此我们提出了BigBrother风控系统。 BigBrother（中文：先知）风控系统，是一种多维度分析，局部共识投票机制的分析引擎。采用了实时数据分析、AI风控模型以及动态风控感知三大核心设计，系统的主要职责是：</p>
+<ul>
+<li>识别谁是NFT的真正失主</li>
+<li>识别风险NFT转移</li>
+<li>作出阻断或者回收等正确的风险动作</li>
+</ul>
+<h4 id="事后赔付"><a href="#事后赔付" class="headerlink" title="事后赔付"></a>事后赔付</h4><blockquote>
+<p>「没有守不住的矛，也没有攻不破的盾」</p>
+</blockquote>
+<p>赔付系统的细节将会根据用户需求以及未来团队情况推出，主要包括</p>
+<ul>
+<li>对⽆法召回的token，赔付等值的地板价</li>
+<li>对于误杀赔付损失费</li>
+<li>保险机制</li>
+</ul>
+<p>TurtleCase团队以后会逐步推出BigBrother的功能模块，也希望优秀的buidl一起加入来建设！</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p>GitHub Repo <a target="_blank" rel="noopener" href="https://github.com/turtlecasedao/OpenERC721G">地址</a><br>OpenSea <a target="_blank" rel="noopener" href="https://opensea.io/collection/turtle-case-gang">地址</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2022/06/21/2022_ERC721G/" data-id="clqg668aq0000vhjr4t1i0dyp" data-title="世界上第一款防盗智能合约——ERC721G" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2022/06/21/2022_ERC721G/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BigBrother/" rel="tag">BigBrother</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ERC721/" rel="tag">ERC721</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ethereum/" rel="tag">Ethereum</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NFT/" rel="tag">NFT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Opensea/" rel="tag">Opensea</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Solidity/" rel="tag">Solidity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TurtleCase/" rel="tag">TurtleCase</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/x075/" rel="tag">x075</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/12/31/2023_Smart_IR/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Smart Intermediate Representation 编译框架
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/06/01/2022_web3_stack/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">工业级web3应用开发技术选型</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2009-2023 Zhen Yi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <br>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">用户访问: <span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+      <span class="site-pv">本站访问: <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a target="_blank" rel="noopener" href="http://sweetpotato.ai" class="mobile-nav-link">λ</a>
+  
+    <a href="/lab" class="mobile-nav-link">About</a>
+  
+    <a target="_blank" rel="noopener" href="https://resume.izhen.me" class="mobile-nav-link">Resume</a>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/i-zhen" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'izhen';
+  
+  var disqus_url = 'https://izhen.me/2022/06/21/2022_ERC721G/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
