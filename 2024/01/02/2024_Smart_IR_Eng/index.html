@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   
   
-  <title>Smart Intermediate Representation 编译框架 | Z.Y. ☯ Cosmos</title>
+  <title>Introducing &#39;Smart Intermediate Representation&#39; -- An Open Sourced Compiler Framework for Smart Contract | Z.Y. ☯ Cosmos</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Github Repo 地址：https:&#x2F;&#x2F;github.com&#x2F;AntChainOpenLabs&#x2F;Smart-Intermediate-Representation">
+  <meta name="description" content="BackgroundSmart Intermediate Representation (hereinafter referred to as SIR) is a smart contract compiler framework independently developed by Ant Group. Paired with high-performance runtime, it is ap">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Smart Intermediate Representation 编译框架">
-<meta property="og:url" content="https://izhen.me/2023/12/31/2023_Smart_IR/index.html">
+<meta property="og:title" content="Introducing &#39;Smart Intermediate Representation&#39; -- An Open Sourced Compiler Framework for Smart Contract">
+<meta property="og:url" content="https://izhen.me/2024/01/02/2024_Smart_IR_Eng/index.html">
 <meta property="og:site_name" content="Z.Y. ☯ Cosmos">
-<meta property="og:description" content="Github Repo 地址：https:&#x2F;&#x2F;github.com&#x2F;AntChainOpenLabs&#x2F;Smart-Intermediate-Representation">
+<meta property="og:description" content="BackgroundSmart Intermediate Representation (hereinafter referred to as SIR) is a smart contract compiler framework independently developed by Ant Group. Paired with high-performance runtime, it is ap">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://izhen.me/image/sir/01.png">
 <meta property="og:image" content="https://izhen.me/image/sir/02.png">
@@ -19,8 +19,8 @@
 <meta property="og:image" content="https://izhen.me/image/sir/04.png">
 <meta property="og:image" content="https://izhen.me/image/sir/05.png">
 <meta property="og:image" content="https://izhen.me/image/sir/06.png">
-<meta property="article:published_time" content="2023-12-31T12:53:47.000Z">
-<meta property="article:modified_time" content="2024-04-12T13:42:57.737Z">
+<meta property="article:published_time" content="2024-01-02T12:53:47.000Z">
+<meta property="article:modified_time" content="2024-04-12T13:49:18.722Z">
 <meta property="article:author" content="Zhen Yi">
 <meta property="article:tag" content="Solidity">
 <meta property="article:tag" content="Ethereum">
@@ -29,7 +29,7 @@
 <meta property="article:tag" content="Layer 2">
 <meta property="article:tag" content="Rollup">
 <meta property="article:tag" content="AI">
-<meta property="article:tag" content="x076">
+<meta property="article:tag" content="x077">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://izhen.me/image/sir/01.png">
 <meta name="twitter:creator" content="@soczhenyi">
@@ -101,10 +101,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-2023_Smart_IR" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-2024_Smart_IR_Eng" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/12/31/2023_Smart_IR/" class="article-date">
-  <time class="dt-published" datetime="2023-12-31T12:53:47.000Z" itemprop="datePublished">2023-12-31</time>
+    <a href="/2024/01/02/2024_Smart_IR_Eng/" class="article-date">
+  <time class="dt-published" datetime="2024-01-02T12:53:47.000Z" itemprop="datePublished">2024-01-02</time>
 </a>
     
   <div class="article-category">
@@ -119,7 +119,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      Smart Intermediate Representation 编译框架
+      Introducing &#39;Smart Intermediate Representation&#39; -- An Open Sourced Compiler Framework for Smart Contract
     </h1>
   
 
@@ -127,10 +127,9 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>Github Repo 地址：<a target="_blank" rel="noopener" href="https://github.com/AntChainOpenLabs/Smart-Intermediate-Representation">https://github.com/AntChainOpenLabs/Smart-Intermediate-Representation</a></p>
+        <h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>Smart Intermediate Representation (hereinafter referred to as SIR) is a smart contract compiler framework independently developed by Ant Group. Paired with high-performance runtime, it is applied to the WASM ecosystem. On a mission of compiling multi-target and multi-scenario smart contracts more securely and reliablely, it is committed to providing a computing engine driven by IR, both on and off the chain.</p>
 <span id="more"></span>
 
-<h1 id="AntChain-Open-Labs-Releases-an-Open-Source-Smart-Contract-Compiler-Framework-Smart-Intermediate-Representation"><a href="#AntChain-Open-Labs-Releases-an-Open-Source-Smart-Contract-Compiler-Framework-Smart-Intermediate-Representation" class="headerlink" title="AntChain Open Labs Releases an Open-Source Smart Contract Compiler Framework: Smart Intermediate Representation"></a>AntChain Open Labs Releases an Open-Source Smart Contract Compiler Framework: Smart Intermediate Representation</h1><h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>Smart Intermediate Representation (hereinafter referred to as SIR) is a smart contract compiler framework independently developed by Ant Group. Paired with high-performance runtime, it is applied to the WASM ecosystem. On a mission of compiling multi-target and multi-scenario smart contracts more securely and reliablely, it is committed to providing a computing engine driven by IR, both on and off the chain.</p>
 <p>Typical customers:</p>
 <ul>
 <li>On-chain and off-chain platform users with security requirements for contracts.</li>
@@ -161,17 +160,18 @@
 <p>This article is reprinted from AntChain Open Labs.</p>
 <p>View the original article link：<a target="_blank" rel="noopener" href="https://antchainopenlabs.github.io/2024/01/02/Introducing-Smart-Intermediate-Representation-An-Open-Sourced-Compiler-Framework-for-Smart-Contract/">https://antchainopenlabs.github.io/2024/01/02/Introducing-Smart-Intermediate-Representation-An-Open-Sourced-Compiler-Framework-for-Smart-Contract/</a></p>
 <p>中文版：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/9cKkAOlaSyr5tfQEVymrLw">https://mp.weixin.qq.com/s/9cKkAOlaSyr5tfQEVymrLw</a></p>
+<p>Github Repo Address：<a target="_blank" rel="noopener" href="https://github.com/AntChainOpenLabs/Smart-Intermediate-Representation">https://github.com/AntChainOpenLabs/Smart-Intermediate-Representation</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://izhen.me/2023/12/31/2023_Smart_IR/" data-id="clqg6ig2n00000djrctfogazj" data-title="Smart Intermediate Representation 编译框架" class="article-share-link">Share</a>
+      <a data-url="https://izhen.me/2024/01/02/2024_Smart_IR_Eng/" data-id="cluwq5p9h0000zcjr5hs40w1q" data-title="Introducing &#39;Smart Intermediate Representation&#39; -- An Open Sourced Compiler Framework for Smart Contract" class="article-share-link">Share</a>
       
-        <a href="https://izhen.me/2023/12/31/2023_Smart_IR/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="https://izhen.me/2024/01/02/2024_Smart_IR_Eng/#disqus_thread" class="article-comment-link">Comments</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Compiler/" rel="tag">Compiler</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ethereum/" rel="tag">Ethereum</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Layer-2/" rel="tag">Layer 2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rollup/" rel="tag">Rollup</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Solidity/" rel="tag">Solidity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/x076/" rel="tag">x076</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Compiler/" rel="tag">Compiler</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ethereum/" rel="tag">Ethereum</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Layer-2/" rel="tag">Layer 2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rollup/" rel="tag">Rollup</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Solidity/" rel="tag">Solidity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/x077/" rel="tag">x077</a></li></ul>
 
     </footer>
   </div>
@@ -180,9 +180,9 @@
 <nav id="article-nav">
   
   
-    <a href="/2022/06/21/2022_ERC721G/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/12/29/2023_Smart_IR/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">世界上第一款防盗智能合约——ERC721G</div>
+      <div class="article-nav-title">Smart Intermediate Representation 编译框架</div>
     </a>
   
 </nav>
@@ -235,7 +235,7 @@
 <script>
   var disqus_shortname = 'izhen';
   
-  var disqus_url = 'https://izhen.me/2023/12/31/2023_Smart_IR/';
+  var disqus_url = 'https://izhen.me/2024/01/02/2024_Smart_IR_Eng/';
   
   (function(){
     var dsq = document.createElement('script');
