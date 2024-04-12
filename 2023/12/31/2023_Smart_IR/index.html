@@ -13,8 +13,14 @@
 <meta property="og:site_name" content="Z.Y. ☯ Cosmos">
 <meta property="og:description" content="Github Repo 地址：https:&#x2F;&#x2F;github.com&#x2F;AntChainOpenLabs&#x2F;Smart-Intermediate-Representation">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://izhen.me/image/sir/01.png">
+<meta property="og:image" content="https://izhen.me/image/sir/02.png">
+<meta property="og:image" content="https://izhen.me/image/sir/03.png">
+<meta property="og:image" content="https://izhen.me/image/sir/04.png">
+<meta property="og:image" content="https://izhen.me/image/sir/05.png">
+<meta property="og:image" content="https://izhen.me/image/sir/06.png">
 <meta property="article:published_time" content="2023-12-31T12:53:47.000Z">
-<meta property="article:modified_time" content="2023-12-22T05:15:46.679Z">
+<meta property="article:modified_time" content="2024-04-12T13:38:02.867Z">
 <meta property="article:author" content="Zhen Yi">
 <meta property="article:tag" content="Solidity">
 <meta property="article:tag" content="Ethereum">
@@ -25,6 +31,7 @@
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="x076">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://izhen.me/image/sir/01.png">
 <meta name="twitter:creator" content="@soczhenyi">
   
     <link rel="alternate" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
@@ -123,6 +130,36 @@
         <p>Github Repo 地址：<a target="_blank" rel="noopener" href="https://github.com/AntChainOpenLabs/Smart-Intermediate-Representation">https://github.com/AntChainOpenLabs/Smart-Intermediate-Representation</a></p>
 <span id="more"></span>
 
+<h1 id="AntChain-Open-Labs-Releases-an-Open-Source-Smart-Contract-Compiler-Framework-Smart-Intermediate-Representation"><a href="#AntChain-Open-Labs-Releases-an-Open-Source-Smart-Contract-Compiler-Framework-Smart-Intermediate-Representation" class="headerlink" title="AntChain Open Labs Releases an Open-Source Smart Contract Compiler Framework: Smart Intermediate Representation"></a>AntChain Open Labs Releases an Open-Source Smart Contract Compiler Framework: Smart Intermediate Representation</h1><h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>Smart Intermediate Representation (hereinafter referred to as SIR) is a smart contract compiler framework independently developed by Ant Group. Paired with high-performance runtime, it is applied to the WASM ecosystem. On a mission of compiling multi-target and multi-scenario smart contracts more securely and reliablely, it is committed to providing a computing engine driven by IR, both on and off the chain.</p>
+<p>Typical customers:</p>
+<ul>
+<li>On-chain and off-chain platform users with security requirements for contracts.</li>
+<li>Layer 2 platforms aimed at improving computing performance in transaction.</li>
+<li>Smart contract audit experts assessing contracts’ security and reliability.</li>
+<li>Developers of multi-scenario smart contracts’ compilers.</li>
+</ul>
+<h2 id="What-is-SIR"><a href="#What-is-SIR" class="headerlink" title="What is SIR"></a>What is SIR</h2><p>Unlike the responsibilities carried by LLVM IR, SIR is not a universal IR, but is the minimal extendable set specialized for the field of smart contracts. SIR encapsulates commonly used instruction sequences in the domain of smart contracts into intrinsic functions, such as built-in block and transaction methods, or abstracts instruction sequences into opcodes, like global storage instructions, etc. Additionally, SIR utilizes a metadata extension mechanism, which allows for convenient and quick appending of information following type definitions, function definitions, and instructions. This mechanism can append information relevant to different scenarios (computation, ZK, or verification):</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> &lt;<span class="title">ty_name</span></span>&gt; = ... !&lt;metadata_name&gt; !&lt;metadata_index&gt; ...</span><br><span class="line"></span><br><span class="line"><span class="comment">// general instruction</span></span><br><span class="line">&lt;instruction_name&gt;(...) !&lt;metadata_index&gt; !&lt;metadata_index&gt; ...</span><br><span class="line"></span><br><span class="line"><span class="comment">// declaration instruction</span></span><br><span class="line"><span class="keyword">let</span> %&lt;var_name&gt; : &lt;ty&gt; !&lt;metadata_index&gt; !&lt;metadata_index&gt; ... = ...</span><br><span class="line"></span><br><span class="line"><span class="comment">// assignment instruction</span></span><br><span class="line">%&lt;var_name&gt; : &lt;ty&gt; !&lt;metadata_index&gt; !&lt;metadata_index&gt; ... = ...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">meta !&lt;metadata_index&gt; = &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>In principle, SIR requires users to pass objects by reference rather than by using pointers. Excessive use of “physical” instructions to directly construct contracts will undoubtedly greatly increase the complexity of the compiler due to a lack of abstraction and can also lead to security issues. Therefore, such a design choice in SIR is not only safe but also avoids the problems associated with manipulating pointers and having to deal with “physical” details. This effectively separates the high-level expression of smart contracts (language frontend) from the physical machine.</p>
+<h2 id="Why-do-we-need-SIR"><a href="#Why-do-we-need-SIR" class="headerlink" title="Why do we need SIR"></a>Why do we need SIR</h2><p>On one hand, SIR can abstract more smart contract domain-specific opcodes and intrinsic functions. This is convenient for any frontend language to access SIR. For multi-ecosystem compiler developers, lower-level and general optimizations, such as pointer analysis, dead code elimination, loop invariants, etc., can be pushed down to LLVM (SIR will be compiled into LLVM IR). SIR focuses on opcode compression and abstraction (comparable to the CREATE2 instruction in Solidity/Yul), gas optimization, contract security analysis, Linear Typing/Asset Safety, and ZKP topics.</p>
+<p><img src="/image/sir/01.png" alt="SIR FLow"></p>
+<p>Another goal is to serve as an ecologically neutral SIR, expected to serve different ecosystems and scenarios, not limited to Ethereum or other blockchains supporting the WASM virtual machine. SIR retains the entire semantics of smart contracts, so any gas optimizations and logical vulnerability detection capabilities made on SIR can be applied to the accessed frontend programming languages. For smart contracts, SIR is a more straightforward interface than LLVM IR, which is particularly important for helping different frontend languages adapt to Ethereum’s Layer 2 scenarios.</p>
+<h2 id="SIR-Highlight-Features"><a href="#SIR-Highlight-Features" class="headerlink" title="SIR Highlight Features"></a>SIR Highlight Features</h2><h3 id="Open-multi-language-frontend-and-multi-scenario-support"><a href="#Open-multi-language-frontend-and-multi-scenario-support" class="headerlink" title="Open multi-language frontend and multi-scenario support"></a>Open multi-language frontend and multi-scenario support</h3><p>By compiling Yul into SIR and supplementing the relevant platform’s hostapi and runtime to support Ethereum ecology programming language frontends, it can be applied to Ethereum Layer 2 scenarios. Compiler developers can compile their custom smart contract frontend language into SIR and adapt it to the target blockchain. SIR can support arbitrary frontend languages and multiple on-chain and off-chain computing scenarios such as Layer 1, Layer 2, and Oracles.</p>
+<h3 id="Intent-consistency-analysis-based-on-SIR"><a href="#Intent-consistency-analysis-based-on-SIR" class="headerlink" title="Intent consistency analysis based on SIR"></a>Intent consistency analysis based on SIR</h3><p>This can be seen as providing users with a user-friendly AI Lint tool</p>
+<p>For developers lacking expert knowledge (smart contract audit), intent consistency verification technology can map SIR to an AI model that is easy to verify through code conversion technology and infer whether the business intent is consistent with the source code logic. This feature not only focuses on potential logical defects in the contract itself but also whether the smart contract meets the rich and complex business intents in the blockchain and Web3 scenarios. Therefore, compared to existing work, intent consistency analysis aims to comprehensively enhance the security consistency at the business and financial transaction levels. For example, the annotation mentions transferring from ‘from’ to ‘to’, but the actual code increases the balance of ‘from’ and decreases the balance of ‘to’, which is inconsistent with the intent.</p>
+<p>The comment mentions transferring from ‘from’ to ‘to’, but the actual code increases the balance of ‘from’ and decreases the balance of ‘to’, which is inconsistent with the intended implementation.</p>
+<p><img src="/image/sir/02.png" alt="Intent Consistency"><br><img src="/image/sir/03.png" alt="Result"></p>
+<h3 id="Metadata-extension-mechanism"><a href="#Metadata-extension-mechanism" class="headerlink" title="Metadata extension mechanism"></a>Metadata extension mechanism</h3><p>As mentioned earlier, SIR is both a language (semantic) and a compiler designed to support smart contract computation, intent consistency detection, and zero-knowledge proof. SIR can not only express operational semantics as a conventional smart contract language, but also extend it into the ZK domain to express the denotational semantics of Abstract Circuit SIR (planned) using the Metadata mechanism, which can be understood as a multi-layer extension of IR. The Metadata mechanism can be applied to any scenario or domain that wants to be extended for sure.</p>
+<h2 id="Roadmap-and-Outlook"><a href="#Roadmap-and-Outlook" class="headerlink" title="Roadmap and Outlook"></a>Roadmap and Outlook</h2><h3 id="Startup-Phase"><a href="#Startup-Phase" class="headerlink" title="Startup Phase"></a>Startup Phase</h3><p>In the startup phase, we will reuse LLVM’s WASM bytecode generation feature, with a focus on building support for Layer 2 Rollup (Ethereum compatible) and intent consistency analysis in two scenarios, and strengthen SIR itself.</p>
+<p>In the future, this capability is expected to be implemented in the ZAN contract audit business: For developers, there may be instances where they fork a piece of code and make minor modifications. For example, forking an ERC20 standard token contract and making partial changes before releasing the new code contract. The issue at hand is whether these modifications have altered the original intention of the source code. In addition to the consistency between the code and the intentions described in the natural language annotations, we also hope to support the detection of consistency between two contracts, with a focus on serving the Smart Contract Analysis (SCA) scenarios, to ensure that any changes in the business logic intentions of the forked contracts can be identified.</p>
+<p><img src="/image/sir/04.png" alt="Startup"></p>
+<h3 id="Mature-Phase"><a href="#Mature-Phase" class="headerlink" title="Mature Phase"></a>Mature Phase</h3><p>We aim to establish our own WASM bytecode export functionality, independent of LLVM, achieving a self-contained ecosystem. At the same time, we will have a Standalone VM and a lightweight compilation framework. This preparation is in order to become the LLVM of the smart contract domain.</p>
+<p><img src="/image/sir/05.png" alt="Mature"></p>
+<h3 id="Final-Phase"><a href="#Final-Phase" class="headerlink" title="Final Phase"></a>Final Phase</h3><p>Leave it to the future, let time tell. The core team will gradually introduce new features and modules for SIR, and we also look forward to outstanding buidlers joining us in this endeavor. We are excited to see you, the reader of this message, participate in shaping the future of SIR! WAGMI (We’re All Gonna Make It).</p>
+<p><img src="/image/sir/06.png" alt="Final"></p>
+<p>This article is reprinted from AntChain Open Labs.</p>
+<p>View the original article link：<a target="_blank" rel="noopener" href="https://antchainopenlabs.github.io/2024/01/02/Introducing-Smart-Intermediate-Representation-An-Open-Sourced-Compiler-Framework-for-Smart-Contract/">https://antchainopenlabs.github.io/2024/01/02/Introducing-Smart-Intermediate-Representation-An-Open-Sourced-Compiler-Framework-for-Smart-Contract/</a></p>
 
       
     </div>
@@ -167,7 +204,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2009-2023 Zhen Yi<br>
+      &copy; 2009-2024 Zhen Yi<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
       <br>
       <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
