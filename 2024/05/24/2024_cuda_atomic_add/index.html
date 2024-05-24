@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>CUDA编程优化Float16精度的atomicAdd | Z.Y. ☯ Cosmos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="NLP中词嵌入（embedding）是非常重要的一环，embedding算子在反向计算时不同的线程会写入同一个结果，面对这类写冲突问题，高效的多线程计算必然要无锁化设计。而NVIDIA的加速卡本身支持了atomicAdd等原子计算。 当我们使用较低精度在一些训推任务中量化加速模型时（如：FP16精度），CUDA底层会调用诸如 atomicAdd(half*, half) 这类原子指令。但是当前的硬">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CUDA编程优化Float16精度的atomicAdd">
+<meta property="og:url" content="https://izhen.me/2024/05/24/2024_cuda_atomic_add/index.html">
+<meta property="og:site_name" content="Z.Y. ☯ Cosmos">
+<meta property="og:description" content="NLP中词嵌入（embedding）是非常重要的一环，embedding算子在反向计算时不同的线程会写入同一个结果，面对这类写冲突问题，高效的多线程计算必然要无锁化设计。而NVIDIA的加速卡本身支持了atomicAdd等原子计算。 当我们使用较低精度在一些训推任务中量化加速模型时（如：FP16精度），CUDA底层会调用诸如 atomicAdd(half*, half) 这类原子指令。但是当前的硬">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-05-24T12:53:47.000Z">
+<meta property="article:modified_time" content="2024-05-24T09:04:55.700Z">
+<meta property="article:author" content="Zhen Yi">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="Compiler">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="CUDA">
+<meta property="article:tag" content="atomicAdd">
+<meta property="article:tag" content="GPGPU">
+<meta property="article:tag" content="embedding">
+<meta property="article:tag" content="x078">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:creator" content="@soczhenyi">
+  
+    <link rel="alternate" href="/atom.xml" title="Z.Y. ☯ Cosmos" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Z.Y. ☯ Cosmos</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Powered by Disqus, scientific surfing for access</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="http://sweetpotato.ai">λ</a>
+        
+          <a class="main-nav-link" href="/lab">About</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://resume.izhen.me">Resume</a>
+        
+          <a class="main-nav-link" target="_blank" rel="noopener" href="https://github.com/i-zhen">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://izhen.me"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2024_cuda_atomic_add" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/05/24/2024_cuda_atomic_add/" class="article-date">
+  <time class="dt-published" datetime="2024-05-24T12:53:47.000Z" itemprop="datePublished">2024-05-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BLOG/">BLOG</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      CUDA编程优化Float16精度的atomicAdd
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>NLP中词嵌入（embedding）是非常重要的一环，embedding算子在反向计算时不同的线程会写入同一个结果，面对这类写冲突问题，高效的多线程计算必然要无锁化设计。而NVIDIA的加速卡本身支持了<code>atomicAdd</code>等原子计算。</p>
+<p>当我们使用较低精度在一些训推任务中量化加速模型时（如：FP16精度），CUDA底层会调用诸如 <code>atomicAdd(half*, half)</code> 这类原子指令。但是当前的硬件对这条指令的支持不够好，所以我们需要借助一些内存对齐的技术以应用效率更高的 <code>atomicAdd(half2*, half2)</code> 指令。本文重点讲述如何利用软件来弥补硬件的缺陷这样的实例。</p>
+<span id="more"></span>
+
+<h2 id="atomicAdd指令"><a href="#atomicAdd指令" class="headerlink" title="atomicAdd指令"></a>atomicAdd指令</h2><p>下面的声明摘自 <a target="_blank" rel="noopener" href="https://docs.nvidia.com/cuda/cuda-c-programming-guide/#atomicadd">CUDA C Programming Guide</a>。已经支持的数据类型如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">atomicAdd</span><span class="params">(<span class="keyword">int</span>* address, <span class="keyword">int</span> val)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">atomicAdd</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span>* address,</span></span></span><br><span class="line"><span class="params"><span class="function">                       <span class="keyword">unsigned</span> <span class="keyword">int</span> val)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> <span class="title">atomicAdd</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span>* address,</span></span></span><br><span class="line"><span class="params"><span class="function">                                 <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> val)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">atomicAdd</span><span class="params">(<span class="keyword">float</span>* address, <span class="keyword">float</span> val)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">atomicAdd</span><span class="params">(<span class="keyword">double</span>* address, <span class="keyword">double</span> val)</span></span>;</span><br><span class="line"><span class="function">__half2 <span class="title">atomicAdd</span><span class="params">(__half2 *address, __half2 val)</span></span>;</span><br><span class="line"><span class="function">__half <span class="title">atomicAdd</span><span class="params">(__half *address, __half val)</span></span>;</span><br><span class="line"><span class="function">__nv_bfloat162 <span class="title">atomicAdd</span><span class="params">(__nv_bfloat162 *address, __nv_bfloat162 val)</span></span>;</span><br><span class="line"><span class="function">__nv_bfloat16 <span class="title">atomicAdd</span><span class="params">(__nv_bfloat16 *address, __nv_bfloat16 val)</span></span>;</span><br><span class="line"><span class="function">float2 <span class="title">atomicAdd</span><span class="params">(float2* address, float2 val)</span></span>;</span><br><span class="line"><span class="function">float4 <span class="title">atomicAdd</span><span class="params">(float4* address, float4 val)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>NVIDIA的论坛里有人讨论过half精度atomicAdd性能劣化的<a target="_blank" rel="noopener" href="https://forums.developer.nvidia.com/t/cuda-half-atomicadd-poor-computing-time/280700">问题</a>。但是回答中给到的测试是有一定的误导性的，实际上大量的累积计算会导致half精度早早就溢出了。所以可以本地测试一下1000次以内的，保证half和half2的累加值不溢出。过大时，half精度可能会停留在2048或者4096的这样的数字。</p>
+<table>
+<thead>
+<tr>
+<th>float</th>
+<th>half</th>
+<th>half2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2.6e-05s</td>
+<td>0.00048s</td>
+<td>1.9e-0.5s</td>
+</tr>
+</tbody></table>
+<p>可以看到，half2最快，half最慢。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// nvcc -o a a.cu -arch=sm_86 -DUSE_FLOAT</span></span><br><span class="line"><span class="comment">// nvcc -o a a.cu -arch=sm_86 </span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cuda_fp16.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> USECPSEC 1000000ULL</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="title">dtime_usec</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> start=<span class="number">0</span>)</span></span>&#123;</span><br><span class="line">  timeval tv;</span><br><span class="line">  <span class="built_in">gettimeofday</span>(&amp;tv, <span class="number">0</span>);</span><br><span class="line">  <span class="keyword">return</span> ((tv.tv_sec*USECPSEC)+tv.tv_usec)-start;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// const int nTPB = 128;</span></span><br><span class="line"><span class="comment">// const size_t nBLK = 1048576ULL;</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> nTPB = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">size_t</span> nBLK = <span class="number">100ULL</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">size_t</span> ds = nBLK*nTPB;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> USE_FLOAT</span></span><br><span class="line"><span class="keyword">using</span> ft = half;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="keyword">using</span> ft = <span class="keyword">float</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="function">__global__ <span class="keyword">void</span> <span class="title">k</span><span class="params">(<span class="keyword">const</span> ft * __restrict__ i, ft * __restrict__ o)</span></span>&#123;</span><br><span class="line">    <span class="keyword">size_t</span> idx = blockIdx.x * blockDim.x+threadIdx.x;</span><br><span class="line">    <span class="built_in">atomicAdd</span>(o, i[idx]);        </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">__global__ <span class="keyword">void</span> <span class="title">k2</span><span class="params">(<span class="keyword">const</span> ft * __restrict__ i, ft * __restrict__ o)</span></span>&#123;</span><br><span class="line">    <span class="keyword">size_t</span> idx = blockIdx.x*blockDim.x+threadIdx.x ;</span><br><span class="line">    <span class="keyword">if</span>(((idx &amp; <span class="number">1</span>) == <span class="number">0</span>) &amp;&amp; (idx + <span class="number">1</span> &lt; ds)) &#123;</span><br><span class="line">        <span class="meta">#<span class="meta-keyword">ifdef</span> USE_FLOAT</span></span><br><span class="line">        <span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">            half2 i2 = <span class="built_in">make_half2</span>(i[idx], i[idx + <span class="number">1</span>]);</span><br><span class="line">            <span class="built_in">atomicAdd</span>(<span class="keyword">reinterpret_cast</span>&lt;half2*&gt;(o), i2);</span><br><span class="line">        <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">  ft *i, *o, *hi, *o2;</span><br><span class="line">  <span class="built_in">cudaMalloc</span>(&amp;i, ds*<span class="built_in"><span class="keyword">sizeof</span></span>(ft));</span><br><span class="line">  <span class="built_in">cudaMalloc</span>(&amp;o,  <span class="number">2</span>*<span class="built_in"><span class="keyword">sizeof</span></span>(ft));</span><br><span class="line">  <span class="built_in">cudaMalloc</span>(&amp;o2,  <span class="number">2</span>*<span class="built_in"><span class="keyword">sizeof</span></span>(ft));</span><br><span class="line">  <span class="built_in">cudaMemset</span>(o, <span class="number">0</span>, <span class="built_in"><span class="keyword">sizeof</span></span>(ft));</span><br><span class="line">  hi = (ft *)<span class="built_in">malloc</span>(ds*<span class="built_in"><span class="keyword">sizeof</span></span>(ft));</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; ds; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (i &amp; <span class="number">1</span>) &#123;</span><br><span class="line">  <span class="meta">#<span class="meta-keyword">ifndef</span> USE_FLOAT</span></span><br><span class="line">      hi[i] = __float2half(<span class="number">0.1f</span>);</span><br><span class="line">  <span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">      hi[i] = <span class="number">0.1f</span>;</span><br><span class="line">  <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="meta">#<span class="meta-keyword">ifndef</span> USE_FLOAT</span></span><br><span class="line">      hi[i] = __float2half(<span class="number">0.2f</span>);</span><br><span class="line">  <span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">      hi[i] = <span class="number">0.2f</span>;</span><br><span class="line">  <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">cudaMemcpy</span>(i, hi, ds*<span class="built_in"><span class="keyword">sizeof</span></span>(ft), cudaMemcpyHostToDevice);</span><br><span class="line">  <span class="built_in">cudaDeviceSynchronize</span>();</span><br><span class="line">  k&lt;&lt;&lt;nBLK, nTPB&gt;&gt;&gt;(i, o); <span class="comment">// warm-up</span></span><br><span class="line">  <span class="built_in">cudaDeviceSynchronize</span>();</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> dt = <span class="built_in">dtime_usec</span>(<span class="number">0</span>);</span><br><span class="line">  k&lt;&lt;&lt;nBLK, nTPB&gt;&gt;&gt;(i, o);</span><br><span class="line">  <span class="built_in">cudaDeviceSynchronize</span>();</span><br><span class="line"></span><br><span class="line">  ft* out = (ft *)<span class="built_in">malloc</span>(<span class="number">2</span>*<span class="built_in"><span class="keyword">sizeof</span></span>(ft));</span><br><span class="line">  <span class="built_in">cudaMemcpy</span>(out, o, <span class="number">2</span>*<span class="built_in"><span class="keyword">sizeof</span></span>(ft), cudaMemcpyDeviceToHost);</span><br><span class="line">  <span class="built_in">cudaDeviceSynchronize</span>();</span><br><span class="line"></span><br><span class="line">  dt = <span class="built_in">dtime_usec</span>(dt);</span><br><span class="line">  cudaError_t err = <span class="built_in">cudaGetLastError</span>();</span><br><span class="line">  <span class="keyword">if</span> (err == cudaSuccess) std::cout &lt;&lt; <span class="string">&quot;Duration: &quot;</span> &lt;&lt; dt/(<span class="keyword">float</span>)USECPSEC &lt;&lt; <span class="string">&quot;s&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">  <span class="keyword">else</span> std::cout &lt;&lt; <span class="string">&quot;Error: &quot;</span> &lt;&lt; <span class="built_in">cudaGetErrorString</span>(err) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="built_in">cudaMemcpy</span>(i, hi, ds*<span class="built_in"><span class="keyword">sizeof</span></span>(ft), cudaMemcpyHostToDevice);</span><br><span class="line">  <span class="built_in">cudaDeviceSynchronize</span>();</span><br><span class="line">  k2&lt;&lt;&lt;nBLK, nTPB&gt;&gt;&gt;(i, o2); <span class="comment">// warm-up</span></span><br><span class="line">  <span class="built_in">cudaDeviceSynchronize</span>();</span><br><span class="line">  dt = <span class="built_in">dtime_usec</span>(<span class="number">0</span>);</span><br><span class="line">  k2&lt;&lt;&lt;nBLK, nTPB&gt;&gt;&gt;(i, o2);</span><br><span class="line">  <span class="built_in">cudaDeviceSynchronize</span>();</span><br><span class="line"></span><br><span class="line">  <span class="built_in">cudaMemcpy</span>(out, o2, <span class="number">2</span>*<span class="built_in"><span class="keyword">sizeof</span></span>(ft), cudaMemcpyDeviceToHost);</span><br><span class="line">  <span class="built_in">cudaDeviceSynchronize</span>();</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">  dt = <span class="built_in">dtime_usec</span>(dt);</span><br><span class="line">  err = <span class="built_in">cudaGetLastError</span>();</span><br><span class="line">  <span class="keyword">if</span> (err == cudaSuccess) std::cout &lt;&lt; <span class="string">&quot;Duration: &quot;</span> &lt;&lt; dt/(<span class="keyword">float</span>)USECPSEC &lt;&lt; <span class="string">&quot;s&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">  <span class="keyword">else</span> std::cout &lt;&lt; <span class="string">&quot;Error: &quot;</span> &lt;&lt; <span class="built_in">cudaGetErrorString</span>(err) &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="half精度的fastAtomicAdd实现"><a href="#half精度的fastAtomicAdd实现" class="headerlink" title="half精度的fastAtomicAdd实现"></a>half精度的fastAtomicAdd实现</h2><p>首先我们要对齐内存，然后对一个连续的内存区间做操作，如果不是连续的那就会退化到 half 类型的原子加操作。对于两两相连的half值，我们对于目标值做累加，另一个紧邻的值补0对齐，这样就不会影响计算结果。<code>low_byte</code> 用来判断是否对齐，根据对齐与否来决定补0的位置是前面还是后面：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt; </span><br><span class="line">  <span class="keyword">typename</span> <span class="keyword">scalar_t</span>, <span class="keyword">typename</span> <span class="keyword">index_t</span>, <span class="keyword">typename</span> std::enable_if&lt;std::is_same&lt;half, <span class="keyword">scalar_t</span>&gt;::value&gt;::type* = <span class="literal">nullptr</span>&gt;</span><br><span class="line">__device__ __forceinline__ <span class="keyword">void</span> <span class="built_in">fast_atomic_add</span>(<span class="keyword">scalar_t</span> *address, <span class="keyword">index_t</span> index, <span class="keyword">const</span> <span class="keyword">index_t</span> numel, <span class="keyword">scalar_t</span> value) &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> (                                                    \</span></span><br><span class="line"><span class="meta">    (defined(CUDA_VERSION) &amp;&amp; (CUDA_VERSION &lt; 10000)) || \</span></span><br><span class="line"><span class="meta">    (defined(__CUDA_ARCH__) &amp;&amp; (__CUDA_ARCH__ &lt; 700)))</span></span><br><span class="line">  <span class="built_in">atomic_add</span>(</span><br><span class="line">      <span class="keyword">reinterpret_cast</span>&lt;half*&gt;(address) + index,</span><br><span class="line">      <span class="keyword">static_cast</span>&lt;half&gt;(value));</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">  __half* target_addr = <span class="keyword">reinterpret_cast</span>&lt;__half*&gt;(address + index);</span><br><span class="line">  <span class="keyword">bool</span> low_byte = (<span class="keyword">reinterpret_cast</span>&lt;std::<span class="keyword">uintptr_t</span>&gt;(target_addr) % <span class="built_in"><span class="keyword">sizeof</span></span>(__half2) == <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (low_byte &amp;&amp; (index + <span class="number">1</span> &lt; numel)) &#123;</span><br><span class="line">    __half zero = __float2half(<span class="number">0.0f</span>);</span><br><span class="line">    __half2 val2 = <span class="built_in">make_half2</span>(value, zero);</span><br><span class="line">    <span class="built_in">atomicAdd</span>(<span class="keyword">reinterpret_cast</span>&lt;__half2*&gt;(target_addr), val2);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!low_byte &amp;&amp; (index &gt; <span class="number">0</span>)) &#123;</span><br><span class="line">    __half zero = __float2half(<span class="number">0.0f</span>);</span><br><span class="line">    __half2 val2 = <span class="built_in">make_half2</span>(zero, value);</span><br><span class="line">    <span class="built_in">atomicAdd</span>(<span class="keyword">reinterpret_cast</span>&lt;__half2*&gt;(target_addr - <span class="number">1</span>), val2);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">atomic_add</span>(</span><br><span class="line">      <span class="keyword">reinterpret_cast</span>&lt;half*&gt;(address) + index,</span><br><span class="line">      <span class="keyword">static_cast</span>&lt;half&gt;(value));</span><br><span class="line">  &#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个部分的原理与更完整的版本可以参考 PyTorch 的<a target="_blank" rel="noopener" href="https://github.com/pytorch/pytorch/blob/main/aten/src/ATen/native/cuda/KernelUtils.cuh">实现</a>。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2024/05/24/2024_cuda_atomic_add/" data-id="clwkdsmzg000a18jrhruebdko" data-title="CUDA编程优化Float16精度的atomicAdd" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2024/05/24/2024_cuda_atomic_add/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CUDA/" rel="tag">CUDA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Compiler/" rel="tag">Compiler</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GPGPU/" rel="tag">GPGPU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/atomicAdd/" rel="tag">atomicAdd</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/embedding/" rel="tag">embedding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/x078/" rel="tag">x078</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/01/02/2024_Smart_IR_Eng/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Introducing &#39;Smart Intermediate Representation&#39; -- An Open Sourced Compiler Framework for Smart Contract</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2009-2024 Zhen Yi<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+      <br>
+      <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="site-uv">用户访问: <span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+      <span class="site-pv">本站访问: <span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a target="_blank" rel="noopener" href="http://sweetpotato.ai" class="mobile-nav-link">λ</a>
+  
+    <a href="/lab" class="mobile-nav-link">About</a>
+  
+    <a target="_blank" rel="noopener" href="https://resume.izhen.me" class="mobile-nav-link">Resume</a>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/i-zhen" class="mobile-nav-link">Github</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'izhen';
+  
+  var disqus_url = 'https://izhen.me/2024/05/24/2024_cuda_atomic_add/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.async = true;
+    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

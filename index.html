@@ -84,6 +84,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-2024_cuda_atomic_add" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/05/24/2024_cuda_atomic_add/" class="article-date">
+  <time class="dt-published" datetime="2024-05-24T12:53:47.000Z" itemprop="datePublished">2024-05-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BLOG/">BLOG</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/05/24/2024_cuda_atomic_add/">CUDA编程优化Float16精度的atomicAdd</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>NLP中词嵌入（embedding）是非常重要的一环，embedding算子在反向计算时不同的线程会写入同一个结果，面对这类写冲突问题，高效的多线程计算必然要无锁化设计。而NVIDIA的加速卡本身支持了<code>atomicAdd</code>等原子计算。</p>
+<p>当我们使用较低精度在一些训推任务中量化加速模型时（如：FP16精度），CUDA底层会调用诸如 <code>atomicAdd(half*, half)</code> 这类原子指令。但是当前的硬件对这条指令的支持不够好，所以我们需要借助一些内存对齐的技术以应用效率更高的 <code>atomicAdd(half2*, half2)</code> 指令。本文重点讲述如何利用软件来弥补硬件的缺陷这样的实例。</p>
+        
+          <p class="article-more-link">
+            <a href="/2024/05/24/2024_cuda_atomic_add/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2024/05/24/2024_cuda_atomic_add/" data-id="clwkdsmzg000a18jrhruebdko" data-title="CUDA编程优化Float16精度的atomicAdd" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2024/05/24/2024_cuda_atomic_add/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CUDA/" rel="tag">CUDA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Compiler/" rel="tag">Compiler</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GPGPU/" rel="tag">GPGPU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/atomicAdd/" rel="tag">atomicAdd</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/embedding/" rel="tag">embedding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/x078/" rel="tag">x078</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-2024_Smart_IR_Eng" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/01/02/2024_Smart_IR_Eng/" class="article-date">
@@ -535,57 +587,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Frontpage/" rel="tag">Frontpage</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NFT/" rel="tag">NFT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/metaverse/" rel="tag">metaverse</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/token/" rel="tag">token</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-1-0/" rel="tag">web 1.0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-2-0/" rel="tag">web 2.0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-3-0/" rel="tag">web 3.0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%85%83%E5%AE%87%E5%AE%99/" rel="tag">元宇宙</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%B0%8F%E5%AD%A6/" rel="tag">小学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%83%98%E5%9F%B9%E9%B8%A1/" rel="tag">烘培鸡</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-org-task-doc" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/05/23/org-task-doc/" class="article-date">
-  <time class="dt-published" datetime="2021-05-23T05:29:00.000Z" itemprop="datePublished">2021-05-23</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Blog/">Blog</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/05/23/org-task-doc/">使用Org-mode + taskjuggler进行项目管理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><code>Emacs</code>自带的<code>Org-mode</code>可以说是包罗万象，包括了日程管理、GTD、大纲、PPT生成、web页面生成以及文学编程等等强大的功能。如果搭配上<code>taskjuggler</code>的话，它还能胜任项目的管理的工作，而且必要的调度、规划、资源配置等能力都具备。</p>
-        
-          <p class="article-more-link">
-            <a href="/2021/05/23/org-task-doc/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://izhen.me/2021/05/23/org-task-doc/" data-id="cktfbroij006ht8dxan8adjw8" data-title="使用Org-mode + taskjuggler进行项目管理" class="article-share-link">Share</a>
-      
-        <a href="https://izhen.me/2021/05/23/org-task-doc/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Org-mode/" rel="tag">Org-mode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/taskjuggler/" rel="tag">taskjuggler</a></li></ul>
 
     </footer>
   </div>

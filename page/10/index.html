@@ -84,6 +84,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-about_me" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2011/06/18/about_me/" class="article-date">
+  <time class="dt-published" datetime="2011-06-18T04:56:56.000Z" itemprop="datePublished">2011-06-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Blog/">Blog</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2011/06/18/about_me/">ABOUT ME</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h4 id="BASIC-INFORMATION"><a href="#BASIC-INFORMATION" class="headerlink" title="BASIC INFORMATION"></a>BASIC INFORMATION</h4><p>ID ：IDEALNOVA<br>星座：白羊<br>身材：偏骷髅<br>语种：中文，英文，C++，Pascal，Basic……<br>QQ：1225212168<br>年龄：92年生人</p>
+        
+          <p class="article-more-link">
+            <a href="/2011/06/18/about_me/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://izhen.me/2011/06/18/about_me/" data-id="cktfbrohh002st8dx26bc169p" data-title="ABOUT ME" class="article-share-link">Share</a>
+      
+        <a href="https://izhen.me/2011/06/18/about_me/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/me/" rel="tag">me</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-backup" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2011/04/23/backup/" class="article-date">
@@ -541,59 +592,6 @@
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" rel="tag">树状数组</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-poj3368" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2010/02/22/poj3368/" class="article-date">
-  <time class="dt-published" datetime="2010-02-21T21:38:37.000Z" itemprop="datePublished">2010-02-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Solve/">Solve</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2010/02/22/poj3368/">POJ3368区间最值-ST算法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h4 id="题目解答"><a href="#题目解答" class="headerlink" title="题目解答"></a>题目解答</h4><p>这是一道可以使用线段树轻松解决的问题，只要维护总最长区间，从左边开始和右边开始的最长区间三个域即可。</p>
-<p>但是，还有更巧妙的RMQ解法，假如我们只要[1,n]的最长区间，很显然只要预处理一下，把连续的值的频率算出来，就可以很简单的RMQ了，但问题是：如果区间断开了，那么RMQ是否就失效了?对于断开的区间的整体来说必定是这样，但是其中的完整的子段依然保留着RMQ的最优性。</p>
-<p>例如：-1 -1 1 1 1 1 3 10 10 10，预处理后：1 2 1 2 3 4 1 1 2 3，如果查询[5,10]直接ST会算出4，但是应该是3，再仔细观察，因为数列非递减，所以只有左边断开才会影响结果，因此我们只要特殊处理一下左边的连续值即可。然后对剩下的使用ST解决。</p>
-        
-          <p class="article-more-link">
-            <a href="/2010/02/22/poj3368/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://izhen.me/2010/02/22/poj3368/" data-id="cktfbroio0071t8dxfunv4r9z" data-title="POJ3368区间最值-ST算法" class="article-share-link">Share</a>
-      
-        <a href="https://izhen.me/2010/02/22/poj3368/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RMQ%E9%97%AE%E9%A2%98/" rel="tag">RMQ问题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ST%E7%AE%97%E6%B3%95/" rel="tag">ST算法</a></li></ul>
 
     </footer>
   </div>
